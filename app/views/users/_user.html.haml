@@ -1,4 +1,6 @@
 %tr
+  -if current_user.try(:has_role?, :admin)
+    %td= "Utilisateur"
   %td= user.firstname
   %td= user.lastname
   %td= user.email

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @title = (current_user.try(:has_role?, :teacher) ? "Élèves" : "Utilisateurs")
+    @title = (current_user.try(:has_role?, :admin) ? "Utilisateurs" :  "Élèves")
     if params[:course_id]
       @course = Course.find_by_id(params[:course_id])
       @title += " du cours: " + @course.title
