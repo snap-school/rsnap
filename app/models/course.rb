@@ -92,7 +92,7 @@ class Course < ActiveRecord::Base
   def next_exercice_url_for(current_user)
     next_chapter = next_chapter_for(current_user)
     if next_chapter.nil?
-      return course_path(self)
+      return Rails.application.routes.url_helpers.course_path(self)
     else
       next_mission = next_chapter.next_mission_for(current_user)
       if next_mission == next_chapter.ordered_missions.first
