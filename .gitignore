@@ -9,6 +9,7 @@
 .rspec
 .rvmrc
 .project
+*.sublime-*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
