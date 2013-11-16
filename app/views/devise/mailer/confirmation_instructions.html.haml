@@ -1,0 +1,4 @@
+%p
+  Bonjour #{@resource.name} !
+%p Vous pouvez confirmer votre compte avec le lien suivant :
+%p= link_to 'Confirmer mon compte', confirmation_url(@resource, :confirmation_token => @token)

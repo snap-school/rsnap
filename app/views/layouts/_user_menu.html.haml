@@ -1,0 +1,14 @@
+-if user_signed_in?
+  - content = capture do
+    %p
+      =link_to "Mes informations", user_path(current_user), :class=>"btn btn-primary"
+    %p
+      =link_to t_attr(:user, :sign_out), destroy_session_path(resource_name), :method => :delete, :class=>"btn btn-warning", :id=>:sign_out
+  -btn_txt = current_user.name
+-else
+  -content = capture do
+    #login-menu
+      =render "devise/sessions/login_form"
+  -btn_txt = "Se connecter"
+%a.btn.navbar-btn.btn-success.popover-default#user-menu{"data-content"=>content ,:title=>btn_txt, "data-toggle"=>:popover, "data-placement"=>:bottom}
+  =btn_txt

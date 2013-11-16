@@ -1,0 +1,19 @@
+%h1 Listing programs
+
+%table
+  %tr
+    %th Source code
+    %th
+    %th
+    %th
+
+  - @programs.each do |program|
+    %tr
+      %td= program.source_code
+      %td= link_to 'Show', program
+      %td= link_to 'Edit', edit_program_path(program)
+      %td= link_to 'Destroy', program, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Program', new_program_path

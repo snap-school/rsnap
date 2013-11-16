@@ -1,0 +1,29 @@
+.jumbotron
+  %h1 Hello, world!
+  %p This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+  %p
+    %a.btn.btn-primary.btn-lg Learn more »
+
+.row
+  .col-md-4
+    %h2 user index
+    %p
+      =link_to "users index", users_path
+    %p
+      %a.btn.btn-default{href: "#"} View details »
+  .col-md-4
+    %h2 user login...
+    %p
+      =render "devise/shared/links"
+    %p
+      %a.btn.btn-default{href: "#"} View details »
+  .col-md-4
+    %h2 Mission
+    %p
+      =link_to "Mission", missions_path
+      %br
+      =link_to "Mission file", file_missions_path
+      %br
+      =link_to "Program", programs_path
+    %p
+      %a.btn.btn-default{href: "#"} View details »

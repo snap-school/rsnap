@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Source code:
+  = @program.source_code
+
+= link_to 'Edit', edit_program_path(@program)
+\|
+= link_to 'Back', programs_path

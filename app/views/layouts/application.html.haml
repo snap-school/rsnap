@@ -1,0 +1,57 @@
+!!!
+%html{lang: "fr"}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+    %meta{content: "RSnap", name: "description"}
+    %meta{content: "Gaetan Collart, Simon Claessens ", name: "author"}
+    = favicon_link_tag "snap_logo_sm.png"
+    %title Rsnap
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    "application", media: "all"#, "data-turbolinks-track" => true
+    = javascript_include_tag "application"#, "data-turbolinks-track" => true
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    /[if lt IE 9]<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  %body
+    #wrap
+      .navbar.navbar-default.navbar-fixed-top.navbar-inverse
+        .container
+          .navbar-header
+            %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            = link_to "RSnap", root_path, :class=>"navbar-brand"
+          .collapse.navbar-collapse
+            %ul.nav.navbar-nav
+              %li.active
+                %a{href: "#about"} About
+              %li
+                %a{href: "#contact"} Contact
+
+            .nav.navbar-nav.navbar-right
+              =render "layouts/user_menu"
+
+      / Begin page content
+      .container
+        - flash.each do |name, msg|
+          - name = :info if name == :notice
+          - name = :danger if name == :alert
+          .alert.alert-dismissable{:class => "alert-#{name}"}
+            %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
+              &times;
+            = msg
+        = yield
+
+        = debug(params) if not Rails.env.production?
+
+    #footer
+      .container
+        %p.text-muted.credit
+          RSnap
+          Gaetan Collart
+          &
+          Simon Claessens

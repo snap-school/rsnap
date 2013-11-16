@@ -1,0 +1,10 @@
+%h2
+  = t_attr(:user, :forgot_password)
+%p
+  = bootstrap_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+    = devise_error_messages!
+    = f.email_field :email, :autofocus => true
+    = f.actions do
+      = f.submit t_attr(:user, :forgot_password)
+      = f.cancel
+= render "devise/shared/links"

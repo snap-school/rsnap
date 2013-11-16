@@ -1,0 +1,21 @@
+%h1
+  = @user.name
+%p
+  %b
+    =t_attr(:user, :firstname)
+    \ :
+  = @user.firstname
+%p
+  %b
+    =t_attr(:user, :lastname)
+    \ :
+  = @user.lastname
+%p
+  %b
+    =t_attr(:user, :email)
+    \ :
+  = @user.email
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path

@@ -1,0 +1,15 @@
+%h2
+  =t_attr(:user, :sign_up)
+%p
+  = bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = devise_error_messages!
+    = f.email_field :email, :autofocus => true
+    = f.password_field :password
+    = f.password_field :password_confirmation
+    = f.text_field :firstname
+    = f.text_field :lastname
+    = f.actions do
+      = f.submit t_attr(:user, :sign_up)
+      = f.cancel
+
+= render "devise/shared/links"

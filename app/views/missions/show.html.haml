@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @mission.title
+%p
+  %b Description:
+  %br
+  = raw @mission.description
+%p
+  %b Source code:
+  = @mission.source_code_file_name
+
+= link_to 'Edit', edit_mission_path(@mission)
+\|
+= link_to 'Back', missions_path

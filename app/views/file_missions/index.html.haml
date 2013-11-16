@@ -1,0 +1,21 @@
+%h1 Listing file_missions
+
+%table
+  %tr
+    %th Mission
+    %th File
+    %th
+    %th
+    %th
+
+  - @file_missions.each do |file_mission|
+    %tr
+      %td= file_mission.mission
+      %td= file_mission.file
+      %td= link_to 'Show', file_mission
+      %td= link_to 'Edit', edit_file_mission_path(file_mission)
+      %td= link_to 'Destroy', file_mission, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New File mission', new_file_mission_path
