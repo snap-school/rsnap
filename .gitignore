@@ -34,6 +34,7 @@ pickle-email-*.html
 # Ignore personnal configfiles
 config/database.yml
 config/initializers/secret_token.rb
+config/dropbox.yml
 
 # Ignore automated generated files
 # use "rake bower:install" to generate these file
