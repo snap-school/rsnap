@@ -35,7 +35,3 @@ pickle-email-*.html
 config/database.yml
 config/initializers/secret_token.rb
 config/dropbox.yml
-
-# Ignore automated generated files
-# use "rake bower:install" to generate these file
-/vendor/assets/bower_components
