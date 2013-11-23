@@ -38,14 +38,16 @@ end
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 group :development, :test do
-  #load .env file
+  # Load .env file
   gem 'dotenv-rails'
+  # Launch Procfile with 'foreman start'
+  gem 'foreman'
   # Use debugger
   gem 'debugger', group: [:development, :test]
 end
