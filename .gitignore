@@ -33,5 +33,4 @@ pickle-email-*.html
 
 # Ignore personnal configfiles
 config/database.yml
-config/initializers/secret_token.rb
-config/dropbox.yml
+.env

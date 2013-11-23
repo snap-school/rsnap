@@ -43,8 +43,12 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
-gem 'debugger', group: [:development, :test]
+group :development, :test do
+  #load .env file
+  gem 'dotenv-rails'
+  # Use debugger
+  gem 'debugger', group: [:development, :test]
+end
 
 # Use haml template
 gem "haml", "~> 4.0.3"
