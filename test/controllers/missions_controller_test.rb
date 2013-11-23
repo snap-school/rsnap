@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MissionsControllerTest < ActionController::TestCase
   setup do
-    @mission = missions(:one)
+    @mission = FactoryGirl.create(:mission)
   end
 
   test "should get index" do

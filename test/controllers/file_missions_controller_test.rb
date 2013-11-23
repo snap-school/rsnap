@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FileMissionsControllerTest < ActionController::TestCase
   setup do
-    @file_mission = file_missions(:one)
+    @file_mission = FactoryGirl.create(:file_mission)
   end
 
   test "should get index" do

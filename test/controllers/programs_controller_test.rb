@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProgramsControllerTest < ActionController::TestCase
   setup do
-    @program = programs(:one)
+    @program = FactoryGirl.create(:program)
   end
 
   test "should get index" do
