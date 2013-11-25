@@ -23,3 +23,6 @@ before_script:
   - psql -c 'create database rsnap_test;' -U postgres
   # Install dependences
   - travis_retry bundle install --verbose
+
+before_install:
+  - cp .env.travis .env
