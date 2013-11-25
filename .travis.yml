@@ -1,0 +1,25 @@
+language: ruby
+rvm:
+  - "2.0.0"
+
+## multijobs: can be useful if we have hundreds of tests...
+# env:
+# - CARD_SET=services
+# - CARD_SET=users
+# - CARD_SET=search
+
+script:
+  - rake db:test:purge
+  - rake db:test:prepare
+  - rake test
+  - rake cucumber
+
+before_script:
+  # Needed for selenium browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  # Use postgres
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database rsnap_test;' -U postgres
+  # Install dependences
+  - travis_retry bundle install --verbose
