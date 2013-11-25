@@ -1,20 +1,20 @@
 source 'https://rubygems.org'
-gem "bower-rails", "~> 0.5.0"
+gem "bower-rails", "~> 0.5"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.0.1'
+gem 'rails', '~> 4.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby, :require => 'v8'
@@ -35,7 +35,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.1'
 
 # Use unicorn as the app server
 gem 'unicorn'
@@ -52,7 +52,7 @@ group :development, :test do
 end
 
 group :development do
-    # Launch Procfile with 'foreman start'
+  # Launch Procfile with 'foreman start'
   gem 'foreman'
   # Use debugger
   gem 'debugger'
@@ -61,22 +61,22 @@ group :development do
 end
 
 # Use haml template
-gem "haml", "~> 4.0.3"
+gem "haml", "~> 4.0"
 gem "haml-rails", "~> 0.4"
 
 # Use boostrap toolkit
-gem "bootstrap-sass-rails", "~> 3.0.1.0"
+gem "bootstrap-sass-rails", "~> 3.0"
 gem "bootstrap_forms", :github=>"gagalago/bootstrap_forms", :branch => "bootstrap3"
 
 # https://github.com/schnawel007/bootstrap3-wysihtml5
 # https://github.com/nickl-/bootstrap-wysihtml5
 
 gem "paperclip", "~> 3.0"
-gem "paperclip-dropbox", "~> 1.1.7"
+gem "paperclip-dropbox", "~> 1.1"
 gem "rmagick", "~> 2.13.2"
 
 # User authentication
-gem "devise", "~> 3.1.1"
+gem "devise", "~> 3.1"
 gem "omniauth-openid"
 
 group :test do
