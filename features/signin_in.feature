@@ -1,12 +1,14 @@
 Feature: Signing in
   In order to track progression of student, users must be logged.
 
+  @ok
   Scenario: Unsuccessful signin
     Given a user is not authenticated
       And a user visits the signin page
     When he submits invalid signin information
     Then he should see an error message
 
+  @ok
   Scenario: Successful signin
     Given a user is not authenticated
       And a user visits the signin page

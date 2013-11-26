@@ -12,7 +12,7 @@ script:
   - rake db:test:purge
   - rake db:test:prepare
   - rake test
-  - rake cucumber
+  - rake cucumber:all
 
 before_script:
   # Needed for selenium browser
@@ -22,7 +22,7 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database rsnap_test;' -U postgres
   # Install dependences
-  - travis_retry bundle install --verbose
+  #- travis_retry bundle install --verbose
 
 before_install:
   - cp .env.travis .env
