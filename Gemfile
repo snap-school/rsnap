@@ -49,6 +49,9 @@ gem 'rake'
 group :development, :test do
   # Load .env file
   gem 'dotenv-rails'
+    # Code coverage
+  gem 'coveralls', require: false
+  gem "codeclimate-test-reporter", require: false
 end
 
 group :development do
@@ -58,8 +61,6 @@ group :development do
   gem 'debugger'
   # Verify travis.yml
   gem 'travis-lint'
-  # Code coverage
-  gem 'coveralls', require: false
 end
 
 # Use haml template
