@@ -58,6 +58,8 @@ group :development do
   gem 'debugger'
   # Verify travis.yml
   gem 'travis-lint'
+  # Code coverage
+  gem 'coveralls', require: false
 end
 
 # Use haml template
