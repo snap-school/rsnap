@@ -96,7 +96,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    docile (1.1.0)
+    docile (1.1.1)
     dotenv (0.9.0)
     dotenv-rails (0.9.0)
       dotenv (= 0.9.0)
@@ -154,7 +154,7 @@ GEM
       turbolinks
     json (1.8.1)
     kgio (2.8.1)
-    launchy (2.4.0)
+    launchy (2.4.1)
       addressable (~> 2.3)
     libv8 (3.16.14.3)
     mail (2.5.4)
@@ -278,7 +278,7 @@ GEM
       atomic
     tilt (1.4.1)
     tins (0.13.1)
-    travis (1.6.2)
+    travis (1.6.3)
       addressable (~> 2.3)
       backports
       faraday (~> 0.8.7)
