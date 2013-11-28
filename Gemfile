@@ -65,7 +65,7 @@ end
 
 # Use haml template
 gem "haml", "~> 4.0"
-gem "haml-rails", "~> 0.4"
+gem "haml-rails", "~> 0.5"
 
 # Use boostrap toolkit
 gem "bootstrap-sass-rails", "~> 3.0"
