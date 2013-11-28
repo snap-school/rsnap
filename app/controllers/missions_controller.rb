@@ -1,25 +1,20 @@
 class MissionsController < ApplicationController
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
 
-  # GET /missions
   def index
     @missions = Mission.all
   end
 
-  # GET /missions/1
   def show
   end
 
-  # GET /missions/new
   def new
     @mission = Mission.new
   end
 
-  # GET /missions/1/edit
   def edit
   end
 
-  # POST /missions
   def create
     @mission = Mission.new(mission_params)
 
@@ -30,7 +25,6 @@ class MissionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /missions/1
   def update
     if @mission.update(mission_params)
       redirect_to @mission, notice: 'Mission was successfully updated.'
@@ -39,7 +33,6 @@ class MissionsController < ApplicationController
     end
   end
 
-  # DELETE /missions/1
   def destroy
     @mission.destroy
     redirect_to missions_url, notice: 'Mission was successfully destroyed.'

@@ -18,14 +18,10 @@ class FileMissionsController < ApplicationController
   def create
     @file_mission = FileMission.new(file_mission_params)
 
-    respond_to do |format|
-      if @file_mission.save
-        format.html { redirect_to @file_mission, notice: 'File mission was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @file_mission }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @file_mission.errors, status: :unprocessable_entity }
-      end
+    if @file_mission.save
+      redirect_to @file_mission, notice: 'File mission was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
