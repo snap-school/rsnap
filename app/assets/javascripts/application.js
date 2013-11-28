@@ -18,5 +18,3 @@
 //
 //= require wysiwyg
 //= require popover
-//
-//= require_tree .

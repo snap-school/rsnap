@@ -1,0 +1,17 @@
+!!!
+%html{lang: "fr"}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+    %meta{content: "RSnap", name: "description"}
+    %meta{content: "Gaetan Collart, Simon Claessens ", name: "author"}
+    = favicon_link_tag "snap_logo_sm.png"
+    %title Rsnap
+    = csrf_meta_tags
+
+    =# stylesheet_link_tag    "snap_application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "snap_application", "data-turbolinks-track" => true
+
+  %body{style: "margin: 0;"}
+    = yield
