@@ -1,18 +1,23 @@
 %h1 Listing programs
 
-%table
-  %tr
-    %th Source code
-    %th
-    %th
-    %th
-
-  - @programs.each do |program|
+%table.table.table-striped.table-bordered.table-hover
+  %thead
     %tr
-      %td= program.source_code
-      %td= link_to 'Show', program
-      %td= link_to 'Edit', edit_program_path(program)
-      %td= link_to 'Destroy', program, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th Source code
+      %th Utilisateur
+      %th Mission
+      %th
+      %th
+      %th
+  %tbody
+    - @programs.each do |program|
+      %tr
+        %td= program.source_code_file_name
+        %td= program.user.name if program.user
+        %td= program.mission.title if program.mission
+        %td= link_to 'Show', program
+        %td= link_to 'Edit', edit_program_path(program)
+        %td= link_to 'Destroy', program, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

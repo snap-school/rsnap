@@ -1,16 +1,14 @@
-%p#notice= notice
-
-%p
-  %b Title:
+%h1
+  Mission :
   = @mission.title
-%p
-  %b Description:
-  %br
-  = raw @mission.description
-%p
-  %b Source code:
-  = @mission.source_code_file_name
 
-= link_to 'Edit', edit_mission_path(@mission)
-\|
-= link_to 'Back', missions_path
+%h2 Description :
+%p
+  = raw @mission.description
+
+%p
+  =button "Réaliser cette mission", new_program_mission_initialization_path(:mission_id=>@mission), :type=>:success, :id=>"mission-program"
+  =button "Code source", @mission.source_code.url, :type=>:primary
+%p
+  =button 'modifier', edit_mission_path(@mission), :type=>:success
+  =button 'Retour', missions_path

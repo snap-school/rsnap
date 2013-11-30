@@ -27,10 +27,10 @@
             = link_to "RSnap", root_path, :class=>"navbar-brand"
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
-              %li.active
-                %a{href: "#about"} About
               %li
-                %a{href: "#contact"} Contact
+                = link_to "Missions", missions_path
+              %li
+                = link_to "Programmes", programs_path
 
             .nav.navbar-nav.navbar-right
               =render "layouts/user_menu"

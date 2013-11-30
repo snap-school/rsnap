@@ -57,6 +57,6 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 Cucumber::Rails::World.use_transactional_fixtures = true
 
-Capybara.default_driver = :selenium
+Capybara.default_driver = :webkit
 
 require 'factory_girl_rails'

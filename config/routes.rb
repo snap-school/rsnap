@@ -4,7 +4,7 @@ Rsnap::Application.routes.draw do
   resources :file_missions
 
   resources :missions
-  resources :ides, :only=>:show
+  resources :program_mission_initializations, :only=>:new
 
   devise_for :users
   resources :users
