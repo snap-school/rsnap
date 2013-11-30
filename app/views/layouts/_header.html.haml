@@ -8,10 +8,11 @@
       = link_to "RSnap", root_path, :class=>"navbar-brand"
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li
+        %li{:class=>resource_active("missions")}
           = link_to "Missions", missions_path
-        %li
-          = link_to "Programmes", programs_path
+        -if user_signed_in?
+          %li{:class=>resource_active("programs")}
+            = link_to "Programmes", programs_path
 
       .nav.navbar-nav.navbar-right
         =render "layouts/user_menu"

@@ -12,6 +12,6 @@
   %tbody
     = render @missions
 
-%br
-
-= link_to 'New Mission', new_mission_path
+-if user_signed_in? and current_user.has_role?(:admin)
+  %p
+    = link_to 'New Mission', new_mission_path

@@ -11,9 +11,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    render "devise/registrations/new"
   end
 
   def edit
+    render "devise/registrations/edit"
   end
 
   def create

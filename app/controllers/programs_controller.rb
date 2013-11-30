@@ -3,7 +3,11 @@ class ProgramsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @programs = Program.all
+    if params[:all] and current_user.has_role?(:admin)
+      @programs = Program.all
+    else
+      @programs = Program.for_user(current_user)
+    end
   end
 
   def show
