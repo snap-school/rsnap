@@ -1,0 +1,7 @@
+%tr
+  %td= mission.title
+  %td= raw mission.description
+  %td= mission.source_code_file_name
+  %td= link_to 'Show', mission, :id=>"show-mission-#{mission.id}"
+  %td= link_to 'Edit', edit_mission_path(mission)
+  %td= link_to 'Destroy', mission, :method => :delete, :data => { :confirm => 'Are you sure?' }

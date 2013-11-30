@@ -1,0 +1,6 @@
+%tr
+  %td= file_mission.mission.title
+  %td= file_mission.file_file_name
+  %td= link_to 'Show', file_mission
+  %td= link_to 'Edit', edit_file_mission_path(file_mission)
+  %td= link_to 'Destroy', file_mission, :method => :delete, :data => { :confirm => 'Are you sure?' }
