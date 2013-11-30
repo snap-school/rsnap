@@ -68,6 +68,8 @@ group :development do
   gem 'debugger'
   # Verify travis.yml
   gem 'travis-lint'
+
+  gem "metric_fu"
 end
 
 group :development, :test do
