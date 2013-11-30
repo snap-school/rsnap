@@ -3,6 +3,8 @@ require 'test_helper'
 class ProgramsControllerTest < ActionController::TestCase
   setup do
     @program = FactoryGirl.create(:program)
+    user = FactoryGirl.create(:user)
+    sign_in user
   end
 
   test "should get index" do

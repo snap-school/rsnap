@@ -1,5 +1,5 @@
 class ProgramMissionInitializationsController < ApplicationController
-  require 'net/http'
+  before_filter :authenticate_user!
 
   def new
     @mission = Mission.find(params[:mission_id])

@@ -10,5 +10,6 @@
   =button "Réaliser cette mission", new_program_mission_initialization_path(:mission_id=>@mission), :type=>:success, :id=>"mission-program"
   =button "Code source", @mission.source_code.url, :type=>:primary
 %p
-  =button 'modifier', edit_mission_path(@mission), :type=>:success
-  =button 'Retour', missions_path
+  -if user_signed_in? and current_user.has_role?(:admin)
+    =button 'modifier', edit_mission_path(@mission), :type=>:success
+  =button 'Retour', :back

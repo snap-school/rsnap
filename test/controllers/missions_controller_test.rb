@@ -5,6 +5,11 @@ class MissionsControllerTest < ActionController::TestCase
     @mission = FactoryGirl.create(:mission)
   end
 
+  def user_sign_in
+    user = FactoryGirl.create(:user)
+    sign_in user
+  end
+
   test "should get index" do
     get :index
     assert_response :success
@@ -12,11 +17,13 @@ class MissionsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    user_sign_in
     get :new
     assert_response :success
   end
 
   test "should create mission" do
+    user_sign_in
     assert_difference('Mission.count') do
       post :create, mission: { description: @mission.description, source_code: @mission.source_code, title: @mission.title }
     end
@@ -30,16 +37,19 @@ class MissionsControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    user_sign_in
     get :edit, id: @mission
     assert_response :success
   end
 
   test "should update mission" do
+    user_sign_in
     patch :update, id: @mission, mission: { description: @mission.description, source_code: @mission.source_code, title: @mission.title }
     assert_redirected_to mission_path(assigns(:mission))
   end
 
   test "should destroy mission" do
+    user_sign_in
     assert_difference('Mission.count', -1) do
       delete :destroy, id: @mission
     end

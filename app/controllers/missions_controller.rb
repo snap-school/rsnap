@@ -1,5 +1,6 @@
 class MissionsController < ApplicationController
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, :except=>[:index, :show]
 
   def index
     @missions = Mission.all

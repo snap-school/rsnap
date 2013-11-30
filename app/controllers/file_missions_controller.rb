@@ -1,5 +1,6 @@
 class FileMissionsController < ApplicationController
   before_action :set_file_mission, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   def index
     @file_missions = FileMission.all

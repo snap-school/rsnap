@@ -1,7 +1,8 @@
-= debug(params)
+-if not Rails.env.production? and user_signed_in? and current_user.has_role?(:admin)
+  = debug(params)
 
-%p
-  = button "Missions", missions_path
-  = button "Programmes", programs_path
-  = button "Utilisateurs", users_path
-  = button "Fichiers joins de missions", file_missions_path
+  %p
+    = button "Missions", missions_path
+    = button "Programmes", programs_path
+    = button "Utilisateurs", users_path
+    = button "Fichiers joins de missions", file_missions_path

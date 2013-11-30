@@ -1,7 +1,7 @@
 %tr
-  %td= mission.title
+  %td= link_to mission.title, mission, :id=>"show-mission-#{mission.id}"
   %td= raw mission.description
   %td= mission.source_code_file_name
-  %td= link_to 'Show', mission, :id=>"show-mission-#{mission.id}"
-  %td= link_to 'Edit', edit_mission_path(mission)
-  %td= link_to 'Destroy', mission, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  -if user_signed_in? and current_user.has_role?(:admin)
+    %td= link_to 'Edit', edit_mission_path(mission)
+    %td= link_to 'Destroy', mission, :method => :delete, :data => { :confirm => 'Are you sure?' }

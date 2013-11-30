@@ -3,6 +3,8 @@ require 'test_helper'
 class FileMissionsControllerTest < ActionController::TestCase
   setup do
     @file_mission = FactoryGirl.create(:file_mission)
+    user = FactoryGirl.create(:user)
+    sign_in user
   end
 
   test "should get index" do

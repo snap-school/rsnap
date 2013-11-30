@@ -6,9 +6,9 @@
       %th Title
       %th Description
       %th Source code
-      %th
-      %th
-      %th
+      -if user_signed_in? and current_user.has_role?(:admin)
+        %th
+        %th
   %tbody
     = render @missions
 

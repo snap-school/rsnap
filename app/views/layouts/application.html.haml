@@ -16,8 +16,7 @@
       .container
         = yield
 
-        -unless Rails.env.production?
-          = render "layouts/debug"
+        = render "layouts/debug"
 
     #footer
       .container
