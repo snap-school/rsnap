@@ -1,7 +1,7 @@
 %tr
   %td= program.source_code_file_name
-  %td= program.user.name
-  %td= program.mission.title
+  %td= program.user_name
+  %td= program.mission_title
   %td= link_to 'Show', program
   %td= link_to 'Edit', edit_program_path(program)
   %td= link_to 'Destroy', program, :method => :delete, :data => { :confirm => 'Are you sure?' }

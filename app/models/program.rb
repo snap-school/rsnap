@@ -1,6 +1,8 @@
 class Program < ActiveRecord::Base
   belongs_to :mission
+  delegate :title, :to=>:mission, :prefix=>true
   belongs_to :user
+  delegate :name, :to=>:user, :prefix=>true
 
   has_attached_file :source_code, :storage => :dropbox,
                     :dropbox_credentials => DROPBOX_CREDENTIALS

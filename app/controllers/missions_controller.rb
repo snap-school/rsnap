@@ -21,7 +21,7 @@ class MissionsController < ApplicationController
     if @mission.save
       redirect_to @mission, notice: 'Mission was successfully created.'
     else
-      render action: 'new'
+      render :new
     end
   end
 
@@ -29,7 +29,7 @@ class MissionsController < ApplicationController
     if @mission.update(mission_params)
       redirect_to @mission, notice: 'Mission was successfully updated.'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 

@@ -22,7 +22,7 @@ class ProgramsController < ApplicationController
     if @program.save
       redirect_to @program, notice: 'Program was successfully created.'
     else
-      render action: 'new'
+      render :new
     end
   end
 
@@ -30,7 +30,7 @@ class ProgramsController < ApplicationController
     if @program.update(program_params)
       redirect_to @program, notice: 'Program was successfully updated.'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 

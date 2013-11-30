@@ -21,7 +21,7 @@ class FileMissionsController < ApplicationController
     if @file_mission.save
       redirect_to @file_mission, notice: 'File mission was successfully created.'
     else
-      render action: 'new'
+      render :new
     end
   end
 
@@ -29,7 +29,7 @@ class FileMissionsController < ApplicationController
     if @file_mission.update(file_mission_params)
       redirect_to @file_mission, notice: 'File mission was successfully updated.'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 

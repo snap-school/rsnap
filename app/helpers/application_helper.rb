@@ -15,15 +15,7 @@ module ApplicationHelper
     @resource_class ||= devise_mapping.to
   end
 
-  def t(resource)
-    I18n.t resource
-  end
-
   def t_attr(resource,attribute)
     I18n.t attribute , :scope => [:activerecord, :attributes, resource]
-  end
-
-  def t_model(model)
-    I18n.t model , :scope => [:activerecord, :models]
   end
 end
