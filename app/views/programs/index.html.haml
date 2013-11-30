@@ -13,8 +13,8 @@
     - @programs.each do |program|
       %tr
         %td= program.source_code_file_name
-        %td= program.user.name if program.user
-        %td= program.mission.title if program.mission
+        %td= program.user.name
+        %td= program.mission.title
         %td= link_to 'Show', program
         %td= link_to 'Edit', edit_program_path(program)
         %td= link_to 'Destroy', program, :method => :delete, :data => { :confirm => 'Are you sure?' }

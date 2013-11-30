@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :program
+  has_many :program, :dependent=>:destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
