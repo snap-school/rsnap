@@ -1,0 +1,25 @@
+.navbar.navbar-default.navbar-fixed-top.navbar-inverse
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "RSnap", root_path, :class=>"navbar-brand"
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li
+          = link_to "Missions", missions_path
+        %li
+          = link_to "Programmes", programs_path
+
+      .nav.navbar-nav.navbar-right
+        =render "layouts/user_menu"
+
+- flash.each do |name, msg|
+  - name = :info if name == :notice
+  - name = :danger if name == :alert
+  .alert.alert-dismissable{:class => "alert-#{name}"}
+    %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
+      &times;
+    = msg

@@ -1,14 +1,7 @@
 !!!
 %html{lang: "fr"}
   %head
-    %meta{charset: "utf-8"}
-    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}
-    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
-    %meta{content: "RSnap", name: "description"}
-    %meta{content: "Gaetan Collart, Simon Claessens ", name: "author"}
-    = favicon_link_tag "snap_logo_sm.png"
-    %title Rsnap
-    = csrf_meta_tags
+    = render "layouts/meta"
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
@@ -17,36 +10,14 @@
     /[if lt IE 9]<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
   %body
     #wrap
-      .navbar.navbar-default.navbar-fixed-top.navbar-inverse
-        .container
-          .navbar-header
-            %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
-            = link_to "RSnap", root_path, :class=>"navbar-brand"
-          .collapse.navbar-collapse
-            %ul.nav.navbar-nav
-              %li
-                = link_to "Missions", missions_path
-              %li
-                = link_to "Programmes", programs_path
-
-            .nav.navbar-nav.navbar-right
-              =render "layouts/user_menu"
+      = render "layouts/header"
 
       / Begin page content
       .container
-        - flash.each do |name, msg|
-          - name = :info if name == :notice
-          - name = :danger if name == :alert
-          .alert.alert-dismissable{:class => "alert-#{name}"}
-            %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
-              &times;
-            = msg
         = yield
 
-        = debug(params) if not Rails.env.production?
+        -unless Rails.env.production?
+          = render "layouts/debug"
 
     #footer
       .container

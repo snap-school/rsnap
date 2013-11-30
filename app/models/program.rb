@@ -1,6 +1,6 @@
 class Program < ActiveRecord::Base
-  belongs_to :mission, :dependent=>:destroy
-  belongs_to :user, :dependent=>:destroy
+  belongs_to :mission
+  belongs_to :user
 
   has_attached_file :source_code, :storage => :dropbox,
                     :dropbox_credentials => DROPBOX_CREDENTIALS
