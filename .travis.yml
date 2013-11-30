@@ -9,10 +9,10 @@ rvm:
 # - CARD_SET=search
 
 script:
-  - rake db:test:purge
-  - rake db:test:prepare
-  - rake test
-  - rake cucumber:all
+  - bundle exec rake db:test:purge
+  - bundle exec rake db:test:prepare
+  - bundle exec rake test
+  - bundle exec rake cucumber:all
 
 before_script:
   # Needed for selenium browser
