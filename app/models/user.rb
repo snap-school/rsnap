@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   has_many :program, :dependent=>:destroy
 
   devise :database_authenticatable, :registerable,

@@ -37,31 +37,12 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1'
 
-# Use unicorn as the app server
-gem 'unicorn'
+#gem 'travis'
 
-gem 'travis'
-gem 'rake'
+gem "rolify", "~> 3.2"
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
-
-group :development, :test do
-  # Load .env file
-  gem 'dotenv-rails'
-    # Code coverage
-  gem 'coveralls', require: false
-  gem "codeclimate-test-reporter", require: false
-end
-
-group :development do
-  # Launch Procfile with 'foreman start'
-  gem 'foreman'
-  # Use debugger
-  gem 'debugger'
-  # Verify travis.yml
-  gem 'travis-lint'
-end
 
 # Use haml template
 gem "haml", "~> 4.0"
@@ -82,6 +63,21 @@ gem "rmagick", "~> 2.13.2"
 gem "devise", "~> 3.1"
 gem "omniauth-openid"
 
+group :development do
+  # Use debugger
+  gem 'debugger'
+  # Verify travis.yml
+  gem 'travis-lint'
+end
+
+group :development, :test do
+  # Load .env file
+  gem 'dotenv-rails'
+    # Code coverage
+  gem 'coveralls', require: false
+  gem "codeclimate-test-reporter", require: false
+end
+
 group :test do
   gem 'rspec-rails'
 
@@ -97,6 +93,9 @@ end
 
 group :production do
   gem 'rails_12factor'
+
+  # Use unicorn as the app server
+  gem 'unicorn'
 end
 
 ruby "2.0.0"
