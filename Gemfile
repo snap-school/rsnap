@@ -61,18 +61,19 @@ gem "rmagick", "~> 2.13.2"
 
 # User authentication
 gem "devise", "~> 3.1"
+gem "devise-i18n"
 gem "omniauth-openid"
 
 group :development do
-  # Use debugger
-  gem 'debugger'
   # Verify travis.yml
   gem 'travis-lint'
-
+  # Lot of metrics "metric_fu --format html"
   gem "metric_fu"
 end
 
 group :development, :test do
+  # Use debugger
+  gem 'debugger'
   # Load .env file
   gem 'dotenv-rails'
     # Code coverage

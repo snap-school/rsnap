@@ -6,7 +6,7 @@ Rsnap::Application.routes.draw do
   resources :missions
   resources :program_mission_initializations, :only=>:new
 
-  devise_for :users
+  devise_for :users, :path => "auth", :controllers => { :registrations => "registrations" }
   resources :users
 
   root :to => "home#index"

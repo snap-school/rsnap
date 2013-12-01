@@ -1,0 +1,19 @@
+= bootstrap_form_for(resource, :as => resource_name, :url => url, :html => { :method => :put }) do |f|
+
+  =f.hidden_field :id
+  = devise_error_messages!
+
+  - if devise_mapping.confirmable? && user.pending_reconfirmation?
+    %p.text-warning
+      Currently waiting confirmation for: #{user.unconfirmed_email}
+  = f.email_field :email, :autofocus => true
+
+  = f.text_field :firstname
+  = f.text_field :lastname
+
+  = f.password_field :password, :autocomplete => "off"
+  = f.password_field :password_confirmation
+  -if action_name == "update" or action_name == "edit"
+    = f.password_field :current_password
+
+  = f.actions

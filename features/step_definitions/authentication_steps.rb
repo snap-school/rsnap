@@ -36,7 +36,7 @@ end
 
 Then /^he should see a signout link$/ do
   find("#user-menu").click
-  expect(page).to have_link("sign_out", href: "/users/sign_out")
+  expect(page).to have_link("sign_out")
 end
 
 def authenticate_user

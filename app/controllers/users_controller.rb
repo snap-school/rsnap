@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!, :except=>[:new, :create]
 
   def index
@@ -7,11 +7,15 @@ class UsersController < ApplicationController
   end
 
   def show
+    if params[:id]
+      set_user
+    else
+      @user = current_user
+    end
   end
 
   def new
     @user = User.new
-    render "devise/registrations/new"
   end
 
   def edit
