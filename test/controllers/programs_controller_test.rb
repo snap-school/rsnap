@@ -3,21 +3,42 @@ require 'test_helper'
 class ProgramsControllerTest < ActionController::TestCase
   setup do
     @program = FactoryGirl.create(:program)
+  end
+
+  def user_sign_in
     sign_in @program.user
   end
 
-  test "should get index" do
+  def admin_sign_in
+    user = FactoryGirl.create(:admin)
+    sign_in user
+  end
+
+  test "user should get index" do
+    user_sign_in
     get :index
     assert_response :success
     assert_not_nil assigns(:programs)
   end
 
-  test "should get new" do
+  test "nouser shouldn't get index" do
+    get :index
+    assert_redirected_to controller: "devise/sessions", action: "new"
+  end
+
+  test "user should get new" do
+    user_sign_in
     get :new
     assert_response :success
   end
 
-  test "should create program" do
+  test "nouser shouldn't get new" do
+    get :new
+    assert_redirected_to controller: "devise/sessions", action: "new"
+  end
+
+  test "user should create program" do
+    user_sign_in
     assert_difference('Program.count') do
       post :create, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
     end
@@ -25,28 +46,69 @@ class ProgramsControllerTest < ActionController::TestCase
     assert_redirected_to program_path(assigns(:program))
   end
 
-  test "should show program" do
+  test "nouser shouldn't create program" do
+    assert_no_difference('Program.count') do
+      post :create, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+    end
+
+    assert_redirected_to controller: "devise/sessions", action: "new"
+  end
+
+  test "user should show program" do
+    user_sign_in
     get :show, id: @program
     assert_response :success
   end
 
-  test "should get edit" do
+  test "nouser shouldn't show program" do
+    get :show, id: @program
+    assert_response :forbidden
+  end
+
+  test "user should get edit" do
+    user_sign_in
     get :edit, id: @program
     assert_response :success
   end
 
-  test "should update program" do
+  test "nouser shouldn't get edit" do
+    get :edit, id: @program
+    assert_response :forbidden
+  end
+
+  test "user should update program" do
+    user_sign_in
     patch :update, id: @program, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
     assert_redirected_to program_path(assigns(:program))
   end
 
-  test "should destroy program" do
-    user = FactoryGirl.create(:admin)
+  test "user shouldn't update program of someone else" do
+    user = FactoryGirl.create(:user)
     sign_in user
+    patch :update, id: @program, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+    assert_response :forbidden
+  end
+
+  test "nouser shouldn't update program" do
+    patch :update, id: @program, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+    assert_response :forbidden
+  end
+
+  test "admin should destroy program" do
+    admin_sign_in
     assert_difference('Program.count', -1) do
       delete :destroy, id: @program
     end
 
     assert_redirected_to programs_path
+  end
+
+  test "user shouldn't destroy program" do
+    user_sign_in
+    assert_no_difference('Program.count', -1) do
+      delete :destroy, id: @program
+    end
+
+    assert_response :forbidden
   end
 end
