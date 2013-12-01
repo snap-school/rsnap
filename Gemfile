@@ -58,7 +58,7 @@ gem "bootstrap_forms", :github=>"gagalago/bootstrap_forms", :branch => "bootstra
 
 gem "paperclip", "~> 3.0"
 gem "paperclip-dropbox", "~> 1.1"
-gem "rmagick", "~> 2.13.2"
+gem "rmagick", "~> 2.13"
 
 # User authentication
 gem "devise", "~> 3.1"
@@ -85,11 +85,11 @@ end
 group :test do
   gem 'rspec-rails'
 
-  gem "factory_girl_rails", "~> 4.3.0"
+  gem "factory_girl_rails", "~> 4.3"
   gem 'faker'
 
-  gem 'cucumber-rails', '~> 1.4.0', :require => false
-  gem 'database_cleaner', "~> 1.2.0"
+  gem 'cucumber-rails', '~> 1.4', :require => false
+  gem 'database_cleaner', "~> 1.2"
   gem "capybara"
   gem 'selenium-webdriver'
   gem "capybara-webkit"

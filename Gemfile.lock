@@ -357,13 +357,13 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails (~> 4.0)
   coveralls
-  cucumber-rails (~> 1.4.0)
-  database_cleaner (~> 1.2.0)
+  cucumber-rails (~> 1.4)
+  database_cleaner (~> 1.2)
   debugger
   devise (~> 3.1)
   devise-i18n
   dotenv-rails
-  factory_girl_rails (~> 4.3.0)
+  factory_girl_rails (~> 4.3)
   faker
   haml (~> 4.0)
   haml-rails (~> 0.5)
@@ -377,7 +377,7 @@ DEPENDENCIES
   pg
   rails (~> 4.0)
   rails_12factor
-  rmagick (~> 2.13.2)
+  rmagick (~> 2.13)
   rolify (= 3.3.0.rc4)
   rspec-rails
   sass-rails (~> 4.0)
