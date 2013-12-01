@@ -16,11 +16,3 @@
 
       .nav.navbar-nav.navbar-right
         =render "layouts/user_menu"
-
-- flash.each do |name, msg|
-  - name = :info if name == :notice
-  - name = :danger if name == :alert
-  .alert.alert-dismissable{:class => "alert-#{name}"}
-    %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
-      &times;
-    = msg

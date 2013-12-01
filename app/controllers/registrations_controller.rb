@@ -1,10 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
+  authorize_actions_for User
+
   def update
     if params[:user][:id]
       @user = User.find(params[:user][:id])
     else
       @user = current_user
     end
+    authorize_action_for @user
 
     successfully_updated = if needs_password?(@user, params)
       @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))

@@ -1,4 +1,7 @@
 class Program < ActiveRecord::Base
+  include Authority::Abilities
+  self.authorizer_name = 'ProgramAuthorizer'
+
   belongs_to :mission
   delegate :title, :to=>:mission, :prefix=>true
   belongs_to :user

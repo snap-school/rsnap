@@ -7,5 +7,11 @@ FactoryGirl.define do
     email                 { "#{firstname.downcase}-#{lastname.downcase}@#{Faker::Internet.domain_name}" }
     password              "azertyuiop"
     password_confirmation { password }
+
+    factory :admin do
+      after(:create) do |user|
+        user.add_role(:admin)
+      end
+    end
   end
 end

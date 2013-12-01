@@ -8,8 +8,10 @@ When(/^he visit a mission$/) do
 end
 
 Then(/^he can see the description of these mission$/) do
-  has_text?(@mission.title)
-  has_text?(@mission.description)
+  page.find("h1").has_text?(@mission.title)
+  current_path.should == mission_path(@mission)
+  expect(page).to have_text(@mission.title)
+  expect(page).to have_text(@mission.description)
 end
 
 Given(/^he is on some mission page$/) do

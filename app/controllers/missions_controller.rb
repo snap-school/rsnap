@@ -1,4 +1,5 @@
 class MissionsController < ApplicationController
+  authorize_actions_for Mission
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :except=>[:index, :show]
 

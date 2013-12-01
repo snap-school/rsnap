@@ -9,12 +9,15 @@ class ApplicationController < ActionController::Base
     user_path(resource)
   end
 
-  def after_sign_out_path_for(resource_or_scope)
-    request.referrer
+  def current_or_null_user
+    if current_user == nil
+      User.new
+    else
+      current_user
+    end
   end
 
   protected
-
   def configure_permitted_parameters
     user_attr_permitted = [:firstname, :lastname]
     devise_parameter_sanitizer.for(:sign_up) << user_attr_permitted

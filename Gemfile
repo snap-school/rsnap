@@ -39,7 +39,7 @@ gem 'bcrypt-ruby', '~> 3.1'
 
 #gem 'travis'
 
-gem "rolify", "~> 3.2"
+gem "rolify", "3.3.0.rc4"
 gem "authority", "~>2.9"
 
 # Use Capistrano for deployment

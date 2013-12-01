@@ -13,10 +13,19 @@
       = render "layouts/header"
 
       / Begin page content
-      .container
-        = yield
+      #body
+        .container
+          - flash.each do |name, msg|
+            - name = :info if name == :notice
+            - name = :danger if name == :alert
+            .alert.alert-dismissable{:class => "alert-#{name}"}
+              %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
+                &times;
+              = msg
 
-        = render "layouts/debug"
+          = yield
+
+          = render "layouts/debug"
 
     #footer
       .container

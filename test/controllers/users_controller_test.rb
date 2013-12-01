@@ -6,12 +6,12 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def user_sign_in
-    user = FactoryGirl.create(:user)
-    sign_in user
+    sign_in @user
   end
 
   test "should get index" do
-    user_sign_in
+    user = FactoryGirl.create(:admin)
+    sign_in user
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
