@@ -210,11 +210,11 @@
     "*.html",
     "*.md"
   ],
-  "_release": "2104268696",
+  "_release": "e9cd095aed",
   "_resolution": {
     "type": "branch",
     "branch": "bower",
-    "commit": "21042686961a5e03cf621a58cf037fe913850a15"
+    "commit": "e9cd095aede8bba11d62b052f531f02d94c5ea9c"
   },
   "_source": "git@github.com:snap-school/Snap--Build-Your-Own-Blocks.git",
   "_target": "bower",
