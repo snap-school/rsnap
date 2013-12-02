@@ -24,5 +24,6 @@
 #= require snap-byob/locale
 #= require snap-byob/cloud
 #= require snap-byob/sha512
+#= require snap-byob/ypr
 #
 #= require snap

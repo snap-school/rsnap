@@ -9,15 +9,10 @@ class ProgramMissionInitializationsControllerTest < ActionController::TestCase
     sign_in @program.user
   end
 
-  def admin_sign_in
-    user = FactoryGirl.create(:admin)
-    sign_in user
-  end
-
   test "user should get new" do
     user_sign_in
     get :new, mission_id: @program.mission_id
-    assert_response :success
+    assert_redirected_to @program
   end
 
   test "nouser shouldn't get new" do

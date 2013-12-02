@@ -39,8 +39,9 @@ class ProgramsControllerTest < ActionController::TestCase
 
   test "user should create program" do
     user_sign_in
+    mission = FactoryGirl.create(:mission)
     assert_difference('Program.count') do
-      post :create, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+      post :create, program: {:user_id=>@program.user_id, :mission_id=>mission.id, :source_code=>@program.source_code}
     end
 
     assert_redirected_to program_path(assigns(:program))
@@ -79,7 +80,7 @@ class ProgramsControllerTest < ActionController::TestCase
   test "user should update program" do
     user_sign_in
     patch :update, id: @program, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
-    assert_redirected_to program_path(assigns(:program))
+    assert_response :success
   end
 
   test "user shouldn't update program of someone else" do
