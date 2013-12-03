@@ -1,29 +1,23 @@
 .jumbotron
-  %h1 Hello, world!
-  %p This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+  %h1 Bienvenue sur RSnap
   %p
-    %a.btn.btn-primary.btn-lg Learn more »
+    Sur cette platforme, tu vas pouvoir apprendre la programmation informatique en t'amusant.
+    Essaye dés à présent nos différentes missions et tu pourras rapidement créer tes propres jeux vidéo.
 
-.row
-  .col-md-4
-    %h2 user index
-    %p
-      =link_to "users index", users_path
-    %p
-      %a.btn.btn-default{href: "#"} View details »
-  .col-md-4
-    %h2 user login...
-    %p
-      =render "devise/shared/links"
-    %p
-      %a.btn.btn-default{href: "#"} View details »
-  .col-md-4
-    %h2 Mission
-    %p
-      =link_to "Mission", missions_path
-      %br
-      =link_to "Mission file", file_missions_path
-      %br
-      =link_to "Program", programs_path
-    %p
-      %a.btn.btn-default{href: "#"} View details »
+  #carousel-example-generic.carousel.slide{"data-ride" => "carousel"}
+    / Indicators
+    %ol.carousel-indicators
+      =#%li.active{"data-slide-to" => "0", "data-target" => "#carousel-example-generic"}
+      =#%li{"data-slide-to" => "1", "data-target" => "#carousel-example-generic"}
+      =#%li{"data-slide-to" => "2", "data-target" => "#carousel-example-generic"}
+    / Wrapper for slides
+    .carousel-inner
+      .item.active
+        = image_tag "carousel/screenshot.png", :class=>"img-rounded"
+        .carousel-caption
+          Exemple de programme
+    / Controls
+    =#%a.left.carousel-control{"data-slide" => "prev", href: "#carousel-example-generic"}
+    =#  %span.glyphicon.glyphicon-chevron-left
+    =#%a.right.carousel-control{"data-slide" => "next", href: "#carousel-example-generic"}
+    =#  %span.glyphicon.glyphicon-chevron-right
