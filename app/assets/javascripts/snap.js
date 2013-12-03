@@ -6,7 +6,7 @@ window.onload = function () {
   ide.serializer.openProject(
     ide.serializer.loadProjectModel(
       ide.serializer.parse(
-        getURL('https://dl.dropboxusercontent.com/1/view/v05hil4cm86x0vw/Applications/rsnap-dev/chatv1.xml')))
+        getURL(document.querySelector('world').dataset.file)))
     , ide
   );
   setInterval(loop, 1);
