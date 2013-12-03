@@ -3,12 +3,12 @@
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th Source code
-      %th Utilisateur
       %th Mission
-      %th
-      %th
-      %th
+      -if user_signed_in? and current_user.has_role?(:admin)
+        %th Source code
+        %th Utilisateur
+        %th
+        %th
   %tbody
     = render @programs
 
