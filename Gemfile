@@ -65,6 +65,9 @@ gem "devise", "~> 3.1"
 gem "devise-i18n"
 gem "omniauth-openid"
 
+# Load .env file
+gem 'dotenv-rails'
+
 group :development do
   # Verify travis.yml
   gem 'travis-lint'
@@ -75,8 +78,6 @@ end
 group :development, :test do
   # Use debugger
   gem 'debugger'
-  # Load .env file
-  gem 'dotenv-rails'
     # Code coverage
   gem 'coveralls', require: false
   gem "codeclimate-test-reporter", require: false
