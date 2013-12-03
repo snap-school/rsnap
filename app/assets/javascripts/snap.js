@@ -6,7 +6,7 @@ window.onload = function () {
   ide.serializer.openProject(
     ide.serializer.loadProjectModel(
       ide.serializer.parse(
-        getURL(document.querySelector('world').dataset.file)))
+        getURL(document.querySelector('#world').dataset.file)))
     , ide
   );
   setInterval(loop, 1);
