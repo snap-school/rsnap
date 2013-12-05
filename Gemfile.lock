@@ -385,6 +385,6 @@ DEPENDENCIES
   selenium-webdriver
   therubyracer
   travis-lint
-  turbolinks
+  turbolinks (~> 2.0)
   uglifier (>= 1.3)
   unicorn

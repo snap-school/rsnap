@@ -23,7 +23,7 @@ gem 'therubyracer', platforms: :ruby, :require => 'v8'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', "~> 2.0"
 gem 'jquery-turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -40,7 +40,7 @@ gem 'bcrypt-ruby', '~> 3.1'
 #gem 'travis'
 
 gem "rolify", "3.3.0.rc4"
-gem "authority", "~>2.9"
+gem "authority", "~> 2.9"
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
