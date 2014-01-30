@@ -1,10 +1,4 @@
 {
-  "lib": {
-    "name": "bower-rails generated lib assets",
-    "dependencies": {
-      "snap-byob": "git@github.com:snap-school/Snap--Build-Your-Own-Blocks.git#bower"
-    }
-  },
   "vendor": {
     "name": "bower-rails generated vendor assets",
     "dependencies": {

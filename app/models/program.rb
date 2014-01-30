@@ -12,7 +12,7 @@ class Program < ActiveRecord::Base
 
   validates :user_id, :mission_id, :presence=>true
 
-  validate :uniqueness_on_user_and_mission
+  #validate :uniqueness_on_user_and_mission
 
   scope :for_mission, lambda{|mission| where(:mission_id=>mission)}
   scope :for_user, lambda{|user| where(:user_id=>user)}

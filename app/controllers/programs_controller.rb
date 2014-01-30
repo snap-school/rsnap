@@ -1,3 +1,5 @@
+require 'tempfile'
+
 class ProgramsController < ApplicationController
   authorize_actions_for Program
   before_action :set_program, only: [:show, :edit, :update, :destroy]
@@ -36,10 +38,21 @@ class ProgramsController < ApplicationController
   def update
     @program.attributes = program_params
     authorize_action_for @program
-    if @program.save
-      redirect_to @program, notice: 'Program was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      format.html do
+        if @program.save
+          redirect_to @program, notice: 'Program was successfully updated.'
+        else
+          render :edit
+        end
+      end
+      format.json do
+        if @program.save
+          render :show
+        else
+          render :json => { :errors => @program.errors.full_messages }
+        end
+      end
     end
   end
 
@@ -57,6 +70,13 @@ class ProgramsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def program_params
-      params.require(:program).permit(:source_code, :user_id, :mission_id)
+      p = params.require(:program).permit(:source_code, :user_id, :mission_id)
+      if p[:source_code].instance_of?(String)
+        name = "program-#{p[:user_id]}-#{p[:mission_id]}.xml" #TODO user and mission id not present
+        file = Tempfile.new(name)
+        file.write(p[:source_code])
+        p[:source_code] = file
+      end
+      p
     end
 end

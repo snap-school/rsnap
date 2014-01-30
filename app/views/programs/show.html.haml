@@ -1,1 +1,5 @@
 %canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code}
+
+%div{:style=>"display: none;visibility: hidden;"}
+  = render "form", :program=>@program
+}
