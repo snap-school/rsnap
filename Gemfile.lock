@@ -40,9 +40,12 @@ GEM
       rake (>= 0.8.7)
     awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
-    bootstrap-sass-rails (3.0.3.0)
-      railties (>= 3.1.0)
-      sass-rails (>= 3.1.0)
+    bootstrap-sass (3.1.0.1)
+      sass (~> 3.2)
+    bootstrap-sass-rails (3.1.0.0)
+      bootstrap-sass (~> 3.1.0.0)
+      railties (>= 3.2.0)
+      sass-rails (>= 3.2.0)
     bower-rails (0.6.1)
     builder (3.1.4)
     cane (2.6.1)
@@ -263,13 +266,13 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.13.2)
-    rolify (3.3.0.rc4)
+    rolify (3.4.0)
     roodi (3.3.1)
       ruby_parser (~> 3.2, >= 3.2.2)
     rspec-core (2.14.7)
-    rspec-expectations (2.14.4)
+    rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.4)
+    rspec-mocks (2.14.5)
     rspec-rails (2.14.1)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -323,13 +326,13 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
-    tins (0.13.1)
+    tins (0.13.2)
     travis-lint (1.7.0)
       hashr (~> 0.0.22)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.2.0)
+    turbolinks (2.2.1)
       coffee-rails
     tzinfo (0.3.38)
     uglifier (2.4.0)
@@ -351,7 +354,7 @@ PLATFORMS
 DEPENDENCIES
   authority (~> 2.9)
   bcrypt-ruby (~> 3.1)
-  bootstrap-sass-rails (~> 3.0)
+  bootstrap-sass-rails (~> 3.1)
   bootstrap_forms!
   bower-rails (~> 0.5)
   capybara
@@ -374,19 +377,19 @@ DEPENDENCIES
   jquery-turbolinks
   metric_fu
   omniauth-openid
-  paperclip (~> 3.0)
+  paperclip (~> 3.5)
   paperclip-dropbox (~> 1.1)
   pg
   rails (~> 4.0)
   rails_12factor
   rmagick (~> 2.13)
-  rolify (= 3.3.0.rc4)
+  rolify (~> 3.4)
   rspec-rails
   sass-rails (~> 4.0)
   sdoc
   selenium-webdriver
   therubyracer
   travis-lint
-  turbolinks (~> 2.0)
+  turbolinks (~> 2.2)
   uglifier (>= 1.3)
   unicorn
