@@ -90,6 +90,7 @@ group :test do
   gem 'faker'
 
   gem 'cucumber-rails', '~> 1.4', :require => false
+  gem 'launchy'
   gem 'database_cleaner', "~> 1.2"
   gem "capybara"
   gem 'selenium-webdriver'

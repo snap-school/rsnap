@@ -9,13 +9,19 @@ Feature: Mission Access
     When he visit a mission
     Then he can see the description of these mission
 
-  @wip
+  @ok
   Scenario: Access on ide to solve a mission
     Given a user is authenticated
       And he is on some mission page
     When he visit the realisation of these mission
     Then he can see the ide
       And he can see the begining of these mission
+
+  @wip @current
+  Scenario: Save a program
+    Given a user edit a program
+    When he save the modified program
+    Then he can reload the program without loosing anything
 
   @wip
   Scenario: View only the already successed and one next missions

@@ -10,8 +10,8 @@ end
 Then(/^he can see the description of these mission$/) do
   page.find("h1").has_text?(@mission.title)
   current_path.should == mission_path(@mission)
-  expect(page).to have_text(@mission.title)
-  expect(page).to have_text(@mission.description)
+  page.should have_text(@mission.title)
+  page.should have_text(@mission.description)
 end
 
 Given(/^he is on some mission page$/) do
@@ -20,13 +20,34 @@ Given(/^he is on some mission page$/) do
 end
 
 When(/^he visit the realisation of these mission$/) do
-  click_on("mission-program")
+  page.should have_link("", :href=>new_program_mission_initialization_path(:mission_id=>@mission.id))
+  visit new_program_mission_initialization_path(:mission_id=>@mission.id)
 end
 
 Then(/^he can see the ide$/) do
-  has_css?("canvas#world")
+  page.should have_selector("canvas#world")
 end
 
 Then(/^he can see the begining of these mission$/) do
+  evaluate_script("typeof world !== 'undefined'")
+end
+
+Given(/^he have already complet some missions$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^he should see already successed missions$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^he should see the next mission to try$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^he can't see other missions$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^he should see only the first mission$/) do
   pending # express the regexp above with the code you wish you had
 end
