@@ -51,7 +51,7 @@ gem "haml", "~> 4.0"
 gem "haml-rails", "~> 0.5"
 
 # Use boostrap toolkit
-gem "bootstrap-sass-rails", "~> 3.1"
+gem "bootstrap-sass", "~> 3.1"
 gem "bootstrap_forms", :github=>"gagalago/bootstrap_forms", :branch => "bootstrap3"
 
 # https://github.com/schnawel007/bootstrap3-wysihtml5

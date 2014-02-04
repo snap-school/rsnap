@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
-//= require twitter/bootstrap
+//= require bootstrap
 //= require turbolinks
 //
 //= require wysiwyg
