@@ -1,7 +1,7 @@
 var world;
-window.onload = function () {
+window.addLoadEvent(function () {
   world = new WorldMorph(document.getElementById('world'));
-  var ide = new IDE_Morph();
+  ide = new IDE_Morph();
   ide.openIn(world);
   ide.serializer.openProject(
     ide.serializer.loadProjectModel(
@@ -9,12 +9,8 @@ window.onload = function () {
         getURL(document.querySelector('#world').dataset.file)))
     , ide
   );
-  setInterval(loop, 1);
-};
-
-function loop() {
-  world.doOneCycle();
-};
+  setInterval(function() {world.doOneCycle();}, 1);
+});
 
 function getURL(url) {
   try {

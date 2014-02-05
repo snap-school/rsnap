@@ -9,8 +9,11 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+
+//= require utils
+
 //= require snap-byob/morphic
+//= require snap-byob/locale
 //= require snap-byob/widgets
 //= require snap-byob/blocks
 //= require snap-byob/threads
@@ -21,9 +24,7 @@
 //= require snap-byob/byob
 //= require snap-byob/xml
 //= require snap-byob/store
-//= require snap-byob/locale
 //= require snap-byob/cloud
 //= require snap-byob/sha512
 
-//
 //= require snap
