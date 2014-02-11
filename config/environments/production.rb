@@ -60,6 +60,7 @@ Rsnap::Application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   config.assets.precompile += ["snap_application.js"]
+  config.assets.precompile += ["snap-byob/lang-ca.js", "snap-byob/lang-cs.js", "snap-byob/lang-de.js", "snap-byob/lang-dk.js", "snap-byob/lang-el.js", "snap-byob/lang-eo.js", "snap-byob/lang-es.js", "snap-byob/lang-fr.js", "snap-byob/lang-it.js", "snap-byob/lang-ja_HIRA.js", "snap-byob/lang-ja.js", "snap-byob/lang-ko.js", "snap-byob/lang-nl.js", "snap-byob/lang-no.js", "snap-byob/lang-pl.js", "snap-byob/lang-pt.js", "snap-byob/lang-ru.js", "snap-byob/lang-si.js", "snap-byob/lang-tw.js", "snap-byob/lang-zh.js"]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

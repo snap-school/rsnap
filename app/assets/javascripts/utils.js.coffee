@@ -8,4 +8,22 @@ addLoadEvent = (func) ->
       func()
       return
   return
-window.addLoadEvent = addLoadEvent;
+window.addLoadEvent = addLoadEvent
+
+getURL = (url) ->
+  try
+    request = new XMLHttpRequest()
+    request.open "GET", url, false
+    request.send()
+    return request.responseText  if request.status is 200
+    throw new Error("unable to retrieve " + url)
+  catch err
+    return
+window.getURL = getURL
+
+
+getAsset = (name) ->
+  if typeof window.assetsUrl == 'undefined'
+    window.assetsUrl = JSON.parse(getURL("/snap_assets.json"))
+  return window.assetsUrl[name]
+window.getAsset = getAsset

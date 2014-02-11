@@ -9,5 +9,7 @@ Rsnap::Application.routes.draw do
   devise_for :users, :path => "auth", :controllers => { :registrations => "registrations" }
   resources :users
 
+  resources :snap_assets, :only=>:index
+
   root :to => "home#index"
 end
