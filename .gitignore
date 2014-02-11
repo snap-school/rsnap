@@ -7,7 +7,6 @@
 # Ignore some configfiles.
 .bundle
 .rspec
-.rvmrc
 .project
 *.sublime-*
 
