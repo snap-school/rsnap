@@ -15,25 +15,25 @@ private
 
   def snap_backgrounds
     files = list_dir("Backgrounds/", "*")
-    list_assets(files, :image_path)
+    list_assets(files)
       .merge("Backgrounds" => list_dir("Backgrounds/", "*", true))
   end
 
   def snap_costumes
     files = list_dir("Costumes/", "*")
-    assets = list_assets(files, :image_path)
+    assets = list_assets(files)
       .merge("Costumes" => list_dir("Costumes/", "*", true))
   end
 
   def snap_sounds
     files = list_dir("Sounds/", "*")
-    list_assets(files, :audio_path)
+    list_assets(files)
       .merge("Sounds" => list_dir("Sounds/", "*", true))
   end
 
   def snap_help
     files = list_dir("help/", "**/*.png")
-    list_assets(files, :image_path)
+    list_assets(files)
   end
 
   def snap_libraries
