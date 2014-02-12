@@ -1,5 +1,10 @@
 %canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code}
 
-%div{:style=>"display: none;visibility: hidden;"}
-  = image_tag asset_path "snap-byob/Costumes/dog2-a.png"
-  = image_tag("snap-byob/scriptsPaneTexture.gif", :id=>"snap-texture")
+.modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>mission_path(@program.mission, :modal=>true)}
+  .modal-dialog
+    .modal-content
+      .modal-body
+        Chargement...
+      .modal-footer
+        %button.btn.btn-default{type: :button, "data-dismiss"=>:modal}
+          Fermer

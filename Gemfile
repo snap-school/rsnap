@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem "bower-rails", "~> 0.5"
+gem "bower-rails", "~> 0.7"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.0'

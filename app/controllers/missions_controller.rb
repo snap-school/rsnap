@@ -8,6 +8,11 @@ class MissionsController < ApplicationController
   end
 
   def show
+    if params[:modal]
+      render :modal_show, :layout=>false
+    else
+      render :show
+    end
   end
 
   def new

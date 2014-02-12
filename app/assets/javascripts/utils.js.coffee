@@ -10,10 +10,10 @@ addLoadEvent = (func) ->
   return
 window.addLoadEvent = addLoadEvent
 
-getURL = (url) ->
+getURL = (url, async=false) ->
   try
     request = new XMLHttpRequest()
-    request.open "GET", url, false
+    request.open "GET", url, async
     request.send()
     return request.responseText  if request.status is 200
     throw new Error("unable to retrieve " + url)

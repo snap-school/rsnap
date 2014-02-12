@@ -16,6 +16,8 @@ Installation
 
 * run `bundle intall` and install all dependencies needed for the gems
 
+* run `rake bower:install`
+
 * copy `.env.example` to `.env` and configure them
 
 * run `rake db:migrate`
