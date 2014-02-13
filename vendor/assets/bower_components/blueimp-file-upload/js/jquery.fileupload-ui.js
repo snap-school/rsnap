@@ -1,5 +1,5 @@
 /*
- * jQuery File Upload User Interface Plugin 9.4.1
+ * jQuery File Upload User Interface Plugin 9.5.2
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
@@ -96,12 +96,10 @@
                     options.prependFiles ? 'prepend' : 'append'
                 ](data.context);
                 that._forceReflow(data.context);
-                $.when(
-                    that._transition(data.context),
-                    data.process(function () {
-                        return $this.fileupload('process', data);
-                    })
-                ).always(function () {
+                that._transition(data.context);
+                data.process(function () {
+                    return $this.fileupload('process', data);
+                }).always(function () {
                     data.context.each(function (index) {
                         $(this).find('.size').text(
                             that._formatFileSize(data.files[index].size)
@@ -371,7 +369,9 @@
                     };
                 if (data.url) {
                     data.dataType = data.dataType || that.options.dataType;
-                    $.ajax(data).done(removeNode);
+                    $.ajax(data).done(removeNode).fail(function () {
+                        that._trigger('destroyfailed', e, data);
+                    });
                 } else {
                     removeNode();
                 }

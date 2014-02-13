@@ -18,6 +18,13 @@
 //= require snap-byob/blocks
 //= require snap-byob/threads
 //= require snap-byob/objects
+
+//=require jquery
+//=require jquery_ujs
+//=require jquery.turbolinks
+//=require bootstrap
+//=require turbolinks
+
 //= require snap-byob/gui
 //= require snap-byob/paint
 //= require snap-byob/lists
