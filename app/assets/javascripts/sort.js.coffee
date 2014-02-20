@@ -2,9 +2,9 @@ jQuery ->
 
   # this is a small hack; when a tr is dragged with jQuery UI sortable
   # the cells lose their width
-  cells = $('.table').find('tr')[0].cells.length
-  desired_width = $('.table').width() / cells + 'px'
-  $('.table td').css('width', desired_width)
+  # cells = $('.table').find('tr')[0].cells.length
+  # desired_width = $('.table').width() / cells + 'px'
+  # $('.table td').css('width', desired_width)
 
   $('#sortable').sortable(
     axis: 'y'
