@@ -15,6 +15,9 @@
 //= require jquery.turbolinks
 //= require bootstrap
 //= require turbolinks
-//
+
 //= require wysiwyg
 //= require popover
+
+//= require jquery.ui.all
+//= require sort

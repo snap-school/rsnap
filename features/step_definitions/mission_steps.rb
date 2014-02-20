@@ -20,8 +20,8 @@ Given(/^he is on some mission page$/) do
 end
 
 When(/^he visit the realisation of these mission$/) do
-  page.should have_link("", :href=>new_program_mission_initialization_path(:mission_id=>@mission.id))
-  visit new_program_mission_initialization_path(:mission_id=>@mission.id)
+  page.should have_link("", :href=>new_initialization_program_mission_path(:mission_id=>@mission.id))
+  visit new_initialization_program_mission_path(:mission_id=>@mission.id)
 end
 
 Then(/^he can see the ide$/) do

@@ -4,7 +4,8 @@ Rsnap::Application.routes.draw do
   resources :file_missions
 
   resources :missions
-  resources :program_mission_initializations, :only=>:new
+  resources :sort_missions, :only=>:update
+  resources :initialization_program_missions, :only=>:new
 
   devise_for :users, :path => "auth", :controllers => { :registrations => "registrations" }
   resources :users

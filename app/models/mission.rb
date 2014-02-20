@@ -22,6 +22,14 @@ class Mission < ActiveRecord::Base
   has_attached_file :source_code, :storage => :dropbox,
                     :dropbox_credentials => DROPBOX_CREDENTIALS
 
-  validates_attachment :source_code,  :presence     => true
+  validates_attachment :source_code, :presence => true
   validates :title, :description, :presence=>true
+
+  include RankedModel
+  ranks :mission_order
+  default_scope rank(:mission_order)
+
+  def position(scope=:all)
+    Mission.send(scope).find_index(self)
+  end
 end

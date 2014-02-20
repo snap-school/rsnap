@@ -1,4 +1,4 @@
-class ProgramMissionInitializationsController < ApplicationController
+class InitializationProgramMissionsController < ApplicationController
   authorize_actions_for Program
   before_filter :authenticate_user!
 

@@ -253,6 +253,11 @@ fr:
         password_confirmation: "Confirmation du mot de passe"
         current_password: "Mot de passe actuel"
         remember_me: "Se souvenir de moi"
+      mission:
+        title: "Titre"
+        description: "Description"
+        source_code: "Code source"
+        mission_order: "Position"
     errors:
       <<: *errors
   bootstrap_forms:

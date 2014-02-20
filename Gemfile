@@ -27,6 +27,7 @@ gem "haml-rails", "~> 0.5"
 gem 'coffee-rails', '~> 4.0'
 gem 'turbolinks', "~> 2.2"
 gem 'jquery-rails'
+gem "jquery-ui-rails"
 gem 'jquery-turbolinks'
 gem 'therubyracer', platforms: :ruby, :require => 'v8'
 gem "bootstrap-sass", "~> 3.1"
