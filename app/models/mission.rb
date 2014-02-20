@@ -27,7 +27,7 @@ class Mission < ActiveRecord::Base
 
   include RankedModel
   ranks :mission_order
-  default_scope rank(:mission_order)
+  default_scope {rank(:mission_order)}
 
   def position(scope=:all)
     Mission.send(scope).find_index(self)

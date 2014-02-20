@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProgramMissionInitializationsControllerTest < ActionController::TestCase
+class InitializationProgramMissionsControllerTest < ActionController::TestCase
   setup do
     @program = FactoryGirl.create(:program)
   end

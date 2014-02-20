@@ -5,7 +5,7 @@ ruby "2.1.0"
 gem 'rails', '~> 4.0'
 gem 'pg'
 
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.0'
 
 gem 'bcrypt-ruby', '~> 3.1'
 gem "rolify", "~> 3.4"
