@@ -34,8 +34,7 @@ class Mission < ActiveRecord::Base
   end
 
   def description_with_dropbox
-    puts "\n\n\n\n\n\n\n\n\n\n\ndescription_with_dropbox\n"
-    description.gsub(/"http[s]?:\/\/dl\.dropboxusercontent\.com\/1\/view\/\w*\/Applications.*\/(\w+\.\w*)"/) do
+    description.gsub(/"http[s]?:\/\/dl\.dropboxusercontent\.com\/1\/view\/\w*\/Applications\/[a-zA-Z0-9_\-]*\/(\w+\.\w*)"/) do
       "'#{dropbox_url(Regexp.last_match[1])}'"
    end
   end
