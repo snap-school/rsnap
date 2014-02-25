@@ -23,7 +23,7 @@ class Mission < ActiveRecord::Base
                     :dropbox_credentials => DROPBOX_CREDENTIALS
 
   validates_attachment :source_code, :presence => true
-  validates :title, :description, :presence=>true
+  validates :title, :description, :small_description, :presence=>true
 
   include RankedModel
   ranks :mission_order

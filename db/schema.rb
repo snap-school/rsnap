@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140220190609) do
     t.datetime "source_code_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "mission_order"
+    t.integer  "mission_order",            default: 0
   end
 
   create_table "programs", force: true do |t|
