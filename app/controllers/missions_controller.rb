@@ -53,6 +53,6 @@ class MissionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def mission_params
-      params.require(:mission).permit(:title, :description, :source_code)
+      params.require(:mission).permit(:title, :description, :small_description, :source_code)
     end
 end
