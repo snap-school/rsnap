@@ -36,9 +36,7 @@ class MissionsControllerTest < ActionController::TestCase
   test "admin should create mission" do
     admin_sign_in
     assert_difference('Mission.count') do
-      temp = FactoryGirl.attributes_for(:mission)
-      puts(temp)
-      post :create, mission: temp
+      post :create, mission: FactoryGirl.attributes_for(:mission)
     end
 
     assert_redirected_to mission_path(assigns(:mission))

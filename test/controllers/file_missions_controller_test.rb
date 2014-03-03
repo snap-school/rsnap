@@ -36,7 +36,7 @@ class FileMissionsControllerTest < ActionController::TestCase
   test "admin should create file_mission" do
     admin_sign_in
     assert_difference('FileMission.count') do
-      post :create, file_mission: { file: @file_mission.file, mission_id: @file_mission.mission_id }
+      post :create, file_mission: FactoryGirl.attributes_for(:file_mission)
     end
 
     assert_redirected_to file_mission_path(assigns(:file_mission))
@@ -45,7 +45,7 @@ class FileMissionsControllerTest < ActionController::TestCase
   test "user should create file_mission" do
     user_sign_in
     assert_no_difference('FileMission.count') do
-      post :create, file_mission: { file: @file_mission.file, mission_id: @file_mission.mission_id }
+      post :create, file_mission: FactoryGirl.attributes_for(:file_mission)
     end
     assert_response :forbidden
   end
@@ -69,13 +69,13 @@ class FileMissionsControllerTest < ActionController::TestCase
 
   test "admin should update file_mission" do
     admin_sign_in
-    patch :update, id: @file_mission, file_mission: { file: @file_mission.file, mission_id: @file_mission.mission_id }
+    patch :update, id: @file_mission, file_mission: FactoryGirl.attributes_for(:file_mission)
     assert_redirected_to file_mission_path(assigns(:file_mission))
   end
 
   test "user shouldn't update file_mission" do
     user_sign_in
-    patch :update, id: @file_mission, file_mission: { file: @file_mission.file, mission_id: @file_mission.mission_id }
+    patch :update, id: @file_mission, file_mission: FactoryGirl.attributes_for(:file_mission)
     assert_response :forbidden
   end
 
