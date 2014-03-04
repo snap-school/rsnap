@@ -39,3 +39,5 @@ Rsnap::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 end
+
+PAPERCLIP_STORAGE_OPTS = {:storage=>:s3, :bucket => "xxx", :access_key_id => ENV['AWSAccessKeyId'], :secret_access_key => ENV['AWSSecretKey']} # Amazone AWS storage

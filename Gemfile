@@ -17,7 +17,8 @@ gem "omniauth-openid"
 gem 'ranked-model'
 
 gem "paperclip", "~> 3.5"
-gem "paperclip-dropbox", "~> 1.1"
+gem 'aws-sdk', '~> 1.5'
+#gem "paperclip-dropbox", "~> 1.1"
 gem "rmagick", "~> 2.13"
 
 gem 'uglifier', '>= 1.3'
@@ -36,7 +37,7 @@ gem "bootstrap_forms", :github=>"gagalago/bootstrap_forms", :branch => "bootstra
 # https://github.com/nickl-/bootstrap-wysihtml5
 
 gem 'dotenv-rails'
-
+gem 'travis'
 group :development do
   # gem 'capistrano'
   gem 'travis-lint'

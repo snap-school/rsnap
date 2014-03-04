@@ -82,3 +82,5 @@ Rsnap::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'THEHOST.COM' }
 end
+
+PAPERCLIP_STORAGE_OPTS = {:storage=>:s3, :bucket => "xxx", :access_key_id => ENV['AWSAccessKeyId'], :secret_access_key => ENV['AWSSecretKey']} # Amazone AWS storage

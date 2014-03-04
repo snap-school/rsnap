@@ -31,3 +31,5 @@ Rsnap::Application.configure do
 
   Paperclip.options[:command_path] = "/usr/bin/"
 end
+
+PAPERCLIP_STORAGE_OPTS = {} # Local storage
