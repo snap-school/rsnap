@@ -19,8 +19,8 @@ class Mission < ActiveRecord::Base
 
   has_many :program, :dependent=>:destroy
 
-  has_attached_file :source_code, :storage => :dropbox,
-                    :dropbox_credentials => DROPBOX_CREDENTIALS
+  #has_attached_file :source_code, :storage => :dropbox,
+  #                  :dropbox_credentials => DROPBOX_CREDENTIALS
 
   validates_attachment :source_code, :presence => true
   validates :title, :description, :small_description, :presence=>true
@@ -34,13 +34,13 @@ class Mission < ActiveRecord::Base
   end
 
   def description_with_dropbox
-    description.gsub(/"http[s]?:\/\/dl\.dropboxusercontent\.com\/1\/view\/\w*\/Applications\/[a-zA-Z0-9_\-]*\/(\w+\.\w*)"/) do
-      "'#{dropbox_url(Regexp.last_match[1])}'"
+    #description.gsub(/"http[s]?:\/\/dl\.dropboxusercontent\.com\/1\/view\/\w*\/Applications\/[a-zA-Z0-9_\-]*\/(\w+\.\w*)"/) do
+    #  "'#{dropbox_url(Regexp.last_match[1])}'"
    end
   end
 
   private
   def dropbox_url(file_name)
-    FileMission.where(:file_file_name=>file_name).first.file.url
+    #FileMission.where(:file_file_name=>file_name).first.file.url
   end
 end
