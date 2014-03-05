@@ -81,7 +81,8 @@ Rsnap::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.action_mailer.default_url_options = { :host => 'THEHOST.COM' }
-  # Amazone AWS storage
+
+  # Amazon AWS storage
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
