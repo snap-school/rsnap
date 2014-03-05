@@ -20,9 +20,7 @@
 
 FactoryGirl.define do
   factory :file_mission do
-    #file {File.new(Rails.root.join("test", "fixtures", "image_test.gif"))}
-    #TODO see what to put instead 'text/xml'
-    file {fixture_file_upload(Rails.root.join("test", "fixtures", "image_test.gif"), 'image/gify') }
+    file {fixture_file_upload(Rails.root.join("test", "fixtures", "image_test.gif"), 'image/gif') }
     mission
   end
 end

@@ -22,8 +22,6 @@
 
 FactoryGirl.define do
   factory :program do
-    #TODO clean
-    #source_code {File.new(Rails.root.join("test", "fixtures", "empty_project.xml"))}
     source_code{fixture_file_upload(Rails.root.join("test", "fixtures", "empty_project.xml"), 'text/xml') }
     user
     mission
