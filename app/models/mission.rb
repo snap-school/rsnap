@@ -31,15 +31,4 @@ class Mission < ActiveRecord::Base
   def position(scope=:all)
     Mission.send(scope).find_index(self)
   end
-
-  def description_with_dropbox
-    description.gsub(/"http[s]?:\/\/dl\.dropboxusercontent\.com\/1\/view\/\w*\/Applications\/[a-zA-Z0-9_\-]*\/(\w+\.\w*)"/) do
-      "'#{dropbox_url(Regexp.last_match[1])}'"
-   end
-  end
-
-  private
-  def dropbox_url(file_name)
-    FileMission.where(:file_file_name=>file_name).first.file.url
-  end
 end
