@@ -22,7 +22,7 @@ class Mission < ActiveRecord::Base
 
   has_attached_file :source_code
 
-  validates_attachment :source_code, :presence => true
+  validates_attachment :source_code, :presence => true, :content_type => { :content_type => ["text/xml"] }
   validates :title, :description, :small_description, :presence=>true
 
   include RankedModel
