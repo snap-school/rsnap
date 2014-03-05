@@ -6,10 +6,11 @@
 %p
   = raw @mission.description
 
+%br
 %p
   =button "Réaliser cette mission", new_initialization_program_mission_path(:mission_id=>@mission), :type=>:success, :id=>"mission-program"
-  =button "Code source", @mission.source_code.url, :type=>:primary
 %p
   -if user_signed_in? and current_user.has_role?(:admin)
+    =button "Code source", @mission.source_code.url, :type=>:primary
     =button 'modifier', edit_mission_path(@mission), :type=>:success
   =button 'Retour', :back
