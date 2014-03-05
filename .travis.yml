@@ -24,11 +24,16 @@ before_script:
   # Install dependences
   #- travis_retry bundle install --verbose
 
-before_install:
-  - cp .env.travis .env
-
 env:
   global:
-    # Amazon AWS information
-    secure: "IjeaamD14pZf0UTifWvYZhMSJkRo5408Ch8zkAadLsDfQBDWjn4v4u3TWXTR1gJUWpY+gRMqxLhsQazMNGi/ixoIooab5rBdjRxT5KpeLZ3HgF4cy/eGpAa0MTRaHCL0OrA+dwBz+A9ieUiJSm/M/lqFcq0qzgnP1CinWwZiISM="
-    secure: "LmZiF0ExWjM3RWZW84non/zbImeV1ixLI3KTD/z+pvaTmHbRButg4C0fHiXmPEafif8sPQ2rQ+a6PEbwxD7r7Ytd6za63zkywzQQbWDwEj575wrAZtGEbREB2yZ4YDoZ4LH4yJp1Q7xKvW/5h6YeEWY/D6LJsEww2rIX7rqyk/M="
+  # Amazon AWS information
+    - secure: "dAtlDd4LW0ROgi6gFCS3TFG2iibxhPZpq2gxp40sJ5y35S5QhTyuMVmePtzmkSxSybbjSaWh5KFu570pV4Q/u2yEgbIU5LR4DsWBsCR/nMpO5mSxcIKhLlZckb6IP3+q0uBmvQxYhz7Y/DPLRPKK4MRWu/84VpoScN4Qo/Ydrm4="
+    - secure: "vVwZsWxs8EYl9/aPxIwvU1Xr2JFFxwKi0pzJkho5lzWr14pvwgWySJxkqHsaTUz74fq9XmRLgGZPHxvdt9JHgVCcmNbjRSHfAB3ux7WBSh/xgwS6CC5MW7PgGyURR0gZNf9RBzQaG+I6TKI2sFjEEEHGgPvSiZsQaP21LHBlJ28="
+    - secure: "lTBYDFJZI8VP98B0LZrz+99Sc65dFH5L/dn/lC62/1KFynHrR8I+A8hYJ0lBuVnRCEA7OniXocDOZNMj0DHQouhdKZujP0RM4ITXB5HmIwo+PiHSUjvohv/XEi7l/zj803Nt/t/xUX6LFBzaMOYr7FUehHYM+41A8EUWbxJuWuI="
+    - RAILS_SECRET_KEY=3f249c7ca31b4d18fa2d8d7dfa41e23a5f04d563c49ae61db098937f470310a8efb80bfd116c2198b0a6c62647640d126b20ba63ab6e539701ce85f16ecd18e3
+    - RACK_ENV=production
+    - PORT=3000
+    - DEVISE_SECRET_KEY=eafc262c326966ea1bc41c4da056d651ca0ca9e2056574c0445b1cbb44732c81ffeed7d4d215185ef25dfcaed4e5de2afc30ed85bf1fbedc47491eeaea572ebb
+
+    - CODECLIMATE_REPO_TOKEN=5f6d9eeb5d6f7c0077103ce9c3cac3d1caa678aadf1203bc55a14fc97f5f6e71
+
