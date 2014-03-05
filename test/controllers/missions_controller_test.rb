@@ -69,13 +69,13 @@ class MissionsControllerTest < ActionController::TestCase
 
   test "admin should update mission" do
     admin_sign_in
-    patch :update, id: @mission, FactoryGirl.attributes_for(:mission)
+    patch :update, id: @mission, mission: FactoryGirl.attributes_for(:mission)
     assert_redirected_to mission_path(assigns(:mission))
   end
 
   test "user shouldn't update mission" do
     user_sign_in
-    patch :update, id: @mission, FactoryGirl.attributes_for(:mission)
+    patch :update, id: @mission, mission: FactoryGirl.attributes_for(:mission)
     assert_response :forbidden
   end
 
