@@ -41,7 +41,7 @@ class ProgramsControllerTest < ActionController::TestCase
     user_sign_in
     mission = FactoryGirl.create(:mission)
     assert_difference('Program.count') do
-      post :create, program: FactoryGirl.attributes_for(:program)
+      post :create, program: FactoryGirl.attributes_for(:program, :mission=>mission)
     end
 
     assert_redirected_to program_path(assigns(:program))

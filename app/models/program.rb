@@ -27,12 +27,12 @@ class Program < ActiveRecord::Base
   belongs_to :user
   delegate :name, :to=>:user, :prefix=>true
 
-  #has_attached_file :source_code, :storage => :dropbox,
-  #                  :dropbox_credentials => DROPBOX_CREDENTIALS
+  has_attached_file :source_code, :storage => :dropbox,
+                    :dropbox_credentials => DROPBOX_CREDENTIALS
 
   validates :user_id, :mission_id, :presence=>true
 
-  #validate :uniqueness_on_user_and_mission
+  validate :uniqueness_on_user_and_mission
 
   scope :for_mission, lambda{|mission| where(:mission_id=>mission)}
   scope :for_user, lambda{|user| where(:user_id=>user)}

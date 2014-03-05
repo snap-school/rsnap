@@ -40,8 +40,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      @user = FactoryGirl.build(:user)
-      post :create, user: { email: @user.email, firstname: @user.firstname, lastname: @user.lastname, password: @user.password, password_confirmation: @user.password_confirmation }
+      post :create, user: FactoryGirl.attributes_for(:user)
     end
 
     assert_redirected_to user_path(assigns(:user))
@@ -83,18 +82,18 @@ class UsersControllerTest < ActionController::TestCase
 
   test "user should update user" do
     user_sign_in
-    patch :update, id: @user, user: { email: @user.email, firstname: @user.firstname, lastname: @user.lastname }
+    patch :update, id: @user, user: FactoryGirl.attributes_for(:user)
     assert_redirected_to user_path(assigns(:user))
   end
 
   test "nouser shouldn't update user" do
-    patch :update, id: @user, user: { email: @user.email, firstname: @user.firstname, lastname: @user.lastname }
+    patch :update, id: @user, user: FactoryGirl.attributes_for(:user)
     assert_response :forbidden
   end
 
   test "user shouldn't update someone else" do
     someone_sign_in
-    patch :update, id: @user, user: { email: @user.email, firstname: @user.firstname, lastname: @user.lastname }
+    patch :update, id: @user, user: FactoryGirl.attributes_for(:user)
     assert_response :forbidden
   end
 
