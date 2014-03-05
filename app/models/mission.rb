@@ -18,6 +18,7 @@ class Mission < ActiveRecord::Base
   self.authorizer_name = 'MissionAuthorizer'
 
   has_many :program, :dependent=>:destroy
+  has_many :file_missions, :dependent=>:destroy
 
   has_attached_file :source_code
 
