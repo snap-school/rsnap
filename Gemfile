@@ -7,7 +7,7 @@ gem "pg"
 
 gem "jbuilder", "~> 2.0"
 
-gem "bcrypt-ruby", "~> 3.1"
+gem "bcrypt", "~> 3.1"
 gem "rolify", "~> 3.4"
 gem "authority", "~> 2.9"
 gem "devise", "~> 3.1"
@@ -16,7 +16,7 @@ gem "omniauth-openid"
 
 gem "ranked-model"
 
-gem "paperclip", "~> 3.5"
+gem "paperclip", "~> 4.1"
 gem "aws-sdk", "~> 1.5"
 gem "rmagick", "~> 2.13"
 
