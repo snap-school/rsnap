@@ -36,7 +36,7 @@ class MissionsControllerTest < ActionController::TestCase
   test "admin should create mission" do
     admin_sign_in
     assert_difference('Mission.count') do
-      post :create, mission: { description: @mission.description, source_code: @mission.source_code, title: @mission.title }
+      post :create, mission: FactoryGirl.attributes_for(:mission)
     end
 
     assert_redirected_to mission_path(assigns(:mission))
@@ -45,7 +45,7 @@ class MissionsControllerTest < ActionController::TestCase
   test "user shouldn't create mission" do
     user_sign_in
     assert_no_difference('Mission.count') do
-      post :create, mission: { description: @mission.description, source_code: @mission.source_code, title: @mission.title }
+      post :create, mission: FactoryGirl.attributes_for(:mission)
     end
     assert_response :forbidden
   end
@@ -69,13 +69,13 @@ class MissionsControllerTest < ActionController::TestCase
 
   test "admin should update mission" do
     admin_sign_in
-    patch :update, id: @mission, mission: { description: @mission.description, source_code: @mission.source_code, title: @mission.title }
+    patch :update, id: @mission, FactoryGirl.attributes_for(:mission)
     assert_redirected_to mission_path(assigns(:mission))
   end
 
   test "user shouldn't update mission" do
     user_sign_in
-    patch :update, id: @mission, mission: { description: @mission.description, source_code: @mission.source_code, title: @mission.title }
+    patch :update, id: @mission, FactoryGirl.attributes_for(:mission)
     assert_response :forbidden
   end
 

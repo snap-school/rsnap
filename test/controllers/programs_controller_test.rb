@@ -41,7 +41,7 @@ class ProgramsControllerTest < ActionController::TestCase
     user_sign_in
     mission = FactoryGirl.create(:mission)
     assert_difference('Program.count') do
-      post :create, program: {:user_id=>@program.user_id, :mission_id=>mission.id, :source_code=>@program.source_code}
+      post :create, program: FactoryGirl.attributes_for(:program, :mission=>mission)
     end
 
     assert_redirected_to program_path(assigns(:program))
@@ -49,7 +49,7 @@ class ProgramsControllerTest < ActionController::TestCase
 
   test "nouser shouldn't create program" do
     assert_no_difference('Program.count') do
-      post :create, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+      post :create, program: FactoryGirl.attributes_for(:program)
     end
 
     assert_redirected_to controller: "devise/sessions", action: "new"
@@ -79,19 +79,19 @@ class ProgramsControllerTest < ActionController::TestCase
 
   test "user should update program" do
     user_sign_in
-    patch :update, id: @program, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+    patch :update, id: @program, program: FactoryGirl.attributes_for(:program)
     assert_redirected_to program_path(@program)
   end
 
   test "user shouldn't update program of someone else" do
     user = FactoryGirl.create(:user)
     sign_in user
-    patch :update, id: @program, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+    patch :update, id: @program, program: FactoryGirl.attributes_for(:program)
     assert_response :forbidden
   end
 
   test "nouser shouldn't update program" do
-    patch :update, id: @program, program: {:user_id=>@program.user_id, :mission_id=>@program.mission_id, :source_code=>@program.source_code}
+    patch :update, id: @program, program: FactoryGirl.attributes_for(:program)
     assert_response :forbidden
   end
 
