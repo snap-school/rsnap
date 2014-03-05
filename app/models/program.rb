@@ -31,18 +31,12 @@ class Program < ActiveRecord::Base
 
   validates :user_id, :mission_id, :presence=>true
 
-  validate :uniqueness_on_user_and_mission
+  validates_uniqueness_of :mission_id, :scope=>:user_id
 
   scope :for_mission, lambda{|mission| where(:mission_id=>mission)}
   scope :for_user, lambda{|user| where(:user_id=>user)}
 
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first
-  end
-
-  def uniqueness_on_user_and_mission
-    if Program.for_mission(mission).for_user(user).count >= 1
-      errors.add(:mission, "Il y a déjà un programme pour cette mission au nom de l'utilisateur #{user.name}")
-    end
   end
 end
