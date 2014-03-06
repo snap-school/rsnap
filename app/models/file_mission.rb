@@ -24,5 +24,5 @@ class FileMission < ActiveRecord::Base
   delegate :title, :to=>:mission, :prefix=>true
 
   has_attached_file :file
-  validates_attachment :file, :presence=>true, :content_type=>{:content_type=>["image/jpg", "image/gif", "image/png"]}
+  validates_attachment :file, :presence=>true, :content_type=>{:content_type=>["image/jpg", "image/jpeg", "image/gif", "image/png"]}
 end

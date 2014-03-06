@@ -43,7 +43,6 @@ class ProgramsController < ApplicationController
         if @program.save
           redirect_to @program, notice: 'Program was successfully updated.'
         else
-          puts @program.errors.full_messages
           render :edit
         end
       end

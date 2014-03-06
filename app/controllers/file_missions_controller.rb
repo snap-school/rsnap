@@ -20,10 +20,21 @@ class FileMissionsController < ApplicationController
   def create
     @file_mission = FileMission.new(file_mission_params)
 
-    if @file_mission.save
-      redirect_to @file_mission, notice: 'File mission was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      format.html do
+        if @file_mission.save
+          redirect_to @file_mission, notice: 'File mission was successfully created.'
+        else
+          render :new
+        end
+      end
+      format.json do
+        if @file_mission.save
+          render :show
+        else
+          render :json => { :errors => @file_mission.errors.full_messages }
+        end
+      end
     end
   end
 
