@@ -5,8 +5,9 @@ window.addLoadEvent(function () {
   //role: 0=>student 1=>teacher
   //world.isDevMode = true;
   ide = new IDE_Morph();
-  ide.openIn(world);
+
   ide.openProjectString(window.getURL(document.querySelector('#world').dataset.file));
+  ide.openIn(world);
 
   setInterval(function() {world.doOneCycle();}, 1);
 });

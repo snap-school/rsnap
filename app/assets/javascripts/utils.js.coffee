@@ -18,7 +18,7 @@ getURL = (url, async=false) ->
     return request.responseText  if request.status is 200
     throw new Error("unable to retrieve " + url)
   catch err
-    return
+    return err
 window.getURL = getURL
 
 
