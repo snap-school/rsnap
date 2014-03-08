@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140305102953) do
     t.datetime "source_code_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "mission_order"
+    t.integer  "mission_order",            default: 0
     t.text     "small_description"
   end
 
