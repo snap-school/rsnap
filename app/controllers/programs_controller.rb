@@ -72,7 +72,7 @@ class ProgramsController < ApplicationController
     def program_params
       p = params.require(:program).permit(:source_code, :user_id, :mission_id)
       if p[:source_code].instance_of?(String)
-        name = "program-#{p[:user_id]}-#{p[:mission_id]}.xml" #TODO user and mission id not present
+        name = ["program-#{p[:user_id]}-#{p[:mission_id]}",".xml"] #TODO user and mission id not present
         file = Tempfile.new(name)
         file.write(p[:source_code])
         p[:source_code] = file
