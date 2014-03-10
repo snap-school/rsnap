@@ -4,11 +4,13 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except=>[:new, :create]
 
   def index
+    @title = "Utilisateurs"
     @users = User.all
     @users.each {|u| authorize_action_for u}
   end
 
   def show
+    @title = "utilisateur : #{@user.name}"
     if params[:id]
       set_user
     else
@@ -18,10 +20,12 @@ class UsersController < ApplicationController
   end
 
   def new
+    @title = "Créer un utilisateur"
     @user = User.new
   end
 
   def edit
+    @title = "Modifier l'utilisateur : #{@user.name}"
     render "devise/registrations/edit"
   end
 
@@ -31,6 +35,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
     else
+      @title = "Créer un utilisateur"
       render :new
     end
   end
@@ -39,6 +44,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to @user, notice: 'User was successfully updated.'
     else
+      @title = "Modifier l'utilisateur : #{@user.name}"
       render :edit
     end
   end

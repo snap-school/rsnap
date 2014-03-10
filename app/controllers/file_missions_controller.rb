@@ -4,17 +4,21 @@ class FileMissionsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:show, :index]
 
   def index
+    @title = "Fichiers de mission"
     @file_missions = FileMission.all
   end
 
   def show
+    @title = "Fichiers de missions"
   end
 
   def new
+    @title = "Créer un fichier de mission"
     @file_mission = FileMission.new
   end
 
   def edit
+    @title = "Modifier un fichier de mission"
   end
 
   def create
@@ -25,6 +29,7 @@ class FileMissionsController < ApplicationController
         if @file_mission.save
           redirect_to @file_mission, notice: 'File mission was successfully created.'
         else
+          @title = "Créer un fichier de mission"
           render :new
         end
       end
@@ -42,6 +47,7 @@ class FileMissionsController < ApplicationController
     if @file_mission.update(file_mission_params)
       redirect_to @file_mission, notice: 'File mission was successfully updated.'
     else
+      @title = "Modifier un fichier de mission"
       render :edit
     end
   end

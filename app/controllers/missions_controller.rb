@@ -4,6 +4,7 @@ class MissionsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:index, :show]
 
   def index
+    @title = "Missions"
     @missions = Mission.all
   end
 
@@ -11,15 +12,18 @@ class MissionsController < ApplicationController
     if params[:modal]
       render :modal_show, :layout=>false
     else
+      @title = "Mission : #{@mission.title}"
       render :show
     end
   end
 
   def new
+    @title = "Créer une mission"
     @mission = Mission.new
   end
 
   def edit
+    @title = "Modifier la mission : #{@mission.title}"
   end
 
   def create
@@ -28,6 +32,7 @@ class MissionsController < ApplicationController
     if @mission.save
       redirect_to @mission, notice: 'Mission was successfully created.'
     else
+      @title = "Créer une mission"
       render :new
     end
   end
@@ -36,6 +41,7 @@ class MissionsController < ApplicationController
     if @mission.update(mission_params)
       redirect_to @mission, notice: 'Mission was successfully updated.'
     else
+      @title = "Modifier la mission : #{@mission.title}"
       render :edit
     end
   end
