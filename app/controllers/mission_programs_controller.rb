@@ -31,9 +31,9 @@ class MissionProgramsController < ApplicationController
       p = params.require(:program).permit(:source_code)
       if p[:source_code].instance_of?(String)
         name = ["#{@mission.id}-#{@mission.title}", ".xml"]
-        file = Tempfile.new(name)
-        puts p[:source_code]
+        ile = Tempfile.new(name, "#{Rails.root}/tmp")
         file.write(p[:source_code])
+        file.rewind
         p[:source_code] = file
       end
       p

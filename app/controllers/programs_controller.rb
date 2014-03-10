@@ -77,8 +77,9 @@ class ProgramsController < ApplicationController
       p = params.require(:program).permit(:source_code, :user_id, :mission_id)
       if p[:source_code].instance_of?(String)
         name = ["program-#{p[:user_id]}-#{p[:mission_id]}",".xml"] #TODO user and mission id not present
-        file = Tempfile.new(name)
+        file = Tempfile.new(name, "#{Rails.root}/tmp")
         file.write(p[:source_code])
+        file.rewind
         p[:source_code] = file
       end
       p
