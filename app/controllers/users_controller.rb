@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   authorize_actions_for User
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :except=>[:new, :create]
 
   def index
