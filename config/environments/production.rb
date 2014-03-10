@@ -92,4 +92,7 @@ Rsnap::Application.configure do
     },
     :s3_protocol => :https
   }
+
+  config.action_mailer.delivery_method   = :postmark
+  config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
 end

@@ -245,6 +245,12 @@ GEM
     parallel (0.9.2)
     pg (0.17.1)
     polyglot (0.3.4)
+    postmark (1.1.0)
+      json
+      rake
+    postmark-rails (0.6.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.1.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -432,6 +438,7 @@ DEPENDENCIES
   omniauth-openid
   paperclip (~> 4.1)
   pg
+  postmark-rails
   rails (~> 4.0)
   rails_12factor
   ranked-model
