@@ -1,5 +1,5 @@
 %tr.item{data: {update_url:"#{sort_mission_path(mission)}", ordered_row: "mission_order"}}
-  %td= mission.position+1
+  %td= mission.position
   %td= link_to mission.title, mission, :id=>"show-mission-#{mission.id}"
   %td= raw mission.small_description
   -if user_signed_in? and current_user.has_role?(:admin)

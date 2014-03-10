@@ -258,7 +258,7 @@ fr:
         description: "Description"
         small_description: "Description courte"
         source_code: "Code source"
-        mission_order: "Position"
+        mission_order_position: "Position"
     errors:
       <<: *errors
   bootstrap_forms:
