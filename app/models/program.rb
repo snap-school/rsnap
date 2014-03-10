@@ -28,7 +28,7 @@ class Program < ActiveRecord::Base
   delegate :name, :to=>:user, :prefix=>true
 
   has_attached_file :source_code
-  validates_attachment :source_code, :presence => true, :content_type => { :content_type => ["text/xml"] }
+  validates_attachment :source_code, :presence => true, :content_type => { :content_type => ["text/xml", "text/plain"] }
 
   validates :user_id, :mission_id, :presence=>true
 

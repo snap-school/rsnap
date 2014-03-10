@@ -4,4 +4,5 @@
   %td= raw mission.small_description
   -if user_signed_in? and current_user.has_role?(:admin)
     %td= link_to 'Edit', edit_mission_path(mission)
+    %td= link_to 'Edit program', mission_program_path(mission)
     %td= link_to 'Destroy', mission, :method => :delete, :data => { :confirm => 'Are you sure?' }

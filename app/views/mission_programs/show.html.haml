@@ -1,0 +1,10 @@
+%canvas#world{style: "position: absolute;", tabindex: "1", "data-role"=>"TEACHER", "data-file"=>(@mission.source_code ? @mission.source_code.url : nil)}
+
+.modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>mission_path(@mission, :modal=>true)}
+  .modal-dialog
+    .modal-content
+      .modal-body
+        Chargement...
+      .modal-footer
+        %button.btn.btn-default{type: :button, "data-dismiss"=>:modal}
+          Fermer

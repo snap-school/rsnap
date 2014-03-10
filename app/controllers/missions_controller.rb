@@ -52,12 +52,10 @@ class MissionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_mission
       @mission = Mission.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def mission_params
       params.require(:mission).permit(:title, :description, :small_description, :source_code)
     end

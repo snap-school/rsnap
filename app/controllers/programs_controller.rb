@@ -68,13 +68,11 @@ class ProgramsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_program
       @program = Program.find(params[:id])
       authorize_action_for @program
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def program_params
       p = params.require(:program).permit(:source_code, :user_id, :mission_id)
       if p[:source_code].instance_of?(String)
