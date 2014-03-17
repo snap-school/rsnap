@@ -60,7 +60,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "nouser shouldn't show user" do
     get :show, id: @user
-    assert_redirected_to controller: "devise/sessions", action: "new"
+    assert_response :forbidden
   end
 
   test "user should get edit" do
