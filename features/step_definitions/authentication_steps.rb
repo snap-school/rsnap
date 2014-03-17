@@ -1,5 +1,5 @@
 Given(/^a user is not authenticated$/) do
-  visit '/users/sign_out'
+  visit '/auth/sign_out'
 end
 
 Given(/^a user visits the signin page$/) do
