@@ -80,7 +80,7 @@ Rsnap::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.action_mailer.default_url_options = { :host => 'THEHOST.COM' }
+  config.action_mailer.default_url_options = { :host => 'rsnap.herokuapp.com' }
 
   # Amazon AWS storage
   config.paperclip_defaults = {
@@ -93,6 +93,13 @@ Rsnap::Application.configure do
     :s3_protocol => :https
   }
 
-  config.action_mailer.delivery_method   = :postmark
-  config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'rsnap.herokuapp.com',
+    user_name:            'snap.school',
+    password:             'aqwnjklp',
+    authentication:       'plain',
+    enable_starttls_auto: true  }
 end
