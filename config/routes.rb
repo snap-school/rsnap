@@ -13,5 +13,11 @@ Rsnap::Application.routes.draw do
 
   resources :snap_assets, :only=>:index
 
+  resources :home, :only=>:index do
+    collection do
+      get :about
+      get :after_missions_form
+    end
+  end
   root :to => "home#index"
 end
