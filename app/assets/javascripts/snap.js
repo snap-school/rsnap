@@ -4,7 +4,7 @@ window.addLoadEvent(function () {
 
   world.role = document.querySelector('#world').dataset.role;
   //role: 0=>student 1=>teacher
-  world.isDevMode = true;
+  world.isDevMode = false;
   ide = new IDE_Morph();
 
   if (document.querySelector('#world').dataset.file) {
