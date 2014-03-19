@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305102953) do
+ActiveRecord::Schema.define(version: 20140319121839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140305102953) do
     t.datetime "source_code_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "mission_order",            default: 0
+    t.integer  "mission_order"
     t.text     "small_description"
   end
 
@@ -54,6 +54,15 @@ ActiveRecord::Schema.define(version: 20140305102953) do
 
   add_index "programs", ["mission_id"], name: "index_programs_on_mission_id", using: :btree
   add_index "programs", ["user_id"], name: "index_programs_on_user_id", using: :btree
+
+  create_table "projects", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.string   "source_code_file_name"
+    t.string   "source_code_content_type"
+    t.integer  "source_code_file_size"
+    t.datetime "source_code_updated_at"
+  end
 
   create_table "roles", force: true do |t|
     t.string   "name"

@@ -1,0 +1,4 @@
+= bootstrap_form_for project do |f|
+  = f.file_field :source_code
+  = f.collection_select :user_id, User.all, :id, :name, :prompt=>true
+  = f.actions

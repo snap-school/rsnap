@@ -1,0 +1,18 @@
+%h1
+  =@title
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr Nom
+    %tr
+    %tr
+      -if user_signed_in? and current_user.has_role?(:admin)
+        %th Source code
+        %th Utilisateur
+        %th
+  %tbody
+    = render @projects
+
+-if user_signed_in? and current_user.has_role?(:admin)
+  %p
+    = link_to 'New project', new_project_path
