@@ -10,9 +10,6 @@
       %ul.nav.navbar-nav
         %li{:class=>resources_active("missions")}
           = link_to "Missions", missions_path
-        -if user_signed_in?
-          %li{:class=>resources_active("programs")}
-            = link_to "Programmes", programs_path
         %li{:class=>actions_active("home", "after_missions_form")}
           = link_to "formulaire", after_missions_form_home_index_path
         %li{:class=>actions_active("home", "about")}
