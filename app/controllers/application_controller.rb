@@ -5,8 +5,16 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  after_filter :store_location
+
+  def store_location
+    if (!request.fullpath.match("/users") && !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath
+    end
+  end
+
   def after_sign_in_path_for(resource)
-    user_path(resource)
+    session[:previous_url] || user_path(resource)
   end
 
   def current_or_null_user
