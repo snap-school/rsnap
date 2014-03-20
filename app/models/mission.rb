@@ -32,7 +32,7 @@ class Mission < ActiveRecord::Base
   default_scope {rank(:mission_order)}
 
   def position(scope=:all)
-    Mission.send(scope).find_index(self)
+    Mission.send(scope).find_index(self) + 1
   end
 
   def is_solved_by?(user)
@@ -40,6 +40,17 @@ class Mission < ActiveRecord::Base
       programs.where(:user=>user).present?
     else
       false
+    end
+  end
+
+  def self.visible_for(user)
+    if user
+      solved_missions = 0
+      last_solved_program = user.programs.order_by_missions.last
+      solved_missions = last_solved_program.mission.position if last_solved_program
+      limit(solved_missions + 1)
+    else
+      limit(1)
     end
   end
 end

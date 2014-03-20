@@ -5,7 +5,7 @@ class MissionsController < ApplicationController
 
   def index
     @title = "Missions"
-    @missions = Mission.all
+    @missions = Mission.visible_for(current_user)
   end
 
   def show

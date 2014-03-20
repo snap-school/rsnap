@@ -10,7 +10,7 @@ class ProgramsController < ApplicationController
     if params[:all]
       @programs = Program.all
     else
-      @programs = Program.for_user(current_user)
+      @programs = Program.for_user(current_user).order_by_missions
     end
     @programs.each {|p| authorize_action_for p}
   end

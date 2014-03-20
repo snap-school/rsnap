@@ -36,6 +36,7 @@ class Program < ActiveRecord::Base
 
   scope :for_mission, lambda{|mission| where(:mission_id=>mission)}
   scope :for_user, lambda{|user| where(:user_id=>user)}
+  scope :order_by_missions, includes(:mission).order("missions.mission_order")
 
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first

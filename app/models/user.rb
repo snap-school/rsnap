@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   include Authority::Abilities
   self.authorizer_name = 'UserAuthorizer'
 
-  has_many :program, :dependent=>:destroy
+  has_many :programs, :dependent=>:destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
