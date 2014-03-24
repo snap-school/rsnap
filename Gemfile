@@ -10,7 +10,7 @@ gem "jbuilder", "~> 2.0"
 gem "bcrypt", "~> 3.1"
 gem "rolify", "~> 3.4"
 gem "authority", "~> 2.9"
-gem "devise", "~> 3.1"
+gem "devise", "~> 3.2"
 gem "devise-i18n"
 gem "omniauth-openid"
 
@@ -34,6 +34,8 @@ gem "bootstrap-sass", "~> 3.1"
 gem "bootstrap_forms", :github=>"gagalago/bootstrap_forms", :branch => "bootstrap3"
 # https://github.com/schnawel007/bootstrap3-wysihtml5
 # https://github.com/nickl-/bootstrap-wysihtml5
+
+gem "sitemap_generator"
 
 gem "dotenv-rails"
 gem "travis"
@@ -67,7 +69,7 @@ end
 group :production do
   gem "rails_12factor"
   gem "unicorn"
-  gem 'postmark-rails'
+  gem "postmark-rails"
 end
 
 group :doc do

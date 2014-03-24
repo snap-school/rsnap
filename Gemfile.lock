@@ -348,6 +348,8 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    sitemap_generator (5.0.1)
+      builder
     slop (3.4.7)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -422,7 +424,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.4)
   database_cleaner (~> 1.2)
   debugger
-  devise (~> 3.1)
+  devise (~> 3.2)
   devise-i18n
   dotenv-rails
   factory_girl_rails (~> 4.3)
@@ -448,6 +450,7 @@ DEPENDENCIES
   sass-rails (~> 4.0)
   sdoc
   selenium-webdriver
+  sitemap_generator
   therubyracer
   travis
   travis-lint
