@@ -13,6 +13,7 @@
 #  updated_at               :datetime
 #  mission_order            :integer          default(0)
 #  small_description        :text
+#  youtube                  :string(255)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

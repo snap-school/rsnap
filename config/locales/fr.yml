@@ -259,6 +259,7 @@ fr:
         small_description: "Description courte"
         source_code: "Code source"
         mission_order_position: "Position"
+        youtube: "Vidéo youtube"
     errors:
       <<: *errors
   bootstrap_forms:

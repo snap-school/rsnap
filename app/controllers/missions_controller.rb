@@ -57,6 +57,6 @@ class MissionsController < ApplicationController
     end
 
     def mission_params
-      params.require(:mission).permit(:title, :description, :small_description, :source_code)
+      params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
     end
 end
