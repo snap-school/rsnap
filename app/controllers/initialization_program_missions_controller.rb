@@ -14,15 +14,12 @@ class InitializationProgramMissionsController < ApplicationController
   end
 
   def update
-    @mission = Mission.find(params[:mission_id])
-    @program = Program.for_mission_for_user(@mission, current_user)
+    @program = Program.find(params[:id])
     if @program
-      @program.source_code = @mission.source_code
+      @program.source_code = @program.mission.source_code
       authorize_action_for @program
       @program.save
-      redirect_to @program
-    else
-      redirect_to @mission, notice: 'Program unknow.'
+      render :nothing=>true
     end
   end
 
