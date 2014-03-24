@@ -3,3 +3,5 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
 # Disallow: /
+
+Sitemap http://snap-school.s3.amazonaws.com/sitemaps/sitemap.xml.gz
