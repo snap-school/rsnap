@@ -10,6 +10,10 @@
 #  source_code_file_size    :integer
 #  source_code_updated_at   :datetime
 #
+# Indexes
+#
+#  index_projects_on_user_id  (user_id)
+#
 
 class Project < ActiveRecord::Base
   include Authority::Abilities

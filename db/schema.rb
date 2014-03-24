@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140319121839) do
     t.datetime "source_code_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "mission_order",            default: 0
+    t.integer  "mission_order"
     t.text     "small_description"
   end
 
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(version: 20140319121839) do
     t.integer  "source_code_file_size"
     t.datetime "source_code_updated_at"
   end
+
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
