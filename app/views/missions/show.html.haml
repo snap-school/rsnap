@@ -3,7 +3,7 @@
   = @mission.title
 
 -if @mission.youtube?
-  %iframe#ytplayer.center-block{:type=>"text/html", :width=>854, :height=>480, :src=>"https://www.youtube.com/v/#{@mission.youtube}?autoplay=1&hd=1&vq=hd720", :frameborder=>0}
+  %iframe#ytplayer.center-block{:type=>"text/html", :width=>854, :height=>480, :src=>"https://www.youtube.com/embed/#{@mission.youtube}?autoplay=1&hd=1&vq=hd720", :frameborder=>0}
 
 %p
   = raw @mission.description
