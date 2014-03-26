@@ -12,5 +12,5 @@ window.addLoadEvent(function () {
     ide.openProjectString(window.getURL(document.querySelector('#world').dataset.file));
   };
 
-  setInterval(function() {world.doOneCycle();}, 17);
+  setInterval(function() {world.doOneCycle();}, 30);
 });
