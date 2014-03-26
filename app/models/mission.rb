@@ -33,7 +33,7 @@ class Mission < ActiveRecord::Base
   default_scope {rank(:mission_order)}
 
   def position(scope=:all)
-    Mission.send(scope).find_index(self) + 1
+    Mission.send(scope).index(self) + 1
   end
 
   def is_solved_by?(user)
