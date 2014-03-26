@@ -34,9 +34,9 @@ class Program < ActiveRecord::Base
 
   validates_uniqueness_of :mission_id, :scope=>:user_id
 
-  scope :for_mission, lambda{|mission| where(:mission_id=>mission)}
-  scope :for_user, lambda{|user| where(:user_id=>user)}
-  scope :order_by_missions, includes(:mission).order("missions.mission_order")
+  scope :for_mission, ->(mission){where(:mission_id=>mission)}
+  scope :for_user, ->(user){where(:user_id=>user)}
+  scope :order_by_missions, ->{includes(:mission).order("missions.mission_order ASC")}
 
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first

@@ -48,10 +48,12 @@ class Mission < ActiveRecord::Base
     if user
       solved_missions = 0
       last_solved_program = user.programs.order_by_missions.last
+      puts last_solved_program
       solved_missions = last_solved_program.mission.position if last_solved_program
-      limit(solved_missions + 1)
+      puts solved_missions
+      self.limit(solved_missions + 1)
     else
-      limit(1)
+      self.limit(1)
     end
   end
 end
