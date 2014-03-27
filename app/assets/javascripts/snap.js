@@ -8,9 +8,10 @@ window.addLoadEvent(function () {
   ide = new IDE_Morph();
   ide.openIn(world);
 
-  if (document.querySelector('#world').dataset.file) {
+  setTimeout(function(){if (document.querySelector('#world').dataset.file) {
     ide.openProjectString(window.getURL(document.querySelector('#world').dataset.file));
   };
 
-  setInterval(function() {world.doOneCycle();}, 30);
+  setInterval(function() {world.doOneCycle();}, 30);}, 400)
+
 });
