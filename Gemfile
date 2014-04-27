@@ -44,6 +44,8 @@ group :development do
   gem "travis-lint"
   # Lot of metrics "metric_fu --format html"
   gem "metric_fu"
+  gem "rails-erd"
+  gem "railroady"
 end
 
 group :development, :test do
