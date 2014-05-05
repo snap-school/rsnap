@@ -39,7 +39,7 @@ class MissionsControllerTest < ActionController::TestCase
       post :create, mission: FactoryGirl.attributes_for(:mission)
     end
 
-    assert_redirected_to mission_path(assigns(:mission))
+    assert_redirected_to mission_program_path(assigns(:mission))
   end
 
   test "user shouldn't create mission" do

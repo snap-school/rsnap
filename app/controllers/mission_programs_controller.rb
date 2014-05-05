@@ -6,7 +6,7 @@ class MissionProgramsController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    @title = "Programme : #{@mission.title}"
+    @title = "Mission : #{@mission.title}"
     render :layout=>"snap"
   end
 
@@ -15,8 +15,6 @@ class MissionProgramsController < ApplicationController
       format.json do
         if @mission.update(mission_params)
           render "mission/show"
-        else
-          render :json => { :errors => @mission.errors.full_messages }
         end
       end
     end
