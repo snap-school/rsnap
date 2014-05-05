@@ -40,7 +40,7 @@ GEM
       rake (>= 0.8.7)
     arel (5.0.1.20140414130214)
     arrayfields (4.9.2)
-    authority (2.10.0)
+    authority (3.0.0)
       activesupport (>= 3.0.0)
       rake (>= 0.8.7)
     awesome_print (1.2.0)
@@ -446,7 +446,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (>= 2.6.0)
-  authority (~> 2.9)
+  authority (~> 3)
   aws-sdk (~> 1.5)
   bcrypt (~> 3.1)
   bootstrap-sass (~> 3.1)
