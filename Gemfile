@@ -4,7 +4,6 @@ gem "bower-rails", "~> 0.7"
 ruby "2.1.1"
 gem "rails", "~> 4.0"
 gem "pg"
-gem "zip"
 
 gem "jbuilder", "~> 2.0"
 
@@ -65,7 +64,7 @@ group :test do
   gem "launchy"
   gem "database_cleaner", "~> 1.2"
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "~> 2.41"
   gem "capybara-webkit"
 end
 
