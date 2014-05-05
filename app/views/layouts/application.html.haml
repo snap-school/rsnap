@@ -16,8 +16,8 @@
       #body
         .container
           - flash.each do |name, msg|
-            - name = :info if name == :notice
-            - name = :danger if name == :alert
+            - name = :info if name == :notice || name == "notice"
+            - name = :danger if name == :alert || name == "alert"
             .alert.alert-dismissable{:class => "alert-#{name}"}
               %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
                 &times;

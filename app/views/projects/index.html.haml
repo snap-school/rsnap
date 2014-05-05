@@ -12,6 +12,6 @@
   %tbody
     = render @projects
 
--if user_signed_in? and current_user.has_role?(:admin)
+-if user_signed_in?
   %p
     = button "Nouveau projet", new_project_path, type: :success
