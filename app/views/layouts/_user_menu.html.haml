@@ -1,9 +1,10 @@
 -if user_signed_in?
   - content = capture do
     %p
-      =link_to "Mes informations", user_path(current_user), :class=>"btn btn-primary"
+      =button "Mes informations", user_path(current_user), type: :primary
     %p
-      =link_to t_attr(:user, :sign_out), destroy_session_path(resource_name), :method => :delete, :class=>"btn btn-warning", :id=>:sign_out
+      =button t_attr(:user, :sign_out), destroy_session_path(resource_name), :method => :delete,
+              type: :warning, :id=>:sign_out
   -btn_txt = current_user.name
 -else
   -content = capture do
@@ -13,4 +14,4 @@
 %a.btn.navbar-btn.btn-success.popover-default#user-menu{"data-content"=>content ,:title=>btn_txt, "data-toggle"=>:popover, "data-placement"=>:bottom}
   =btn_txt
 -unless user_signed_in?
-  =link_to "Créer un compte", new_registration_path(resource_name), :class=>"btn navbar-btn btn-info"
+  =button "Créer un compte", new_registration_path(resource_name), type: :info, :class=>"navbar-btn"

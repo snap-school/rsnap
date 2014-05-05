@@ -1,4 +1,4 @@
-require 'tempfile'
+require "tempfile"
 
 class ProgramsController < ApplicationController
   authorize_actions_for Program
@@ -33,7 +33,7 @@ class ProgramsController < ApplicationController
     @program = Program.new(program_params)
     authorize_action_for @program
     if @program.save
-      redirect_to @program, notice: 'Program was successfully created.'
+      redirect_to @program, notice: "Le programme a bien été créé."
     else
       @title = "Créer un programme"
       render :new
@@ -46,7 +46,7 @@ class ProgramsController < ApplicationController
     respond_to do |format|
       format.html do
         if @program.save
-          redirect_to @program, notice: 'Program was successfully updated.'
+          redirect_to @program, notice: "Le programme a bien été mis à jour."
         else
           @title = "Modifier le programme : #{@program.mission_title}"
           render :edit
@@ -55,8 +55,6 @@ class ProgramsController < ApplicationController
       format.json do
         if @program.save
           render :show
-        else
-          render :json => { :errors => @program.errors.full_messages }
         end
       end
     end
@@ -64,7 +62,7 @@ class ProgramsController < ApplicationController
 
   def destroy
     @program.destroy
-    redirect_to programs_url
+    redirect_to programs_url, notice: "Le programme a bien été supprimé."
   end
 
   private

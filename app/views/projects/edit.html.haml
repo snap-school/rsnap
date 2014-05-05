@@ -1,5 +1,5 @@
-%h1 Editing Project
+%h1= @title
 
-= render 'form', :program=>@project
+= render "form", :project=>@project
 
-= link_to 'Show', @project
+= button "voir", @project, type: :primary

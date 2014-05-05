@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   self.authorizer_name = 'UserAuthorizer'
 
   has_many :programs, :dependent=>:destroy
+  has_many :projects, :dependent=>:destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

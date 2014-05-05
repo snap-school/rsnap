@@ -16,7 +16,8 @@
     \ :
   = @user.email
 %p
-  = button 'Editer', edit_user_path(@user), :type=>:success
-  = button 'Retour', :back
+  = button "Editer", edit_user_path(@user), :type=>:success
+  = button "Retour", :back
 %p
-  = button 'Supprimer', @user, :method => :delete, :data => { :confirm => 'Es-tu sur ? Ton compte sera supprimé définitivement.' }, :type=>:danger
+  = button "Supprimer", @user, :method => :delete, :type=>:danger,
+            :data => { :confirm => "Es-tu sur ? Ton compte sera supprimé définitivement." }

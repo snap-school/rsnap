@@ -1,5 +1,5 @@
-%h1 Editing program
+%h1= @title
 
-= render 'form', :program=>@program
+= render "form", :program=>@program
 
-= link_to 'Show', @program
+= button "Voir", @program, type: :primary

@@ -1,8 +1,7 @@
-json.id @program.id
-json.url @program.source_code.url
+json.id @project.id
+json.url @project.source_code.url
+json.name @project.name
 
-json.user @program.user.name
-json.userId @program.user.id
+json.user @project.user.name
+json.userId @project.user.id
 
-json.mission @program.mission.title
-json.missionId @program.mission.id

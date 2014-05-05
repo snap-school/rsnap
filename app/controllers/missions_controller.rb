@@ -13,7 +13,6 @@ class MissionsController < ApplicationController
       render :modal_show, :layout=>false
     else
       @title = "Mission : #{@mission.title}"
-      render :show
     end
   end
 
@@ -22,24 +21,24 @@ class MissionsController < ApplicationController
     @mission = Mission.new
   end
 
-  def edit
-    @title = "Modifier la mission : #{@mission.title}"
-  end
-
   def create
     @mission = Mission.new(mission_params)
 
     if @mission.save
-      redirect_to @mission, notice: 'Mission was successfully created.'
+      redirect_to mission_program_path(@mission), notice: "La mission a bien été créée."
     else
       @title = "Créer une mission"
       render :new
     end
   end
 
+  def edit
+    @title = "Modifier la mission : #{@mission.title}"
+  end
+
   def update
     if @mission.update(mission_params)
-      redirect_to @mission, notice: 'Mission was successfully updated.'
+      redirect_to @mission, notice: "La mission a bien été mise à jour."
     else
       @title = "Modifier la mission : #{@mission.title}"
       render :edit
@@ -48,7 +47,7 @@ class MissionsController < ApplicationController
 
   def destroy
     @mission.destroy
-    redirect_to missions_url, notice: 'Mission was successfully destroyed.'
+    redirect_to missions_url, notice: "La mission a bien été supprimée."
   end
 
   private
@@ -57,6 +56,20 @@ class MissionsController < ApplicationController
     end
 
     def mission_params
-      params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
+      p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
+      unless p[:source_code]
+        template = ""
+        File.open("public/default_mission.xml", "r") do |infile|
+          while(line = infile.gets) do
+            template << line.gsub("Untitled", p[:title])
+          end
+        end
+        name = [p[:title],".xml"]
+        file = Tempfile.new(name, "#{Rails.root}/tmp")
+        file.write(template)
+        file.rewind
+        p[:source_code] = file
+      end
+      p
     end
 end

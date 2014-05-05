@@ -1,4 +1,4 @@
-%h1 Listing missions
+%h1= @title
 
 -sort_tag = {}
 -if user_signed_in? and current_user.has_role?(:admin)
@@ -19,4 +19,4 @@
 
 -if user_signed_in? and current_user.has_role?(:admin)
   %p
-    = link_to 'New Mission', new_mission_path
+    = button "Nouvelle mission", new_mission_path, type: :success

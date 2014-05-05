@@ -1,6 +1,4 @@
-%h1
-  Mission :
-  = @mission.title
+%h1= @title
 
 -if @mission.youtube?
   %iframe#ytplayer.center-block{:type=>"text/html", :width=>854, :height=>480, :src=>"https://www.youtube.com/embed/#{@mission.youtube}?autoplay=1&hd=1&vq=hd720", :frameborder=>0}
@@ -14,6 +12,6 @@
 %p
   -if user_signed_in? and current_user.has_role?(:admin)
     =button "Code source", @mission.source_code.url, :type=>:primary
-    =button 'modifier', edit_mission_path(@mission), :type=>:success
-    =button 'modifier le programme', mission_program_path(@mission), :type=>:success
-  =button 'Retour', :back
+    =button "modifier", edit_mission_path(@mission), :type=>:success
+    =button "modifier le programme", mission_program_path(@mission), :type=>:success
+  =button "Retour", :back

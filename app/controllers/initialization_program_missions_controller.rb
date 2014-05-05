@@ -30,7 +30,7 @@ class InitializationProgramMissionsController < ApplicationController
                             :source_code=>@mission.source_code)
     authorize_action_for @program
     if @program.save
-      redirect_to @program, notice: 'Program was successfully created.'
+      redirect_to @program, notice: "Le programme à bien été créé"
     else
       redirect_to @mission
     end

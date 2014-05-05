@@ -1,8 +1,9 @@
 %tr
   %td= project.name
-  %td= link_to 'Modifier', project_path(project)
-  %td= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %td= button "Voir", project_path(project), type: :primary
+  %td= button "Supprimer", project, :method => :delete, type: :primary,
+              :data => { :confirm => "Etes vous certain ?" }
   -if user_signed_in? and current_user.has_role?(:admin)
     %td= project.source_code_file_name
     %td= project.user_name
-    %td= link_to "Modifier l'utilisateur", edit_project_path(project)
+    %td= button "Modifier le projet", edit_project_path(project), type: :warning

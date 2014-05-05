@@ -1,5 +1,4 @@
-%h1
-  =@title
+%h1= @title
 
 %table.table.table-striped.table-bordered.table-hover
   %thead
@@ -7,7 +6,7 @@
     %tr
     %tr
       -if user_signed_in? and current_user.has_role?(:admin)
-        %th Source code
+        %th Code source
         %th Utilisateur
         %th
   %tbody
@@ -15,4 +14,4 @@
 
 -if user_signed_in? and current_user.has_role?(:admin)
   %p
-    = link_to 'New project', new_project_path
+    = button "Nouveau projet", new_project_path, type: :success

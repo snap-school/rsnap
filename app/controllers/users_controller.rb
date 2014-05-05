@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to @user, notice: "L'utilisateur a bien été créé."
     else
       @title = "Créer un utilisateur"
       render :new
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: "L'utilisateur a bien été mis à jour."
     else
       @title = "Modifier l'utilisateur : #{@user.name}"
       render :edit
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_url
+    redirect_to users_url, notice: "L'utilisateur a bien été supprimé."
   end
 
   private

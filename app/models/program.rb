@@ -23,15 +23,15 @@ class Program < ActiveRecord::Base
   self.authorizer_name = 'ProgramAuthorizer'
 
   belongs_to :mission
-  delegate :title, :to=>:mission, :prefix=>true
   belongs_to :user
+
+  delegate :title, :to=>:mission, :prefix=>true
   delegate :name, :to=>:user, :prefix=>true
 
   has_attached_file :source_code
-  validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
 
+  validates_attachment :source_code, :presence=>true, :content_type=>{:content_type=>/text/}
   validates :user_id, :mission_id, :presence=>true
-
   validates_uniqueness_of :mission_id, :scope=>:user_id
 
   scope :for_mission, ->(mission){where(:mission_id=>mission)}

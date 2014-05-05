@@ -2,8 +2,9 @@
   %b Mission:
   = @file_mission.mission
 %p
-  %b File:
+  %b Fichier:
   = @file_mission.file
 
-= button 'Edit', edit_file_mission_path(@file_mission), :type=>:success
-= button 'Back', :back
+= button "Editer", edit_file_mission_path(@file_mission), :type=>:success,
+          :class => "tbn btn-primary"
+= button "Retour", :back

@@ -1,5 +1,5 @@
-%h1 Editing file_mission
+%h1= @title
 
 = render 'form', :file_mission=>@file_mission
 
-= link_to 'Show', @file_mission
+= button 'Voir', @file_mission, type: :primary

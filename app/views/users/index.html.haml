@@ -1,10 +1,10 @@
-%h1 Listing users
+%h1= @title
 
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th Firstname
-      %th Lastname
+      %th Prénom
+      %th Nom
       %th Email
       %th
       %th
@@ -12,6 +12,5 @@
   %tbody
     = render @users
 
-%br
-
-= link_to 'New User', new_user_path
+%p
+  = button "Créer un utilisateur", new_user_path, type: :success

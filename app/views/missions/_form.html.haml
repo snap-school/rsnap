@@ -5,6 +5,5 @@
   = f.text_field :youtube
   = f.text_area :small_description, {:class=>:wysiwyg,
     "data-url"=>request.protocol + request.host_with_port + file_missions_path(:format => :json)}
-  = f.file_field :source_code
   = f.number_field :mission_order_position
   = f.actions

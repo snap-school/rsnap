@@ -2,6 +2,9 @@
   %td= user.firstname
   %td= user.lastname
   %td= user.email
-  %td= link_to 'Show', user
-  %td= link_to 'Edit', edit_user_path(user)
-  %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %td= button "Voir", user, type: :primary
+  %td
+    = button "Editer", edit_user_path(user), type: :warning
+  %td
+    = button "Supprimer", user, :method => :delete, type: :danger,
+              :data => { :confirm => "Etes-vous certain ?" }

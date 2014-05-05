@@ -1,4 +1,4 @@
-require 'tempfile'
+require "tempfile"
 
 class MissionProgramsController < ApplicationController
   authorize_actions_for Mission

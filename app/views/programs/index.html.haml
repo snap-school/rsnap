@@ -1,11 +1,11 @@
-%h1 Listing programs
+%h1= @title
 
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
       %th Mission
       -if user_signed_in? and current_user.has_role?(:admin)
-        %th Source code
+        %th Code source
         %th Utilisateur
         %th
         %th
@@ -14,4 +14,4 @@
 
 -if user_signed_in? and current_user.has_role?(:admin)
   %p
-    = link_to 'New Program', new_program_path
+    = button "Nouveau programme", new_program_path, type: :success

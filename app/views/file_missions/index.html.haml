@@ -1,10 +1,10 @@
-%h1 Listing file_missions
+%h1= @title
 
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
       %th Mission
-      %th File
+      %th Fichier
       %th
       %th
       %th
@@ -14,4 +14,4 @@
 
 %br
 
-= link_to 'New File mission', new_file_mission_path
+= button 'Nouveau fichier de mission', new_file_mission_path, type: :success

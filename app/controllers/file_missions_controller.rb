@@ -27,7 +27,7 @@ class FileMissionsController < ApplicationController
     respond_to do |format|
       format.html do
         if @file_mission.save
-          redirect_to @file_mission, notice: 'File mission was successfully created.'
+          redirect_to @file_mission, notice: "Un fichier de mission a bien été crée."
         else
           @title = "Créer un fichier de mission"
           render :new
@@ -45,7 +45,7 @@ class FileMissionsController < ApplicationController
 
   def update
     if @file_mission.update(file_mission_params)
-      redirect_to @file_mission, notice: 'File mission was successfully updated.'
+      redirect_to @file_mission, notice: "Un fichier de mission à bien été mis à jour."
     else
       @title = "Modifier un fichier de mission"
       render :edit

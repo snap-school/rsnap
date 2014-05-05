@@ -1,4 +1,4 @@
-require 'tempfile'
+require "tempfile"
 
 class ProjectsController < ApplicationController
   authorize_actions_for Project
@@ -16,12 +16,20 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @title = "Projet : #{@project.name}"
-    render :layout=>"snap"
+    respond_to do |format|
+      format.html do
+        @title = "Projet : #{@project.name}"
+        render :layout=>"snap"
+      end
+      format.json do
+        render :show
+      end
+    end
   end
 
   def new
     @title = "Créer un projet"
+    render :layout=>"snap"
     @project = Project.new
   end
 
@@ -32,11 +40,17 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     authorize_action_for @project
+    puts "\n\n\nproject tezfre#{@project}\n\n\n"
     if @project.save
-      redirect_to @project, notice: 'Project was successfully created.'
+      puts "\n\n\nproject save#{@project}\n\n\n"
+      respond_to do |format|
+        format.json do
+          puts "\n\n\nproject #{@project}\n\n\n"
+          render :show
+        end
+      end
     else
-      @title = "Créer un projet"
-      render :new
+      render @project.errors.full_messages
     end
   end
 
@@ -46,7 +60,8 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html do
         if @project.save
-          redirect_to @project, notice: 'Project was successfully updated.'
+          render :layout=>"snap"
+          redirect_to @project, notice: "Le projet a bien été mis à jour."
         else
           @title = "Modifier le project : #{@project.name}"
           render :edit
@@ -55,8 +70,6 @@ class ProjectsController < ApplicationController
       format.json do
         if @project.save
           render :show
-        else
-          render :json => { :errors => @project.errors.full_messages }
         end
       end
     end
@@ -64,7 +77,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    redirect_to projects_url
+    redirect_to projects_url, notice: "Le projet a bien été supprimé"
   end
 
   private
@@ -82,6 +95,7 @@ class ProjectsController < ApplicationController
         file.rewind
         p[:source_code] = file
       end
+      p[:user_id] = current_user.id unless p[:user_id]
       p
     end
 end

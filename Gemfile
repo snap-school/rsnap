@@ -4,6 +4,7 @@ gem "bower-rails", "~> 0.7"
 ruby "2.1.0"
 gem "rails", "~> 4.0"
 gem "pg"
+gem "zip"
 
 gem "jbuilder", "~> 2.0"
 

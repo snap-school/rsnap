@@ -21,6 +21,8 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
 
+  delegate :name, :to=>:user, :prefix=>true
+
   has_attached_file :source_code
   validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
 
