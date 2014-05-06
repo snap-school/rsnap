@@ -17,7 +17,7 @@
 
 class Project < ActiveRecord::Base
   include Authority::Abilities
-  self.authorizer_name = 'ProgramAuthorizer'
+  self.authorizer_name = 'ProjectAuthorizer'
 
   belongs_to :user
 
