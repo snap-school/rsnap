@@ -1,14 +1,11 @@
-%p
-  =bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-    .form-group
-      =f.email_field :email, :autofocus => true, :label=>false, :placeholder=>t_attr(:user, :email)
-    .form-group
-      =f.password_field :password, :label=>false, :placeholder=>t_attr(:user, :password)
-    - if devise_mapping.rememberable?
-      .form-group
-        =f.check_box :remember_me
-    =f.actions do
-      = f.submit t_attr(:user, :sign_in)
+=bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  =f.email_field :email, :autofocus => true, :label=>false, :placeholder=>t_attr(:user, :email)
+  =f.password_field :password, :label=>false, :placeholder=>t_attr(:user, :password)
+  - if devise_mapping.rememberable?
+    .checkbox
+      =f.check_box :remember_me
+  =f.actions do
+    = f.submit t_attr(:user, :sign_in)
 
 %p
   =link_to "Créer un nouveau compte", new_registration_path(resource_name)

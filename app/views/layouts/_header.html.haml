@@ -10,8 +10,11 @@
       %ul.nav.navbar-nav
         %li{:class=>resources_active("missions")}
           = link_to "Missions", missions_path
-        %li{:class=>resources_active("project")}
+        %li{:class=>resources_active("projects")}
           = link_to "Projets libres", projects_path
+        -if current_user.try(:has_role?, :admin)
+          %li{:class=>resources_active("programs")}
+            = link_to "Programmes des étudiants", programs_path(all: true)
 
       .nav.navbar-nav.navbar-right
         %li{:class=>actions_active("home", "after_missions_form")}

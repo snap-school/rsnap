@@ -1,7 +1,6 @@
 %tr
-  %td= button program.mission_title, program_path(program)
+  %td= button program.mission_title, program_path(program), type: :primary
   -if user_signed_in? and current_user.has_role?(:admin)
-    %td= program.source_code_file_name
     %td= program.user_name
     %td= button "Edit", edit_program_path(program), type: :warning
     %td= button "Destroy", program, :method => :delete,
