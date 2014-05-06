@@ -2,6 +2,6 @@
   %td= button program.mission_title, program_path(program), type: :primary
   -if user_signed_in? and current_user.has_role?(:admin)
     %td= program.user_name
-    %td= button "Edit", edit_program_path(program), type: :warning
-    %td= button "Destroy", program, :method => :delete,
+    %td= button "Editer", edit_program_path(program), type: :warning
+    %td= button "Supprimer", program, :method => :delete,
                   :data => { :confirm => "Are you sure?" }, type: :danger
