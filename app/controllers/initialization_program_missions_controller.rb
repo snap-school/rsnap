@@ -13,16 +13,6 @@ class InitializationProgramMissionsController < ApplicationController
     end
   end
 
-  def update
-    @program = Program.find(params[:id])
-    if @program
-      @program.source_code = @program.mission.source_code
-      authorize_action_for @program
-      @program.save
-      render :nothing=>true
-    end
-  end
-
   private
   def initialize_new_program
     @program = Program.new( :user_id=>current_user.id,

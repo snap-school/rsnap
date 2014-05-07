@@ -1,6 +1,5 @@
 Feature: Mission Access
-  Student can access missions only in a certain order
-  and after have try previous missions in this order.
+  Student can access missions only in a certain order.
 
   @ok
   Scenario: Access of description of a mission
@@ -10,11 +9,11 @@ Feature: Mission Access
     Then he can see the description of these mission
 
   @ok
-  Scenario: Access on ide to solve a mission
+  Scenario: Access on snap to solve a mission
     Given a user is authenticated
-      And he is on some mission page
+      And he is on some mission description page
     When he visit the realisation of these mission
-    Then he can see the ide
+    Then he can see the snap
       And he can see the begining of these mission
 
   @wip @current

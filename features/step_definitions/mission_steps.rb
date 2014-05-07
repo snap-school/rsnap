@@ -1,6 +1,6 @@
-When(/^he is on the mission page$/) do
+Given(/^he is on some mission description page$/) do
   @mission = FactoryGirl.create(:mission)
-  visit missions_path
+  visit mission_path(@mission)
 end
 
 When(/^he visit a mission$/) do
@@ -14,9 +14,9 @@ Then(/^he can see the description of these mission$/) do
   page.should have_text(@mission.description)
 end
 
-Given(/^he is on some mission page$/) do
+When(/^he is on the mission page$/) do
   @mission = FactoryGirl.create(:mission)
-  visit mission_path(@mission)
+  visit missions_path
 end
 
 When(/^he visit the realisation of these mission$/) do
@@ -24,7 +24,7 @@ When(/^he visit the realisation of these mission$/) do
   visit new_initialization_program_mission_path(:mission_id=>@mission.id)
 end
 
-Then(/^he can see the ide$/) do
+Then(/^he can see the snap$/) do
   page.should have_selector("canvas#world")
 end
 
