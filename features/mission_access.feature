@@ -8,7 +8,7 @@ Feature: Mission Access
     When he visit a mission
     Then he can see the description of these mission
 
-  @ok
+  @ok @presentation
   Scenario: Access on snap to solve a mission
     Given a user is authenticated
       And he is on some mission description page
@@ -16,7 +16,7 @@ Feature: Mission Access
     Then he can see the snap
       And he can see the begining of these mission
 
-  @wip @current
+  @wip
   Scenario: Save a program
     Given a user edit a program
     When he save the modified program
@@ -36,3 +36,11 @@ Feature: Mission Access
     Given a new user is authenticated
     When he is on the mission page
     Then he should see only the first mission
+
+  @presentation @current
+  Scenario: Creation of a new mission
+    Given a professor is authenticated
+      And he is on the mission page
+    When he access to the page for the mission creation
+    Then he can fill in information of the new mission
+      And he can create the program of the mission

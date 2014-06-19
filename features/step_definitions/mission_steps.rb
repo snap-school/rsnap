@@ -29,7 +29,8 @@ Then(/^he can see the snap$/) do
 end
 
 Then(/^he can see the begining of these mission$/) do
-  evaluate_script("typeof world !== 'undefined'")
+  step 'he can see the snap'
+  execute_script("typeof world !== 'undefined'")
 end
 
 Given(/^he have already complet some missions$/) do
@@ -50,4 +51,24 @@ end
 
 Then(/^he should see only the first mission$/) do
   pending # express the regexp above with the code you wish you had
+end
+
+When(/^he access to the page for the mission creation$/) do
+  page.should have_link("", :href=>new_mission_path)
+  visit new_mission_path
+end
+
+Then(/^he can fill in information of the new mission$/) do
+  @mission = FactoryGirl.build(:mission)
+  within "#new_mission" do
+    fill_in "mission_title", with: @mission.title
+    execute_script("$('.wysihtml5-sandbox').contents().find('body').first().html('#{@mission.description}');
+                    $('.wysihtml5-sandbox').contents().find('body').last().html('#{@mission.small_description}')")
+    sleep 5 if @presentation
+    find("input[type=submit]").click
+  end
+end
+
+Then(/^he can create the program of the mission$/) do
+  step 'he can see the begining of these mission'
 end
