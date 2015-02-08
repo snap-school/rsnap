@@ -1,0 +1,23 @@
+%h1= @title
+
+-sort_tag = {}
+-if user_signed_in? and current_user.has_role?(:admin)
+  -sort_tag = {:id=>:sortable}
+
+%table.table.table-striped.table-bordered.table-hover{sort_tag}
+  %thead
+    %tr
+      %th Title
+      %th Description
+      -if user_signed_in? and current_user.has_role?(:admin)
+        %th
+        %th
+        %th
+  %tbody
+    -for mission in @missions
+      = render Mission.where(:id=>mission.id), from_chapter: true, chapter_from: @chapter, disabled: @disabled_from
+
+-if user_signed_in? and current_user.has_role?(:admin)
+  %p
+    = button "Nouvelle mission", new_mission_path, type: :success
+    = button "Ajouter une mission", add_chapter_missions_path(@chapter), type: :success

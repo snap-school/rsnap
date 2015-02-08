@@ -1,0 +1,9 @@
+module ChaptersHelper
+  def chapter_missions_path(chapter)
+    if :id 
+      "/chapter_missions/#{chapter.id}/"
+    else
+      '/chapters/'
+    end
+  end
+end

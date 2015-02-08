@@ -1,0 +1,9 @@
+%tr.item{data: {update_url:"#{sort_mission_path(mission)}", ordered_row: "mission_order"}}
+  %td= mission.position
+  %td= button mission.title, mission, :id=>"show-mission-#{mission.id}", :type=>(mission.is_solved_by?(current_user) ? :primary : :success)
+  %td= raw mission.small_description
+  -if user_signed_in? and current_user.has_role?(:admin)
+    %td= button "Editer", edit_mission_path(mission), type: :primary
+    %td= button "Editer le programme", mission_program_path(mission), type: :warning
+    %td= button "Supprimer", mission, :method => :delete,
+                :data => { :confirm => "Etes-vous certain ?" }, type: :danger

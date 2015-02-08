@@ -7,7 +7,7 @@ class ProgramsController < ApplicationController
 
   def index
     @title = "Programmes"
-    if params[:all]
+    if current_user.has_role(:admin) #if params[:all]s[:all]
       @programs = Program.all
     else
       @programs = Program.for_user(current_user).order_by_missions

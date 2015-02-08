@@ -1,0 +1,30 @@
+class ChapterAuthorizer < ApplicationAuthorizer
+  def self.readable_by?(user)
+    true
+  end
+
+  def self.visible_for(user)
+    if user
+      if user.has_role?(:admin)
+        return Chapter.all
+      end
+      num_solved_chapter = 0
+      for chapter in Chapter.all
+        break if not chapter.is_solved_by?(user)
+        num_solved_chapter = num_solved_chapter + 1
+      end
+      Chapter.limit(num_solved_chapter + 1)
+    else
+      return Chapter.limit(1)
+    end
+  end
+  
+  def updatable_by?(user)
+    modifiable_by?(user)
+  end
+
+  private
+    def modifiable_by?(user)
+      resource.user == user or user.has_role? :admin
+    end
+end

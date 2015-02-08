@@ -1,0 +1,21 @@
+%h1= @title
+
+-sort_tag = {}
+-if user_signed_in? and current_user.has_role?(:admin)
+  -sort_tag = {:id=>:sortable}
+
+%table.table.table-striped.table-bordered.table-hover{sort_tag}
+  %thead
+    %tr
+      %th Title
+      %th Description
+      -if user_signed_in? and current_user.has_role?(:admin)
+        %th
+        %th
+        %th
+  %tbody
+    = render @chapters
+
+-if user_signed_in? and current_user.has_role?(:admin)
+  %p
+    = button "Nouveau chapitre", new_chapter_path, type: :success
