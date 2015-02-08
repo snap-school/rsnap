@@ -23,7 +23,7 @@ class Mission < ActiveRecord::Base
   has_many :programs, :dependent=>:destroy
   has_many :file_missions, :dependent=>:destroy
 
-  has_many :chapter_mission_manifests
+  has_many :chapter_mission_manifests, :dependent=>:destroy
   has_many :chapters, through: :chapter_mission_manifests
 
   has_attached_file :source_code
@@ -49,13 +49,11 @@ class Mission < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
+      return Mission.all if user.has_role?(:admin)
       solved_missions = 0
       last_solved_program = user.programs.order_by_missions.last
       solved_missions = last_solved_program.mission.position if last_solved_program
-      if user.has_role?(:admin)
-        self.limit(Mission.all.count)
-      else
-        self.limit(solved_missions + 1)
+      self.limit(solved_missions + 1)
       end
     else
       self.limit(1)

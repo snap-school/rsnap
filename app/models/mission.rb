@@ -49,14 +49,11 @@ class Mission < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
+      return Mission.all if user.has_role?(:admin)
       solved_missions = 0
       last_solved_program = user.programs.order_by_missions.last
       solved_missions = last_solved_program.mission.position if last_solved_program
-      if user.has_role?(:admin)
-        self.limit(Mission.all.count)
-      else
-        self.limit(solved_missions + 1)
-      end
+      self.limit(solved_missions + 1)
     else
       self.limit(1)
     end

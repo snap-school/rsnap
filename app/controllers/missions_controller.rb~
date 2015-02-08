@@ -5,7 +5,19 @@ class MissionsController < ApplicationController
 
   def index
     @title = "Missions"
-    @missions = Mission.visible_for(current_user)
+    @missions = []
+    @from_chapter = false
+    if params[:id].nil?
+      @missions = Mission.visible_for(current_user)
+    else
+      Mission.all.each do |mission|
+        if ChapterMissionManifest.find_by(:chapter_id=>params[:id], :mission_id=>mission.id).nil?
+          @missions.append(mission)
+        end
+      end
+      @from_chapter = true
+      @chapter_from = Chapter.find_by(:id=>params[:id])
+    end
   end
 
   def show

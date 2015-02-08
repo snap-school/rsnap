@@ -7,6 +7,7 @@
 %table.table.table-striped.table-bordered.table-hover{sort_tag}
   %thead
     %tr
+      %th N°
       %th Title
       %th Description
       -if user_signed_in? and current_user.has_role?(:admin)

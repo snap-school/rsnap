@@ -9,13 +9,23 @@
 #  youtube           :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
+#  chapter_order     :integer          default(0)
 #
 
 class Chapter < ActiveRecord::Base
   include Authority::Abilities
+  self.authorizer_name = 'ChapterAuthorizer'
 
   has_many :chapter_mission_manifests
   has_many :missions, through: :chapter_mission_manifests
+
+  include RankedModel
+  ranks :chapter_order
+  default_scope {rank(:chapter_order)}
+
+  def position(scope=:all)
+    Chapter.send(scope).index(self) + 1
+  end
 
   def self.visible_for(user)
     if user

@@ -1,6 +1,5 @@
 class ChaptersController < ApplicationController
   authorize_actions_for Chapter
-  authorize_actions_for Mission
   before_action :set_chapter, only: [:show, :edit, :update, :destroy, :remove_mission]
   before_filter :authenticate_user!, :except=>[:index, :show]
 
@@ -26,6 +25,7 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.new(chapter_params)
 
     if @chapter.save
+      @chapter.update_attribute :chapter_order_position, :last
       redirect_to chapters_path, notice: "Le chapitre a bien été créé."
     else
       @title = "Créer un chapitre"
@@ -67,7 +67,7 @@ class ChaptersController < ApplicationController
     end
 
     def chapter_params
-      p = params.require(:chapter).permit(:title, :description, :small_description, :youtube_link)
+      p = params.require(:chapter).permit(:title, :description, :small_description, :youtube)
       p
     end
 end

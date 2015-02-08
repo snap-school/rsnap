@@ -37,6 +37,7 @@ class MissionsController < ApplicationController
     @mission = Mission.new(mission_params)
 
     if @mission.save
+      @mission.update_attribute :mission_order_position, :last
       redirect_to mission_program_path(@mission), notice: "La mission a bien été créée."
     else
       @title = "Créer une mission"
