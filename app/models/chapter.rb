@@ -58,6 +58,7 @@ class Chapter < ActiveRecord::Base
   
   def get_disabled_from(user)
     if user
+      return self.missions.count if user.has_role?(:admin)
       solved = 0
       self.missions.each do |mission|
         if mission.is_solved_by?(user)

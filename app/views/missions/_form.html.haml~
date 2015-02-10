@@ -5,5 +5,6 @@
   = f.text_field :youtube
   = f.text_area :small_description, {:class=>:wysiwyg,
     "data-url"=>request.protocol + request.host_with_port + file_missions_path(:format => :json)}
-  = f.number_field :mission_order_position
+  = f.label("Copier le code d'une autre mission?")
+  = f.collection_select(nil, :source_code, Mission.visible_for(current_user), :id, :title, prompt: true)
   = f.actions

@@ -21,7 +21,7 @@ class Chapter < ActiveRecord::Base
 
   include RankedModel
   ranks :chapter_order
-  default_scope {rank(:mission_order)}
+  default_scope {rank(:chapter_order)}
 
   def position(scope=:all)
     Chapter.send(scope).index(self) + 1

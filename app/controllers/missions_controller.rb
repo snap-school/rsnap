@@ -70,9 +70,11 @@ class MissionsController < ApplicationController
 
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
-      unless p[:source_code]
+      if not p[:source_code].eql?("")
+        p[:source_code] = Mission.find_by(:id=>(params[:source_code]).to_i).source_code
+      else
         template = ""
-        File.open("public/default_mission.xml", "r") do |infile|
+        File.open("#{Rails.root}/public/default_mission.xml", "r") do |infile|
           while(line = infile.gets) do
             template << line.gsub("Untitled", p[:title])
           end
