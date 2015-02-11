@@ -8,16 +8,16 @@
       = link_to "RSnap", root_path, :class=>"navbar-brand"
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li{:class=>resources_active("missions")}
-          = link_to "Missions", missions_path
         %li{:class=>resources_active("chapters")}
           = link_to "Chapitres", chapters_path  #(all: true)
+        -if current_user.try(:has_role?,:admin)
+          %li{:class=>resources_active("missions")}
+            = link_to "Missions", missions_path
         %li{:class=>resources_active("projects")}
           = link_to "Projets libres", projects_path
         -if current_user.try(:has_role?, :admin)
           %li{:class=>resources_active("programs")}
-            = link_to "Programmes des étudiants", programs_path  #(all: true)
-
+            = link_to "Programmes des étudiants", programs_path
       .navbar-right
         %ul.nav.navbar-nav
           %li{:class=>actions_active("home", "after_missions_form")}

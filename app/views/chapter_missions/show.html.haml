@@ -14,8 +14,7 @@
         %th
         %th
   %tbody
-    -for mission in @missions
-      = render Mission.where(:id=>mission.id), from_chapter: true, chapter_from: @chapter, disabled: @disabled_from
+    = render @missions, from_chapter: true, chapter_from: @chapter, disabled: @disabled_from
 
 -if user_signed_in? and current_user.has_role?(:admin)
   %p

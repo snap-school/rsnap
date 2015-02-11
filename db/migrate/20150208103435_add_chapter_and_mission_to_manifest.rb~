@@ -1,4 +1,0 @@
-class AddChapterAndMissionToManifest < ActiveRecord::Migration
-  def change
-  end
-end

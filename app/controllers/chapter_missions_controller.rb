@@ -24,10 +24,7 @@ class ChapterMissionsController < ApplicationController
   private
     def set_chapter_missions
       @chapter = Chapter.find_by_id(params[:id])
-      @missions = []
-      ChapterMissionManifest.where(:chapter_id=>@chapter.id).order("order"=>:asc).each do |manif|
-        @missions.append(Mission.find_by(:id=>manif.mission_id))
-      end
+      @missions = Mission.joins(:chapter_mission_manifests).where("chapter_mission_manifests.chapter_id"=>@chapter.id).order("chapter_mission_manifests.order")
       @disabled_from = @chapter.get_disabled_from(current_user)
     end
 end
