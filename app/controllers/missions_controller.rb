@@ -70,8 +70,19 @@ class MissionsController < ApplicationController
 
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
-      if not p[:source_code].eql?("")
-        p[:source_code] = Mission.find_by(:id=>(params[:source_code]).to_i).source_code
+      if not params[:source_code].eql?("")
+        mission = Mission.find_by(:id=>(params[:source_code]).to_i)
+        template = ""
+        File.open("#{Rails.root}/public#{mission.source_code.url.split('/')[0..-2].join('/')}/#{mission.source_code_file_name}", "r") do |infile|
+          while(line = infile.gets) do
+            template << line.gsub(mission.title, p[:title])
+          end
+        end
+        name = [p[:title],".xml"]
+        file = Tempfile.new(name, "#{Rails.root}/tmp")
+        file.write(template)
+        file.rewind
+        p[:source_code] = file
       else
         template = ""
         File.open("#{Rails.root}/public/default_mission.xml", "r") do |infile|

@@ -2,8 +2,8 @@
   %td= chapter.position
   %td= button chapter.title, chapter, :id=>"show-chapter-#{chapter.id}", :type=>(chapter.is_solved_by?(current_user) ? :primary : :success)
   %td= raw chapter.small_description
+  %td= button "Réaliser ce chapitre", chapter_missions_path(chapter), type: :primary
   -if user_signed_in? and current_user.has_role?(:admin)
-    %td= button "Editer", edit_chapter_path(chapter), type: :primary
-    %td= button "Editer les missions", chapter_missions_path(chapter), type: :warning
+    %td= button "Editer", edit_chapter_path(chapter), type: :warning
     %td= button "Supprimer", chapter, :method => :delete,
                 :data => { :confirm => "Etes-vous certain ?" }, type: :danger
