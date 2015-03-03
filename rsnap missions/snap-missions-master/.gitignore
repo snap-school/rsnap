@@ -1,0 +1,8 @@
+# Ignore unneeded files.
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea
+.secret

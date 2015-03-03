@@ -1,4 +1,7 @@
-%canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code.url, "data-role"=>"TEACHER"}
+-if current_user.try(:has_role?, :admin)
+  %canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code.url, "data-role"=>"TEACHER"}
+-if not current_user.try(:has_role?, :admin)
+  %canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code.url, "data-role"=>"STUDENT"}
 
 .modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>mission_path(@program.mission, :modal=>true)}
   .modal-dialog

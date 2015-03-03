@@ -10,7 +10,7 @@ module SnapAssetsHelper
 private
   def snap_translations
     files = list_dir("", "lang-*.js")
-    list_assets(files, :javascript_path)
+    list_assets(files)
   end
 
   def snap_backgrounds
