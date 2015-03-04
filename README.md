@@ -11,11 +11,12 @@ Installation -- Linux only
 ============
 
 * install [postgresql](http://www.postgresql.org/), 
-	* Run "sudo apt-get install postgres-9.3"
+	* Run "wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - & apt-get update & apt-get upgrade"
+	* Run "sudo apt-get install postgresql-9.3"
 	* Run "sudo apt-get install libpq-dev" for dev libraries
 	* Run postgresql ("sudo su - postgres")
 	* Type "psql"
-	* Type "CREATE ROLE <username> SUPERUSER CREATEDB" where <username> is your computer username
+	* Type "CREATE ROLE 'username' SUPERUSER CREATEDB" where 'username' is your computer username
 	* Type "\q" to quit
 	* Type "exit" to quit
 
@@ -29,9 +30,9 @@ Installation -- Linux only
 
 * install and configure [rvm](https://rvm.io/) with ruby
 	* Make sure you already have curl (running "which curl" tells you if you have it. If you don't have it, run sudo apt-get install curl)
-	* Run "\curl -sSL https://get.rvm.io | bash -s stable" to download RVM,
+	* Run "\curl -sSL https://get.rvm.io | bash " to download RVM,
 		* If it fails, use "gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3"
-	* Run "source ~/.rvm/scripts/rvm" or re-open shells
+	* Add the line "source $HOME/.rvm/scripts/rvm" line to the end of ~/.bashrc
 	* Run "rvm install 2.1.1" to install ruby 2.1.1
 	* Run "rvm install rubygems latest" to install rubygems
 	* Run "gem install rails -v '4.1' " to install rails 4.1
