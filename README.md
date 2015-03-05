@@ -38,7 +38,7 @@ Installation -- Linux only
 	* Run "gem install rails -v '4.1' " to install rails 4.1
 	
 * Make sure you have qmake installed.
-	*Run "sudo apt-get install libqt4-dev libqtwebkit-dev libqt5webkit5-dev"
+	* Run "sudo apt-get install libqt4-dev libqtwebkit-dev libqt5webkit5-dev"
 
 * cd to the repository of rsnap
 
