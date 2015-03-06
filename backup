@@ -1,18 +1,19 @@
 #!/bin/bash
-
+DIR=$(pwd)
+echo $DIR
 while true
 do
 	echo "pulling rsnap"
 	git pull
 	echo "cd to app assets"
-	cd /home/rsnap/Dropbox/rsnap/app/assets/javascripts/snap-byob
+	cd $DIR/app/assets/javascripts/snap-byob
 	echo "pulling snap"
 	git pull
 	echo "cd to lib assets"
-	cd /home/rsnap/Dropbox/rsnap/lib/assets/javascripts/snap-byob
+	cd $DIR/lib/assets/javascripts/snap-byob
 	echo "pulling snap"
 	git pull
 	echo "cd back to rsnap"
-	cd /home/rsnap/Dropbox/rsnap/
+	cd $DIR
 	sleep 300
 done
