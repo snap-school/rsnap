@@ -74,10 +74,28 @@ class Chapter < ActiveRecord::Base
     manif = ChapterMissionManifest.new
     manif.mission_id = mission.id
     manif.chapter_id = self.id
-
-
-    manif.order = shift_missions_by_one(self,order)
-
+    rec = ChapterMissionManifest.where(:chapter_id=>self.id).order("order"=> :asc).last
+    curr_max_order = 0
+    if order == 0
+      order = order + 1
+    end
+    if rec.nil?
+      curr_max_order = 0
+    else
+      curr_max_order = rec.order
+    end
+    if order != -1 and curr_max_order > order 
+      i = curr_max_order
+      while i >= order do
+        temp_manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,"order"=> i)
+        temp_manif.order = temp_manif.order+1
+        temp_manif.save
+        i = i - 1
+      end
+      manif.order = order
+    else
+      manif.order = curr_max_order + 1
+    end
     manif.save
   end
   
@@ -94,37 +112,5 @@ class Chapter < ActiveRecord::Base
       end
     end
   end
-
-  private 
-    def get_current_max_order(chapter_id)
-      rec = ChapterMissionManifest.where(:chapter_id=>self.id).order("order"=> :asc).last
-      curr_max_order = 0
-      if order == 0
-        order = order + 1
-      end
-      if rec.nil?
-        curr_max_order = 0
-      else
-        curr_max_order = rec.order
-      end
-      curr_max_order
-    end
-
-    def shift_missions_by_one(shift)
-      curr_max_order = get_current_max_order(self.id)
-
-      if order != -1 and curr_max_order > order 
-        i = curr_max_order
-        while i >= order do
-          temp_manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,"order"=> i)
-          temp_manif.order = temp_manif.order+shift
-          temp_manif.save
-          i = i - 1
-        end
-        return order
-      else
-        return curr_max_order + 1
-      end
-    end
   
 end
