@@ -70,25 +70,38 @@ class MissionsController < ApplicationController
 
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
-      if not params[:source_code].eql?("")
-        mission = Mission.find_by(:id=>(params[:source_code]).to_i)
-        template = create_template_from(mission.title, 
-                                        File.open("#{Rails.root}/public#{mission.source_code.url.split('/')[0..-2].join('/')}/#{mission.source_code_file_name}", "r"),
-                                        p)
-      else
-        template = create_template_from("Untitled", 
-                                        File.open("#{Rails.root}/public/default_mission.xml", "r"),
-                                        p)
-      end
+
+      template = create_template_from_params(p,params)
+
       name = [p[:title],".xml"]
-      file = Tempfile.new(name, "#{Rails.root}/tmp")
-      file.write(template)
-      file.rewind
+
+      file = create_tempfile_from_template(name, template)
+
       p[:source_code] = file
       p
     end
 
-    def create_template_from(title, file_from, p)
+    def create_template_from_params(p, params)
+      if not params[:source_code].eql?("")
+        mission = Mission.find_by(:id=>(params[:source_code]).to_i)
+        template = create_template_from_title_file_params(mission.title, 
+                                                          File.open("#{Rails.root}/public#{mission.source_code.url.split('/')[0..-2].join('/')}/#{mission.source_code_file_name}", "r"),
+                                                          p)
+      else
+        template = create_template_from_title_file_params("Untitled", 
+                                                          File.open("#{Rails.root}/public/default_mission.xml", "r"),
+                                                          p)
+      end
+    end
+
+    def create_tempfile_from_template(name, template)
+      file = Tempfile.new(name, "#{Rails.root}/tmp")
+      file.write(template)
+      file.rewind
+      file
+    end
+
+    def create_template_from_title_file_params(title, file_from, p)
       template = ""
       line = file_from.gets
       while(line) do
