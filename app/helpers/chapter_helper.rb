@@ -18,6 +18,7 @@ module ChapterHelper
     end
   end
   def remove_from_chapter_path(chapter,mission)
-    "/chapters/#{chapter.id}/remove_mission/#{mission.id}"
+    manifest = ChapterMissionManifest.find_by(:chapter_id => chapter.id, :mission_id => mission.id)
+    "/chapter_mission_manifest/#{manifest.id}"
   end
 end

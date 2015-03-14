@@ -17,6 +17,7 @@ class MissionsController < ApplicationController
       end
       @from_chapter = true
       @chapter_from = Chapter.find_by(:id=>params[:id])
+      @disabled_from = @chapter_from.get_disabled_from(current_user)
     end
   end
 

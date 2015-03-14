@@ -1,7 +1,9 @@
 %tr.item{data: {update_url:"#{sort_mission_path(mission)}", ordered_row: "mission_order"}}
   -if not from_chapter
     %td= mission.position
-  %td= button mission.title, mission, :id=>"show-mission-#{mission.id}", :type=>(mission.is_solved_by?(current_user) ? :primary : ((from_chapter and @missions.index(mission)>=disabled) ? :default : :success)), :disabled=>((from_chapter and @missions.index(mission)>=disabled) ? true : false)
+  - button_disabled = ((from_chapter and (@missions.index(mission)>=disabled)) ? true : false)
+  - type = (button_disabled ? :default : (mission.is_solved_by?(current_user) ? :primary : :success))
+  %td= button mission.title, mission, :id=>"show-mission-#{mission.id}", :type=>type, :disabled=>button_disabled
   %td= raw mission.small_description
   -if user_signed_in? and current_user.has_role?(:admin)
     -if not @from_chapter
@@ -11,7 +13,7 @@
         %td= button "Supprimer", mission, :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
       -if from_chapter
-        %td= button "Retirer", remove_from_chapter_path(chapter_from,mission), :method => :post,
+        %td= button "Retirer", remove_from_chapter_path(chapter_from,mission), :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
     -if @from_chapter
-      %td= button "Ajouter", add_chapter_missions_path(@chapter_from, mission), :method => :post, type: :success
+      %td= button "Ajouter", add_chapter_missions_path(chapter_from, mission), :method => :post, type: :success, :data => { :chapter_id => chapter_from.id,  :mission_id => mission.id }

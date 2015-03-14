@@ -52,13 +52,8 @@ class ChaptersController < ApplicationController
   end
 
   def destroy 
-    if not params[:mission_id].nil?
-      Chapter.find_by(:id=>params[:id]).remove_mission(Mission.find_by(:id=>params[:mission_id]))
-      redirect_to "/chapter_missions/#{params[:id]}", notice: "La mission a bien été retirée du chapitre."
-    else
-      @chapter.destroy
-      redirect_to chapters_url, notice: "Le chapitre a bien été supprimé."
-    end
+    @chapter.destroy
+    redirect_to chapters_url, notice: "Le chapitre a bien été supprimé."
   end
 
   private
