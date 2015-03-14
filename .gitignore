@@ -33,5 +33,3 @@ pickle-email-*.html
 # Ignore personnal configfiles
 config/database.yml
 .env
-
-add

@@ -40,9 +40,12 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     authorize_action_for @project
+    puts "\n\n\nproject tezfre#{@project}\n\n\n"
     if @project.save
+      puts "\n\n\nproject save#{@project}\n\n\n"
       respond_to do |format|
         format.json do
+          puts "\n\n\nproject #{@project}\n\n\n"
           render :show
         end
       end

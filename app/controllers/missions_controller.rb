@@ -72,29 +72,30 @@ class MissionsController < ApplicationController
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
       if not params[:source_code].eql?("")
         mission = Mission.find_by(:id=>(params[:source_code]).to_i)
-        template = create_template_from(mission.title, 
-                                        File.open("#{Rails.root}/public#{mission.source_code.url.split('/')[0..-2].join('/')}/#{mission.source_code_file_name}", "r"),
-                                        p)
+        template = ""
+        File.open("#{Rails.root}/public#{mission.source_code.url.split('/')[0..-2].join('/')}/#{mission.source_code_file_name}", "r") do |infile|
+          while(line = infile.gets) do
+            template << line.gsub(mission.title, p[:title])
+          end
+        end
+        name = [p[:title],".xml"]
+        file = Tempfile.new(name, "#{Rails.root}/tmp")
+        file.write(template)
+        file.rewind
+        p[:source_code] = file
       else
-        template = create_template_from("Untitled", 
-                                        File.open("#{Rails.root}/public/default_mission.xml", "r"),
-                                        p)
+        template = ""
+        File.open("#{Rails.root}/public/default_mission.xml", "r") do |infile|
+          while(line = infile.gets) do
+            template << line.gsub("Untitled", p[:title])
+          end
+        end
+        name = [p[:title],".xml"]
+        file = Tempfile.new(name, "#{Rails.root}/tmp")
+        file.write(template)
+        file.rewind
+        p[:source_code] = file
       end
-      name = [p[:title],".xml"]
-      file = Tempfile.new(name, "#{Rails.root}/tmp")
-      file.write(template)
-      file.rewind
-      p[:source_code] = file
       p
-    end
-
-    def create_template_from(title, file_from, p)
-      template = ""
-      line = file_from.gets
-      while(line) do
-        template << line.gsub(title, p[:title])
-        line = file_from.gets
-      end
-      template
     end
 end
