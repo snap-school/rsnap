@@ -71,19 +71,23 @@ class MissionsController < ApplicationController
 
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
+
       template = ""
       project_name = "Unitled"
       file_path = "#{Rails.root}/public/default_mission.xml"
+
       if not params[:source_code].eql?("")
         mission = Mission.find_by(:id=>(params[:source_code]).to_i)
         project_name = mission.title
       end
 
-      File.open(file_path, "r") do |infile|
-        while(line = infile.gets) do
-          template << line.gsub(project_name, p[:title])
-        end
+      template_file = File.open(file_path, "r") 
+      line = template_file.gets
+      while(line) do
+        template << line.gsub(project_name, p[:title])
+        line = template_file.gets
       end
+      
       name = [p[:title],".xml"]
       file = Tempfile.new(name, "#{Rails.root}/tmp")
       file.write(template)
