@@ -79,6 +79,7 @@ class MissionsController < ApplicationController
       if not params[:source_code].eql?("")
         mission = Mission.find_by(:id=>(params[:source_code]).to_i)
         project_name = mission.title
+        file_path = "#{Rails.root}/public#{mission.source_code.url.split('/')[0..-2].join('/')}/#{mission.source_code_file_name}"
       end
 
       template_file = File.open(file_path, "r") 
