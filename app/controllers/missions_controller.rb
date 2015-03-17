@@ -71,32 +71,24 @@ class MissionsController < ApplicationController
 
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
+      template = ""
+      project_name = "Unitled"
+      file_path = "#{Rails.root}/public/default_mission.xml"
       if not params[:source_code].eql?("")
         mission = Mission.find_by(:id=>(params[:source_code]).to_i)
-        template = ""
-        File.open("#{Rails.root}/public#{mission.source_code.url.split('/')[0..-2].join('/')}/#{mission.source_code_file_name}", "r") do |infile|
-          while(line = infile.gets) do
-            template << line.gsub(mission.title, p[:title])
-          end
-        end
-        name = [p[:title],".xml"]
-        file = Tempfile.new(name, "#{Rails.root}/tmp")
-        file.write(template)
-        file.rewind
-        p[:source_code] = file
-      else
-        template = ""
-        File.open("#{Rails.root}/public/default_mission.xml", "r") do |infile|
-          while(line = infile.gets) do
-            template << line.gsub("Untitled", p[:title])
-          end
-        end
-        name = [p[:title],".xml"]
-        file = Tempfile.new(name, "#{Rails.root}/tmp")
-        file.write(template)
-        file.rewind
-        p[:source_code] = file
+        project_name = mission.title
       end
+
+      File.open(file_path, "r") do |infile|
+        while(line = infile.gets) do
+          template << line.gsub(project_name, p[:title])
+        end
+      end
+      name = [p[:title],".xml"]
+      file = Tempfile.new(name, "#{Rails.root}/tmp")
+      file.write(template)
+      file.rewind
+      p[:source_code] = file
       p
     end
 end
