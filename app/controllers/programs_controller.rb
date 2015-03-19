@@ -17,6 +17,15 @@ class ProgramsController < ApplicationController
 
   def show
     @title = "Programme : #{@program.mission_title}"
+
+    next_mission = Mission.next_mission_for(current_user)
+    next_chapter = Chapter.next_chapter_for(current_user)
+    if next_mission == next_chapter.missions.first
+      @next_url = "/chapters/#{next_chapter.id}"
+    else
+      @next_url = "/missions/#{next_mission.id}"
+    end
+
     render :layout=>"snap"
   end
 

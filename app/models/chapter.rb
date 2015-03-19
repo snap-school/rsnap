@@ -55,6 +55,17 @@ class Chapter < ActiveRecord::Base
       false
     end
   end
+
+  def self.next_chapter_for(user)
+    if user
+      Chapter.all.each do |c|
+        if not c.is_solved_by?(user)
+          return c
+        end
+      end
+      return Chapter.first
+    end
+  end
   
   def get_disabled_from(user)
     if user

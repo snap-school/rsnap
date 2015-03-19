@@ -47,6 +47,21 @@ class Mission < ActiveRecord::Base
     end
   end
 
+  def self.next_mission_for(user)
+    if user
+      continue = true
+      Chapter.all.each do |c|
+        c.missions.each do |m|
+          if not m.is_solved_by?(user)
+            return m
+          end
+        end
+      end
+    else
+      return Chapter.first.missions.first
+    end
+  end
+
   def self.visible_for(user)
     if user
       return Mission.all if user.has_role?(:admin)

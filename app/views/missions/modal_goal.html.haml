@@ -1,0 +1,10 @@
+.modal-header
+  %button.close{type: :button, "data-dismiss"=>:modal, "aria-hidden"=>true}
+    &times;
+  %h4.modal-title
+    =@mission.title
+.modal-body
+  =raw @mission.small_description
+.modal-footer
+  %button.btn.btn-default{type: :button, "data-dismiss"=>:modal}
+    Fermer

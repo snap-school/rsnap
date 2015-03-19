@@ -24,6 +24,8 @@ class MissionsController < ApplicationController
   def show
     if params[:modal]
       render :modal_show, :layout=>false
+    elsif params[:goal]
+      render :modal_goal, :layout=>false
     else
       @title = "Mission : #{@mission.title}"
     end
