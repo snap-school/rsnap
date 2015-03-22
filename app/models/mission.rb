@@ -49,17 +49,20 @@ class Mission < ActiveRecord::Base
 
   def self.next_mission_for(user)
     if user
-      Chapter.all.each do |c|
-        c.chapter_mission_manifests do |manif|
-          m = manif.mission
-          if m
-            if not m.is_solved_by?(user)
-              return m
+      if Chapter.last.is_solved_by?(user)
+        return "/home/thanks"
+      else
+        Chapter.all.each do |c|
+          c.chapter_mission_manifests do |manif|
+            m = manif.mission
+            if m
+              if not m.is_solved_by?(user)
+                return m
+              end
             end
           end
         end
       end
-      return "/home/thanks"
     else
       return Chapter.first.missions.first
     end
