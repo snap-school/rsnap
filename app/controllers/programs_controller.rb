@@ -22,10 +22,10 @@ class ProgramsController < ApplicationController
     next_chapter = Chapter.next_chapter_for(current_user)
     if next_mission == next_chapter.missions.first
       @next_url = "/chapters/#{next_chapter.id}"
-    elsif next_mission.is_a?(Mission)
+    elsif next_mission
       @next_url = "/missions/#{next_mission.id}"
     else 
-      @next_url = next_mission
+      @next_url = "/home/thanks"
     end
 
     render :layout=>"snap"
