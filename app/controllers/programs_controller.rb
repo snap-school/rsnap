@@ -22,7 +22,7 @@ class ProgramsController < ApplicationController
     next_chapter = Chapter.next_chapter_for(current_user)
     if next_mission == next_chapter.missions.first
       @next_url = "/chapters/#{next_chapter.id}"
-    elsif next_mission.kind_of? Mission
+    elsif next_mission.is_a?(Mission)
       @next_url = "/missions/#{next_mission.id}"
     else 
       @next_url = next_mission
