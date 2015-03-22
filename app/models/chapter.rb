@@ -45,12 +45,12 @@ class Chapter < ActiveRecord::Base
 
   def is_solved_by?(user)
     if user
-      self.missions.each do |mission|
-        if not mission.is_solved_by?(user)
+      self.missions.each do |m|
+        if not m.is_solved_by?(user)
           return false
         end
       end
-      self.missions.present?
+      return true
     else
       false
     end
@@ -63,6 +63,8 @@ class Chapter < ActiveRecord::Base
           return c
         end
       end
+      return nil
+    else
       return Chapter.first
     end
   end
