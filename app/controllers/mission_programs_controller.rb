@@ -14,7 +14,7 @@ class MissionProgramsController < ApplicationController
     respond_to do |format|
       format.json do
         if @mission.update(mission_params)
-          render "mission/show"
+          render :nothing => true
         end
       end
     end

@@ -35,3 +35,4 @@ pickle-email-*.html
 config/database.yml
 .env
 config/environments/development.rb
+rsnap_development.dump
