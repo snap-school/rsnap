@@ -49,11 +49,13 @@ class Mission < ActiveRecord::Base
 
   def self.next_mission_for(user)
     if user
-      continue = true
       Chapter.all.each do |c|
-        c.missions.each do |m|
-          if not m.is_solved_by?(user)
-            return m
+        c.chapter_mission_manifests do |manif|
+          m = manif.mission
+          if m
+            if not m.is_solved_by?(user)
+              return m
+            end
           end
         end
       end

@@ -1,0 +1,10 @@
+.jumbotron
+  %h1 C'est parti !
+  %p Voici une petite vidéo qui t'expliquera comment fonctionnent les exercices de la plateforme:
+  -welcome_youtube_link = "0pxaFzRtx7k"
+  %iframe#ytplayer.center-block{:type=>"text/html", :width=>854, :height=>480, :src=>"https://www.youtube.com/embed/#{welcome_youtube_link}?autoplay=1&hd=1&vq=hd720", :frameborder=>0}
+
+  
+%p
+  Si tu es prêt, alors :
+  =link_to "Vers les chapitres !", chapters_path, :class=>"btn-lg btn-primary"
