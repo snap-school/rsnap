@@ -29,6 +29,7 @@ Rsnap::Application.routes.draw do
       get :about
       get :after_missions_form
       get :welcome
+      get :thanks
     end
   end
   root :to => "home#index"

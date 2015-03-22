@@ -59,6 +59,7 @@ class Mission < ActiveRecord::Base
           end
         end
       end
+      return thanks_home_index_path
     else
       return Chapter.first.missions.first
     end

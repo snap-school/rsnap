@@ -12,6 +12,10 @@ class HomeController < ApplicationController
   end
 
   def welcome
-    @title = "Bienvenue"
+    @title = "C'est parti !"
+  end
+
+  def thanks
+    @title = "Merci!"
   end
 end
