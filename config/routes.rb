@@ -20,7 +20,9 @@ Rsnap::Application.routes.draw do
   resources :projects
 
   devise_for :users, :path => "auth", :controllers => { :registrations => "registrations" }
-  resources :users
+  resources :users do
+    resources :programs, only: [:index]
+  end
 
   resources :snap_assets, :only=>:index
 

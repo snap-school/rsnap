@@ -8,7 +8,11 @@ class ProgramsController < ApplicationController
   def index
     @title = "Programmes"
     if current_user.has_role(:admin) #if params[:all]s[:all]
-      @programs = Program.all
+      if params[:user_id]
+        @programs = Program.where(:user_id => params[:user_id])
+      else
+        @programs = Program.all
+      end
     else
       @programs = Program.for_user(current_user).order_by_missions
     end

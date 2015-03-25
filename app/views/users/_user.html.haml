@@ -3,6 +3,7 @@
   %td= user.lastname
   %td= user.email
   %td= button "Voir", user, type: :primary
+  %td= button "Voir les programes", user_programs_path(user), type: :primary
   %td
     = button "Editer", edit_user_path(user), type: :warning
   %td

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @title = "Utilisateurs"
-    @users = User.all
+    @users = User.all.order(:id)
     @users.each {|u| authorize_action_for u}
   end
 

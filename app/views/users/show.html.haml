@@ -15,7 +15,9 @@
     =t_attr(:user, :email)
     \ :
   = @user.email
-%p
+
+%p 
+  = button "Voir les programmes", user_programs_path(@user), :type=>:success
   = button "Editer", edit_user_path(@user), :type=>:success
   = button "Retour", :back
 %p
