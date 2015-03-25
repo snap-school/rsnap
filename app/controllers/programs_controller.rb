@@ -20,10 +20,9 @@ class ProgramsController < ApplicationController
 
     next_mission = Mission.next_mission_for(current_user)
     next_chapter = Chapter.next_chapter_for(current_user)
-
     if next_chapter.nil?
       @next_url = "/home/thanks"
-    elsif next_mission == next_chapter.missions.first
+    elsif next_mission == next_chapter.chapter_mission_manifests.first.mission
       @next_url = "/chapters/#{next_chapter.id}"
     elsif next_mission
       @next_url = "/missions/#{next_mission.id}"
