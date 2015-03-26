@@ -15,7 +15,7 @@ class ChapterMissionsController < ApplicationController
     respond_to do |format|
       format.json do
         if @chapter.update(mission_params)
-          render "chapter/show"
+          render @chapter
         end
       end
     end
