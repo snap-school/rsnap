@@ -1,11 +1,19 @@
 Rsnap::Application.routes.draw do
-  resources :chapters
+
+  # post from Snap saying the mission has been accomplished and destroy from programs list
+  resources :solved_missions, :only=>[:create,:destroy] 
+
+  resources :chapters do
+    # showing (index) and adding (post - create) missions of/to a chapter
+    resources :missions, :only=>[:index, :create], :controller => :chapter_missions, path_names: {create: 'add_mission'}
+
+    # showing list of missions that can be added to the chapter
+    resources :missions, :only=>[:new], path_names: {new: 'add_mission'}, :controller => :missions
+  end
+
   resources :sort_chapters, :only=>:update
 
-  post '/chapter_missions/:chapter_id/add_mission/:mission_id', to:'chapter_mission_manifest#create'
-  get '/chapter_missions/:id/add_mission/', to:'missions#index'
-
-  resources :chapter_missions, :only=>[:show,:update,:index,:destroy]
+  # destroying a chapter_mission_manifest = removing a mission from a chapter
   resources :chapter_mission_manifest, :only => [:destroy]
 
   resources :programs

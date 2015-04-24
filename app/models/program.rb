@@ -38,6 +38,14 @@ class Program < ActiveRecord::Base
   scope :for_user, ->(user){where(:user_id=>user)}
   scope :order_by_missions, ->{includes(:mission).order("missions.mission_order ASC")}
 
+  def solved_mission
+    return SolvedMission.find_by(:mission_id=>self.mission_id,:user_id=>self.user_id)
+  end
+
+  def has_solved_mission?()
+    return self.mission.is_solved_by?(self.user)
+  end
+
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first
   end

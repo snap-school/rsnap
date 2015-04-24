@@ -1,6 +1,18 @@
 %tr
-  %td= button program.mission_title, program_path(program), type: :primary
+  -if program.has_solved_mission?
+    -type = :success
+  -else
+    -type = :primary
+  %td= button program.mission_title, program_path(program), type: type
   -if user_signed_in? and current_user.has_role?(:admin)
-    %td= program.user_name
+    %td= "#{program.user_name} (#{program.user.email})"
+    -if program.has_solved_mission?
+      - type = :danger
+      - disabled = false
+    -else
+      - type = :default
+      - disabled = true
+    %td= button "Invalider", program.solved_mission, :method => :delete,
+                  :data => { :confirm => "En êtes-vous sûr?" }, type: type, disabled: disabled
     %td= button "Supprimer", program, :method => :delete,
-                  :data => { :confirm => "Are you sure?" }, type: :danger
+                  :data => { :confirm => "En êtes-vous sûr?" }, type: :danger

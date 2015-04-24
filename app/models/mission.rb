@@ -41,40 +41,38 @@ class Mission < ActiveRecord::Base
 
   def is_solved_by?(user)
     if user
-      programs.where(:user=>user).present?
+      SolvedMission.where(:user_id=>user.id,:mission_id=>self.id).present?
     else
       false
     end
   end
 
+  def self.ordered_using_chapters()
+    missions = []
+    Chapter.all.each do |c|
+      missions += c.ordered_missions
+    end
+    missions
+  end
+
   def self.next_mission_for(user)
     if user
-      chapter = Chapter.next_chapter_for(user)
-      if not chapter
-        return nil
-      else
-        chapter.chapter_mission_manifests.each do |manif|
-          m = manif.mission
-          if m
-            if not m.is_solved_by?(user)
-              return m
-            end
-          end
+      stop = false
+      Mission.ordered_using_chapters.each do |m|
+      	if not m.is_solved_by?(user)
+      	  return m
         end
       end
       return nil
     else
-      return Chapter.first.chapter_mission_manifests.first.mission
+      return Chapter.first.chapter_mission_manifests.order(:order).first.mission
     end
   end
 
   def self.visible_for(user)
     if user
       return Mission.all if user.has_role?(:admin)
-      solved_missions = 0
-      last_solved_program = user.programs.order_by_missions.last
-      solved_missions = last_solved_program.mission.position if last_solved_program
-      self.limit(solved_missions + 1)
+      return self.limit(1)
     else
       self.limit(1)
     end

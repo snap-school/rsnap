@@ -9,9 +9,12 @@ class ProgramsController < ApplicationController
     @title = "Programmes"
     if current_user.has_role(:admin) #if params[:all]s[:all]
       if params[:user_id]
-        @programs = Program.where(:user_id => params[:user_id])
+        @programs = []
+        Mission.ordered_using_chapters().each do |m|
+          @programs.append(Program.find_by(:user_id => params[:user_id], :mission_id => m.id)) if not Program.find_by(:user_id => params[:user_id], :mission_id => m.id).nil?
+        end
       else
-        @programs = Program.all
+        @programs = Program.all.order_by_missions
       end
     else
       @programs = Program.for_user(current_user).order_by_missions
@@ -21,16 +24,6 @@ class ProgramsController < ApplicationController
 
   def show
     @title = "Programme : #{@program.mission_title}"
-
-    next_mission = Mission.next_mission_for(current_user)
-    next_chapter = Chapter.next_chapter_for(current_user)
-    if next_chapter.nil?
-      @next_url = "/home/thanks"
-    elsif next_mission == next_chapter.chapter_mission_manifests.first.mission
-      @next_url = "/chapters/#{next_chapter.id}"
-    elsif next_mission
-      @next_url = "/missions/#{next_mission.id}"
-    end
 
     render :layout=>"snap"
   end
@@ -76,6 +69,8 @@ class ProgramsController < ApplicationController
   end
 
   def destroy
+    m = SolvedMission.where(:mission_id=>@program.mission_id,:user_id=>current_user.id).first
+    m.destroy if not m.nil?
     @program.destroy
     redirect_to programs_url, notice: "Le programme a bien été supprimé."
   end

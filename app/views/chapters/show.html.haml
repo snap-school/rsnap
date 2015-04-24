@@ -12,5 +12,5 @@
 %p
   -if current_user.try(:has_role?, :admin)
     =button "modifier", edit_chapter_path(@chapter), :type=>:success
-    =button "ajouter une mission", add_chapter_missions_path(@chapter), :type=>:success
+    =button "ajouter une mission", new_chapter_mission_path(@chapter), :type=>:success
   =button "Retour", :back

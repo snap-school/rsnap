@@ -7,6 +7,7 @@
       -if user_signed_in? and current_user.has_role?(:admin)
         %th Utilisateur
         %th
+        %th
   %tbody
     = render @programs
 

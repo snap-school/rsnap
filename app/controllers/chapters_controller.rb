@@ -38,16 +38,11 @@ class ChaptersController < ApplicationController
   end
 
   def update
-    if params[:mission_id]
-      @chapter.add_mission(Mission.find_by(:id=>params[:mission_id]))
-      redirect_to "/chapter_missions/#{@chapter.id}", notice: "La mission a bien été ajoutée."
+    if @chapter.update(chapter_params)
+      redirect_to @chapter, notice: "Le chapitre a bien été mis à jour."
     else
-      if @chapter.update(chapter_params)
-        redirect_to @chapter, notice: "Le chapitre a bien été mis à jour."
-      else
-        @title = "Modifier le chapitre : #{@chapter.title}"
-        render :edit
-      end
+      @title = "Modifier le chapitre : #{@chapter.title}"
+      render :edit
     end
   end
 

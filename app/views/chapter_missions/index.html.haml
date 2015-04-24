@@ -17,4 +17,4 @@
 -if user_signed_in? and current_user.has_role?(:admin)
   %p
     = button "Nouvelle mission", new_mission_path, type: :success
-    = button "Ajouter une mission", add_chapter_missions_path(@chapter), type: :success
+    = button "Ajouter une mission", new_chapter_mission_path(@chapter), type: :success

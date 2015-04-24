@@ -27,22 +27,6 @@ class Chapter < ActiveRecord::Base
     Chapter.send(scope).index(self) + 1
   end
 
-  def self.visible_for(user)
-    if user
-      if user.has_role?(:admin)
-        return Chapter.all
-      end
-      num_solved_chapter = 0
-      Chapter.all.each do |chapter|
-        break if not chapter.is_solved_by?(user)
-        num_solved_chapter = num_solved_chapter + 1
-      end
-      Chapter.limit(num_solved_chapter + 1)
-    else
-      return Chapter.limit(1)
-    end
-  end
-
   def is_solved_by?(user)
     if user
       self.missions.each do |m|
@@ -56,22 +40,17 @@ class Chapter < ActiveRecord::Base
     end
   end
 
-  def self.next_chapter_for(user)
-    if user
-      Chapter.all.each do |c|
-        if not c.is_solved_by?(user)
-          return c
-        end
-      end
-      return nil
-    else
-      return Chapter.first
+  def ordered_missions
+    missions = []
+    self.chapter_mission_manifests.order(:order).each do |man|
+      missions.append(man.mission)
     end
+    return missions
   end
   
   def get_disabled_from(user)
     if user
-      return self.missions.count if user.has_role?(:admin)
+      return Mission.all.count if user.has_role?(:admin)
       solved = 0
       self.missions.each do |mission|
         if mission.is_solved_by?(user)
@@ -125,5 +104,50 @@ class Chapter < ActiveRecord::Base
       end
     end
   end
-  
+
+  def get_manifest_for_mission(mission)
+    return ChapterMissionManifest.find_by(:chapter_id=>self.id,:mission_id=>mission.id)
+  end
+
+  def self.visible_for(user)
+    if user
+      if user.has_role?(:admin)
+        return Chapter.all
+      end
+      num_solved_chapter = 0
+      Chapter.all.each do |chapter|
+        break if not chapter.is_solved_by?(user)
+        num_solved_chapter = num_solved_chapter + 1
+      end
+      Chapter.limit(num_solved_chapter + 1)
+    else
+      return Chapter.limit(1)
+    end
+  end
+
+  def self.next_chapter_for(user)
+    if user
+      Chapter.all.each do |c|
+        if not c.is_solved_by?(user)
+          return c
+        end
+      end
+      return nil
+    else
+      return Chapter.first
+    end
+  end
+
+  def self.next_exercice_url_for(current_user)
+    next_mission = Mission.next_mission_for(current_user)
+    next_chapter = Chapter.next_chapter_for(current_user)
+    if next_chapter.nil? && next_mission.nil?
+      @next_url = "/home/thanks"
+    elsif !next_chapter.nil? && next_mission == next_chapter.chapter_mission_manifests.first.mission
+      @next_url = "/chapters/#{next_chapter.id}"
+    elsif next_mission
+      @next_url = "/missions/#{next_mission.id}"
+    end
+    return @next_url
+  end
 end

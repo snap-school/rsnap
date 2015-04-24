@@ -13,7 +13,11 @@
         %td= button "Supprimer", mission, :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
       -if from_chapter
-        %td= button "Retirer", remove_from_chapter_path(chapter_from,mission), :method => :delete,
+        %td= button "Retirer", chapter_mission_manifest_path(chapter_from.get_manifest_for_mission(mission)), :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
     -if @from_chapter
-      %td= button "Ajouter", add_chapter_missions_path(chapter_from, mission), :method => :post, type: :success, :data => { :chapter_id => chapter_from.id,  :mission_id => mission.id }
+      %td
+        = form_tag(chapter_missions_path) do
+          =hidden_field_tag :chapter_id, chapter_from.id
+          =hidden_field_tag :mission_id, mission.id
+          %button.btn.btn-primary Ajouter

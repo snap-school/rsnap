@@ -7,18 +7,7 @@ class MissionsController < ApplicationController
     @title = "Missions"
     @missions = []
     @from_chapter = false
-    if params[:id].nil?
-      @missions = Mission.visible_for(current_user)
-    else
-      Mission.all.each do |mission|
-        if ChapterMissionManifest.find_by(:chapter_id=>params[:id], :mission_id=>mission.id).nil?
-          @missions.append(mission)
-        end
-      end
-      @from_chapter = true
-      @chapter_from = Chapter.find_by(:id=>params[:id])
-      @disabled_from = @chapter_from.get_disabled_from(current_user)
-    end
+    @missions = Mission.visible_for(current_user)
   end
 
   def show
@@ -32,8 +21,25 @@ class MissionsController < ApplicationController
   end
 
   def new
-    @title = "Créer une mission"
-    @mission = Mission.new
+
+    @title = "Missions"
+    @missions = []
+    @from_chapter = false
+    if params[:chapter_id].nil?
+      @title = "Créer une mission"
+      @mission = Mission.new
+      render :new
+    else
+      Mission.all.each do |mission|
+        if ChapterMissionManifest.find_by(:chapter_id=>params[:chapter_id], :mission_id=>mission.id).nil?
+          @missions.append(mission)
+        end
+      end
+      @from_chapter = true
+      @chapter_from = Chapter.find_by(:id=>params[:chapter_id])
+      @disabled_from = @chapter_from.get_disabled_from(current_user)
+      render :index
+    end
   end
 
   def create

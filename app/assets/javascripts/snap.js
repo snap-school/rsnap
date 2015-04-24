@@ -5,7 +5,6 @@ window.addLoadEvent(function () {
   var ds = document.querySelector('#world').dataset;
 
   world.role = ds.role;
-  world.nextExerciceURL = ds.next_url;
   world.isDevMode = false;
 
   ide = new IDE_Morph();
