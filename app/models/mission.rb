@@ -41,11 +41,7 @@ class Mission < ActiveRecord::Base
   end
 
   def self.ordered_using_chapters()
-    missions = []
-    Chapter.all.each do |c|
-      missions += c.ordered_missions
-    end
-    missions
+    Mission.all.joins(:chapter_mission_manifests).joins(:chapters).order("chapters.chapter_order").order("chapter_mission_manifests.order ASC")
   end
 
   def self.next_mission_for(user)

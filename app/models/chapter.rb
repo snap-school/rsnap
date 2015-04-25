@@ -41,11 +41,7 @@ class Chapter < ActiveRecord::Base
   end
 
   def ordered_missions
-    missions = []
-    self.chapter_mission_manifests.order(:order).each do |man|
-      missions.append(man.mission)
-    end
-    return missions
+    return Mission.all.joins(:chapter_mission_manifests).where("chapter_mission_manifests.chapter_id = ?",self.id).order("chapter_mission_manifests.order ASC")
   end
   
   def get_disabled_from(user)
