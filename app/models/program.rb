@@ -37,7 +37,6 @@ class Program < ActiveRecord::Base
 
   scope :for_mission, ->(mission){where(:mission_id=>mission)}
   scope :for_user, ->(user){where(:user_id=>user)}
-  scope :order_by_missions, ->{includes(:mission).order("missions.mission_order ASC")}
 
   def solved_mission
     return SolvedMission.find_by(:mission_id=>self.mission_id,:user_id=>self.user_id)

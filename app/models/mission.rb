@@ -11,10 +11,9 @@
 #  source_code_updated_at   :datetime
 #  created_at               :datetime
 #  updated_at               :datetime
-#  mission_order            :integer          default(0)
 #  small_description        :text
 #  youtube                  :string(255)
-#  needs_check              :boolean
+#  needs_check              :boolean          default(FALSE)
 #
 
 class Mission < ActiveRecord::Base
@@ -32,13 +31,6 @@ class Mission < ActiveRecord::Base
   validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
   validates :title, :description, :small_description, :presence=>true
 
-  include RankedModel
-  ranks :mission_order
-  default_scope {rank(:mission_order)}
-
-  def position(scope=:all)
-    Mission.send(scope).index(self) + 1
-  end
 
   def is_solved_by?(user)
     if user
@@ -72,7 +64,7 @@ class Mission < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
-      return Mission.all if user.has_role?(:admin)
+      return Mission.ordered_using_chapters if user.has_role?(:admin)
       return self.limit(1)
     else
       self.limit(1)

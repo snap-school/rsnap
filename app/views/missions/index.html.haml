@@ -1,13 +1,8 @@
 %h1= @title
 
--sort_tag = {}
--if user_signed_in? and current_user.has_role?(:admin) and not @from_chapter
-  -sort_tag = {:id=>:sortable}
-
-%table.table.table-striped.table-bordered.table-hover{sort_tag}
+%table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th N°
       %th Title
       %th Description
       -if user_signed_in? and current_user.has_role?(:admin)

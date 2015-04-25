@@ -1,6 +1,4 @@
-%tr.item{data: {update_url:"#{sort_mission_path(mission)}", ordered_row: "mission_order"}}
-  -if not from_chapter
-    %td= mission.position
+%tr.item
   - button_disabled = ((from_chapter and (@missions.index(mission)>=disabled)) ? true : false)
   - type = (button_disabled ? :default : (mission.is_solved_by?(current_user) ? :primary : :success))
   %td= button mission.title, mission, :id=>"show-mission-#{mission.id}", :type=>type, :disabled=>button_disabled

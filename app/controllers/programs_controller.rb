@@ -14,10 +14,10 @@ class ProgramsController < ApplicationController
           @programs.append(Program.find_by(:user_id => params[:user_id], :mission_id => m.id)) if not Program.find_by(:user_id => params[:user_id], :mission_id => m.id).nil?
         end
       else
-        @programs = Program.all.order_by_missions
+        @programs = Program.all
       end
     else
-      @programs = Program.for_user(current_user).order_by_missions
+      @programs = Program.for_user(current_user)
     end
     @programs.each {|p| authorize_action_for p}
   end

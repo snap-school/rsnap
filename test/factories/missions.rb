@@ -11,10 +11,9 @@
 #  source_code_updated_at   :datetime
 #  created_at               :datetime
 #  updated_at               :datetime
-#  mission_order            :integer          default(0)
 #  small_description        :text
 #  youtube                  :string(255)
-#  needs_check              :boolean
+#  needs_check              :boolean          default(FALSE)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
