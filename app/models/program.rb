@@ -27,6 +27,7 @@ class Program < ActiveRecord::Base
 
   delegate :title, :to=>:mission, :prefix=>true
   delegate :name, :to=>:user, :prefix=>true
+  delegate :needs_check, :to=>:mission, :prefix=>true
 
   has_attached_file :source_code
 

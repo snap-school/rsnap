@@ -5,6 +5,8 @@
   = f.text_field :youtube
   = f.text_area :small_description, {:class=>:wysiwyg,
     "data-url"=>request.protocol + request.host_with_port + file_missions_path(:format => :json)}
+  = f.label "La mission doit être vérifiée par le professeur?", :class => "label inline"
+  = f.check_box :needs_check, :class => "checkbox", :label=>"La mission doit être vérifiée par le professeur?"
   = f.label("Copier le code d'une autre mission?")
   = collection_select(nil, :source_code, Mission.visible_for(current_user), :id, :title, prompt: true, :selected => @mission.id)
   = f.actions

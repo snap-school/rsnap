@@ -24,7 +24,6 @@ class ProgramsController < ApplicationController
 
   def show
     @title = "Programme : #{@program.mission_title}"
-
     render :layout=>"snap"
   end
 

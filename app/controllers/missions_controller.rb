@@ -78,7 +78,7 @@ class MissionsController < ApplicationController
     end
 
     def mission_params
-      p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
+      p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube, :needs_check)
 
       template = ""
       project_name = "Unitled"

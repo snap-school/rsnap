@@ -14,6 +14,7 @@
 #  mission_order            :integer          default(0)
 #  small_description        :text
 #  youtube                  :string(255)
+#  needs_check              :boolean
 #
 
 class Mission < ActiveRecord::Base

@@ -1,13 +1,6 @@
 -if current_user.try(:has_role?, :admin)
-  %canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@project.source_code.url, "data-role"=>"TEACHER"}
--if not current_user.try(:has_role?, :admin)
-  %canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@project.source_code.url, "data-role"=>"STUDENT"}
+  - role = "TEACHER"
+-else
+  - role = "STUDENT"
 
-.modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>false}
-  .modal-dialog
-    .modal-content
-      .modal-body
-        Chargement...
-      .modal-footer
-        %button.btn.btn-default{type: :button, "data-dismiss"=>:modal}
-          Fermer
+%canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@project.source_code.url, "data-role"=>role}
