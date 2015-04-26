@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.for_user(current_user)
     end
-    @projects.each {|p| authorize_action_for p}
+    @projects.find_each {|p| authorize_action_for p}
   end
 
   def show

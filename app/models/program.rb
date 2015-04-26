@@ -38,6 +38,8 @@ class Program < ActiveRecord::Base
   scope :for_mission, ->(mission){where(:mission_id=>mission)}
   scope :for_user, ->(user){where(:user_id=>user)}
 
+  before_destroy { |record| SolvedMission.destroy_all "user_id = #{record.user_id} and mission_id = #{record.mission_id}" }
+
   def solved_mission
     return SolvedMission.find_by(:mission_id=>self.mission_id,:user_id=>self.user_id)
   end

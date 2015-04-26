@@ -29,7 +29,7 @@ class Chapter < ActiveRecord::Base
 
   def is_solved_by?(user)
     if user
-      self.missions.each do |m|
+      self.missions.find_each do |m|
         if not m.is_solved_by?(user)
           return false
         end
@@ -48,7 +48,7 @@ class Chapter < ActiveRecord::Base
     if user
       return Mission.all.count if user.has_role?(:admin)
       solved = 0
-      self.missions.each do |mission|
+      self.missions.find_each do |mission|
         if mission.is_solved_by?(user)
           solved = solved + 1
         end
@@ -111,7 +111,7 @@ class Chapter < ActiveRecord::Base
         return Chapter.all
       end
       num_solved_chapter = 0
-      Chapter.all.each do |chapter|
+      Chapter.find_each do |chapter|
         break if not chapter.is_solved_by?(user)
         num_solved_chapter = num_solved_chapter + 1
       end
@@ -123,7 +123,7 @@ class Chapter < ActiveRecord::Base
 
   def self.next_chapter_for(user)
     if user
-      Chapter.all.each do |c|
+      Chapter.find_each do |c|
         if not c.is_solved_by?(user)
           return c
         end

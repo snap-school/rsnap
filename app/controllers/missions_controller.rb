@@ -30,7 +30,7 @@ class MissionsController < ApplicationController
       @mission = Mission.new
       render :new
     else
-      Mission.all.each do |mission|
+      Mission.find_each do |mission|
         if ChapterMissionManifest.find_by(:chapter_id=>params[:chapter_id], :mission_id=>mission.id).nil?
           @missions.append(mission)
         end

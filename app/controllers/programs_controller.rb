@@ -10,7 +10,7 @@ class ProgramsController < ApplicationController
     if current_user.has_role(:admin) #if params[:all]s[:all]
       if params[:user_id]
         @programs = []
-        Mission.ordered_using_chapters().each do |m|
+        Mission.ordered_using_chapters().find_each do |m|
           @programs.append(Program.find_by(:user_id => params[:user_id], :mission_id => m.id)) if not Program.find_by(:user_id => params[:user_id], :mission_id => m.id).nil?
         end
       else
@@ -19,7 +19,7 @@ class ProgramsController < ApplicationController
     else
       @programs = Program.for_user(current_user)
     end
-    @programs.each {|p| authorize_action_for p}
+    @programs.find_each {|p| authorize_action_for p}
   end
 
   def show

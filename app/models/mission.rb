@@ -43,7 +43,7 @@ class Mission < ActiveRecord::Base
   def self.ordered_using_chapters(all=false)
     ordered_missions = Mission.all.joins(:chapter_mission_manifests).joins(:chapters).order("chapters.chapter_order").order("chapter_mission_manifests.order ASC")
     if(all)
-      Mission.all.each do |m|
+      Mission.find_each do |m|
         if not ordered_missions.include? m
           ordered_missions.append(m)
         end
@@ -58,7 +58,7 @@ class Mission < ActiveRecord::Base
   def self.next_mission_for(user)
     if user
       stop = false
-      Mission.ordered_using_chapters.each do |m|
+      Mission.ordered_using_chapters.find_each do |m|
         if not m.is_solved_by?(user)
           return m
         end
