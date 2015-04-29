@@ -94,7 +94,7 @@ class Chapter < ActiveRecord::Base
     rec = ChapterMissionManifest.where(:chapter_id=>self.id).order("order"=> :asc).last
     if not rec.nil?
       ((order+1)..(rec.order)).each do |i|
-        manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,"order"=> i)
+        manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,:order=>i)
         manif.order = manif.order-1
         manif.save
       end
