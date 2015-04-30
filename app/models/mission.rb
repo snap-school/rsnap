@@ -32,9 +32,30 @@ class Mission < ActiveRecord::Base
   validates :title, :description, :small_description, :presence=>true
 
 
+
+
   def is_solved_by?(user)
     if user
-      SolvedMission.where(:user_id=>user.id,:mission_id=>self.id).present?
+      program = Program.for_mission_for_user(self,user)
+      return program.present? && program.solved_mission?
+    else
+      false
+    end
+  end
+
+  def is_in_correction_for?(user)
+    if user
+      program = Program.for_mission_for_user(self,user)
+      return program.present? && program.is_in_correction?
+    else
+      false
+    end
+  end
+
+  def is_corrected_for?(user)
+    if user
+      program = Program.for_mission_for_user(self,user)
+      return program.present? && program.is_corrected?
     else
       false
     end

@@ -1,6 +1,6 @@
 %tr.item
   - button_disabled = ((from_chapter and (@missions.index(mission)>=disabled)) ? true : false)
-  - type = (button_disabled ? :default : (mission.is_solved_by?(current_user) ? :primary : :success))
+  - type = (button_disabled ? :default : (mission.is_solved_by?(current_user) ? :success : (mission.is_in_correction_for?(current_user) ? :warning : (mission.is_corrected_for?(current_user) ? :danger : :primary))))
   %td= button mission.title, mission, :id=>"show-mission-#{mission.id}", :type=>type, :disabled=>button_disabled
   %td= raw mission.small_description
   -if user_signed_in? and current_user.has_role?(:admin)

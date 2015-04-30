@@ -68,8 +68,6 @@ class ProgramsController < ApplicationController
   end
 
   def destroy
-    m = SolvedMission.where(:mission_id=>@program.mission_id,:user_id=>current_user.id).first
-    m.destroy if not m.nil?
     @program.destroy
     redirect_to programs_url, notice: "Le programme a bien été supprimé."
   end
@@ -81,7 +79,7 @@ class ProgramsController < ApplicationController
     end
 
     def program_params
-      p = params.require(:program).permit(:source_code, :user_id, :mission_id)
+      p = params.require(:program).permit(:source_code, :user_id, :mission_id, :state)
       if p[:source_code].instance_of?(String)
         name = ["program-#{p[:user_id]}-#{p[:mission_id]}",".xml"] #TODO user and mission id not present
         file = Tempfile.new(name, "#{Rails.root}/tmp")

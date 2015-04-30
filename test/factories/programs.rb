@@ -11,6 +11,7 @@
 #  updated_at               :datetime
 #  user_id                  :integer
 #  mission_id               :integer
+#  state                    :integer          default(0)
 #
 # Indexes
 #

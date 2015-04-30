@@ -3,7 +3,7 @@
 -else
   - role = "STUDENT"
 
-%canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code.url, "data-needs_check"=>@program.mission_needs_check, "data-role"=>role}
+%canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code.url, "data-needs_check"=>(@program.mission_needs_check&&!@program.solved_mission?), "data-role"=>role}
 
 .modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>mission_path(@program.mission, :modal=>true)}
   .modal-dialog

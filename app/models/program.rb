@@ -11,6 +11,7 @@
 #  updated_at               :datetime
 #  user_id                  :integer
 #  mission_id               :integer
+#  state                    :integer          default(0)
 #
 # Indexes
 #
@@ -38,16 +39,27 @@ class Program < ActiveRecord::Base
   scope :for_mission, ->(mission){where(:mission_id=>mission)}
   scope :for_user, ->(user){where(:user_id=>user)}
 
-  before_destroy { |record| SolvedMission.destroy_all "user_id = #{record.user_id} and mission_id = #{record.mission_id}" }
+  State_to_be_done = 0
+  State_to_be_corrected = 1
+  State_corrected = 2
+  State_solved = 3
 
-  def solved_mission
-    return SolvedMission.find_by(:mission_id=>self.mission_id,:user_id=>self.user_id)
+  def has_to_be_done?
+    return self.state == State_to_be_done
   end
 
-  def has_solved_mission?()
-    return self.mission.is_solved_by?(self.user)
+  def is_in_correction?
+    return self.state == State_to_be_corrected
   end
 
+  def is_corrected?
+    return self.state == State_corrected
+  end
+
+  def solved_mission?
+    return self.state == State_solved
+  end
+  
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first
   end

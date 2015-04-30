@@ -6,6 +6,23 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   after_filter :store_location
+  before_filter :flash_notice
+
+  def flash_notice
+    if current_user
+      i = 0
+      str = "Les missions suivantes sont corrigées: "
+      Program.where(:user=>current_user,:state=>2).find_each do |p|
+        if p.is_corrected?
+          str += ((i > 0) ? ", ": "") + "#{p.mission_title}"
+          i = i + 1
+        end
+      end
+      if (i > 0)
+        flash[:user] = str
+      end
+    end
+  end
 
   def store_location
     if (!request.fullpath.match("/auth.*") && !request.xhr?) # don't store ajax calls
