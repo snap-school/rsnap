@@ -19,7 +19,7 @@ class ProgramsController < ApplicationController
     else
       @programs = Program.for_user(current_user)
     end
-    @programs.find_each {|p| authorize_action_for p}
+    @programs.each {|p| authorize_action_for p}
   end
 
   def show
