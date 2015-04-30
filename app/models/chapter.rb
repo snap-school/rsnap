@@ -62,7 +62,7 @@ class Chapter < ActiveRecord::Base
     manif = ChapterMissionManifest.new
     manif.mission_id = mission.id
     manif.chapter_id = self.id
-    rec = ChapterMissionManifest.where(:chapter_id=>self.id).order("order"=> :asc).last
+    rec = ChapterMissionManifest.where(:chapter_id=>self.id).order(:order => :asc).last
     curr_max_order = 0
     if order == 0
       order = order + 1
@@ -75,7 +75,7 @@ class Chapter < ActiveRecord::Base
     if order != -1 and curr_max_order > order 
       i = curr_max_order
       while i >= order do
-        temp_manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,"order"=> i)
+        temp_manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,:order => i)
         temp_manif.order = temp_manif.order+1
         temp_manif.save
         i = i - 1
@@ -91,7 +91,7 @@ class Chapter < ActiveRecord::Base
     manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,:mission_id=>mission.id)
     order = manif.order
     manif.delete
-    rec = ChapterMissionManifest.where(:chapter_id=>self.id).order("order"=> :asc).last
+    rec = ChapterMissionManifest.where(:chapter_id=>self.id).order(:order => :asc).last
     if not rec.nil?
       ((order+1)..(rec.order)).each do |i|
         manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,:order=>i)
