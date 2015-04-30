@@ -17,6 +17,8 @@ Installation -- Linux only
 	* Run postgresql ("sudo su - postgres")
 	* Type "psql"
 	* Type "CREATE ROLE 'username' SUPERUSER CREATEDB" where 'username' is your computer username
+	* This will be your database user account.
+	* If you want a password, type \password 'username', you will be prompted for password
 	* Type "\q" to quit
 	* Type "exit" to quit
 
@@ -55,6 +57,8 @@ Installation -- Linux only
 * run `rake bower:install`
 
 * copy `.env.example` to `.env` and configure them if needed. 
+	*  This is needed if you use an AWS S3 bucket
+	*  The SECRET_KEY_BASE is generated using "RAILS_ENV='environment' rake secret" where 'environment' is production or development depending on the environment used
 
 * run `rake db:create db:migrate`
 	* This will create the database.
