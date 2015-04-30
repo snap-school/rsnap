@@ -72,6 +72,8 @@ Installation -- Linux only
 	* run "rake assets:precompile" to precompile assets
 
 * run `rails s` to launch server
+	* The server will run on localhost with port specified in the terminal.
+	* Open the browser at "http://localhost:port" where port is the port showed in the terminal
 	* Create an account. This will be your admin account.
 
 * run `rails c` and execute `User.all.first.add_role :admin` then 'exit'.
