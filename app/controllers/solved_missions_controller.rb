@@ -23,7 +23,6 @@ class SolvedMissionsController < ApplicationController
     def solved_mission_params
       pp = params.require(:program).permit(:id)
       p = {}
-      puts pp
       prog = Program.find_by_id(pp[:id])
       p[:mission_id] = prog.mission_id
       p[:user_id] = prog.user_id
