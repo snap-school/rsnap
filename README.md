@@ -20,9 +20,8 @@ Installation -- Linux only
 	* Type "\q" to quit
 	* Type "exit" to quit
 
-* install libraries for rmagick
-	* run "sudo apt-get install libmagick++-dev"
-	* run "sudo apt-get install libmagickwand-dev"
+* install libraries for rmagick and qmake
+	* run "sudo apt-get install libmagick++-dev libmagickwand-dev libqt4-dev libqtwebkit-dev libqt5webkit5-dev"
 
 * copy `config/database.yml.example` to `config/database.yml` 
 	* configure `config/database.yml`. You should set usernames to "rsnap" and passwords to your choosen password.
@@ -37,8 +36,6 @@ Installation -- Linux only
 	* Run "rvm install rubygems latest" to install rubygems
 	* Run "gem install rails -v '4.1' " to install rails 4.1
 	
-* Make sure you have qmake installed.
-	* Run "sudo apt-get install libqt4-dev libqtwebkit-dev libqt5webkit5-dev"
 
 * cd to the repository of rsnap
 
@@ -49,7 +46,7 @@ Installation -- Linux only
 	* run "sudo npm install bower -g"
 	* run "sudo apt-get install nodejs-legacy"
 
-* make sure you have a public key configured
+* make sure you have a public key configured for bower:install
 	* run 'ls -al ~/.ssh"
 	If there are no "id_rsa.pub" or files like that,
 		* run "ssh-keygen -t rsa -c "your_email@here.com"
