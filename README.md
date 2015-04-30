@@ -68,6 +68,9 @@ Installation -- Linux only
 			production:
   				secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>"
 
+* If you are running in prodution environment, 
+	* run "rake assets:precompile" to precompile assets
+
 * run `rails s` to launch server
 	* Create an account. This will be your admin account.
 
