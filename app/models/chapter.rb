@@ -10,14 +10,20 @@
 #  created_at        :datetime
 #  updated_at        :datetime
 #  chapter_order     :integer          default(0)
+#  teacher_id        :integer
 #
 
 class Chapter < ActiveRecord::Base
   include Authority::Abilities
   self.authorizer_name = 'ChapterAuthorizer'
 
+  belongs_to :teacher
+
   has_many :chapter_mission_manifests
   has_many :missions, through: :chapter_mission_manifests
+
+  has_many :course_chapter_manifests, :dependent=>:destroy
+  has_many :courses, through: :course_chapter_manifests
 
   include RankedModel
   ranks :chapter_order
@@ -56,6 +62,16 @@ class Chapter < ActiveRecord::Base
       return solved + 1
     end
     1
+  end
+
+  def num_solved_missions_for(user)
+    count = 0
+    self.missions.find_each do |c|
+      if c.is_solved_by? user
+        count +=1
+      end
+    end
+    return count
   end
   
   def add_mission(mission, order=-1)

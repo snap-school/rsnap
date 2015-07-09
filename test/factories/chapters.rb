@@ -10,8 +10,8 @@
 #  created_at        :datetime
 #  updated_at        :datetime
 #  chapter_order     :integer          default(0)
+#  teacher_id        :integer
 #
-
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 #include ActionDispatch::TestProcess

@@ -10,12 +10,12 @@
       %th N°
       %th Title
       %th Description
-      -if user_signed_in? and current_user.has_role?(:admin)
+      -if user_signed_in? and current_user.has_role?(:admin) and not @from_course
         %th
         %th
         %th
   %tbody
-    = render @chapters
+    = render @chapters, from_course: @from_course, course_from: @course_from
 
 -if user_signed_in? and current_user.has_role?(:admin)
   %p

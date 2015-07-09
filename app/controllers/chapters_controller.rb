@@ -5,6 +5,7 @@ class ChaptersController < ApplicationController
 
   def index
     @title = "Chapitres"
+    @from_course = false
     @chapters = Chapter.visible_for(current_user)
   end
 
@@ -17,9 +18,26 @@ class ChaptersController < ApplicationController
   end
 
   def new
-    @title = "Créer un chapitre"
-    @chapter = Chapter.new
+    @title = "Chapitres"
+    @chapters = []
+    @from_course = false
+    if params[:course_id].nil?
+      @title = "Créer un chapitre"
+      @chapter = Chapter.new
+      render :new
+    else
+      Chapter.find_each do |chapter|
+        if CourseChapterManifest.find_by(:course_id=>params[:course_id], :chapter_id=>chapter.id).nil?
+          @chapters.append(chapter)
+        end
+      end
+      @from_course = true
+      @course_from = Course.find_by(:id=>params[:course_id])
+      render :index
+    end
   end
+
+
 
   def create
     @chapter = Chapter.new(chapter_params)

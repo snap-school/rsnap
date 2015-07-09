@@ -1,9 +1,23 @@
-%tr.item{data: {update_url:"#{sort_chapter_path(chapter)}", ordered_row: "chapter_order"}}
-  %td= chapter.position
-  %td= button chapter.title, chapter, :id=>"show-chapter-#{chapter.id}", :type=>(chapter.is_solved_by?(current_user) ? :primary : :success)
+%tr.item
+  -if not from_course
+    %td= chapter.position
+  - disabled = (from_course && !course_from.chapter_enabled?(chapter, current_user))
+  - type = disabled ? :default : (chapter.is_solved_by?(current_user) ? :success : :primary)
+  %td= button chapter.title, chapter, :id=>"show-chapter-#{chapter.id}", :type=> type, :disabled => disabled
   %td= raw chapter.small_description
   -if user_signed_in? and current_user.has_role?(:admin)
-    %td= button "Voir les missions", chapter_missions_path(chapter), type: :primary
-    %td= button "Editer", edit_chapter_path(chapter), type: :warning
-    %td= button "Supprimer", chapter, :method => :delete,
-                :data => { :confirm => "Etes-vous certain ?" }, type: :danger
+    -if not @from_course
+      %td= button "Voir les missions",  chapter_missions_path(chapter), type: :primary
+      %td= button "Editer", edit_chapter_path(chapter), type: :warning
+      -if not from_course
+        %td= button "Supprimer", chapter, :method => :delete,
+                  :data => { :confirm => "Etes-vous certain ?" }, type: :danger
+      -if from_course
+        %td= button "Retirer", course_chapter_manifest_path(course_from.get_manifest_for_chapter(chapter)), :method => :delete,
+                  :data => { :confirm => "Etes-vous certain ?" }, type: :danger
+    -if @from_course
+      %td
+        = form_tag(course_chapters_path) do
+          =hidden_field_tag :course_id, course_from.id
+          =hidden_field_tag :chapter_id, chapter.id
+          %button.btn.btn-primary Ajouter

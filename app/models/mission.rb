@@ -14,11 +14,14 @@
 #  small_description        :text
 #  youtube                  :string(255)
 #  needs_check              :boolean          default(FALSE)
+#  teacher_id               :integer
 #
 
 class Mission < ActiveRecord::Base
   include Authority::Abilities
   self.authorizer_name = 'MissionAuthorizer'
+
+  belongs_to :teacher
 
   has_many :programs, :dependent=>:destroy
   has_many :file_missions, :dependent=>:destroy

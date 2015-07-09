@@ -14,6 +14,7 @@
 #  small_description        :text
 #  youtube                  :string(255)
 #  needs_check              :boolean          default(FALSE)
+#  teacher_id               :integer
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430182930) do
+ActiveRecord::Schema.define(version: 20150707153946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,23 @@ ActiveRecord::Schema.define(version: 20150430182930) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "chapter_order",     default: 0
+    t.integer  "teacher_id"
+  end
+
+  create_table "course_chapter_manifests", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "chapter_id"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "courses", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "teacher_id"
   end
 
   create_table "file_missions", force: true do |t|
@@ -58,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150430182930) do
     t.text     "small_description"
     t.string   "youtube"
     t.boolean  "needs_check",              default: false
+    t.integer  "teacher_id"
   end
 
   create_table "programs", force: true do |t|
@@ -96,6 +114,25 @@ ActiveRecord::Schema.define(version: 20150430182930) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "student_courses", force: true do |t|
+    t.integer "student_id"
+    t.integer "course_id"
+  end
+
+  add_index "student_courses", ["student_id", "course_id"], name: "index_student_courses_on_student_id_and_course_id", using: :btree
+
+  create_table "students", force: true do |t|
+    t.integer "user_id"
+  end
+
+  add_index "students", ["user_id"], name: "index_students_on_user_id", unique: true, using: :btree
+
+  create_table "teachers", force: true do |t|
+    t.integer "user_id"
+  end
+
+  add_index "teachers", ["user_id"], name: "index_teachers_on_user_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "firstname"

@@ -41,4 +41,26 @@ class User < ActiveRecord::Base
   def name
     "#{firstname} #{lastname}"
   end
+
+  def is_teacher?
+    Teacher.where(:user_id => self.id).present?
+  end
+
+  def teacher
+    return Teacher.find_by(:user=>self)
+  end
+
+  def is_student?
+    Student.where(:user_id => self.id).present?
+  end
+
+  def student
+    return Student.find_by(:user=>self)
+  end
+
+  def before_destroy
+    Teacher.where(:user_id => self.id).destroy_all
+    Student.where(:user_id => self.id).destroy_all
+  end
+
 end
