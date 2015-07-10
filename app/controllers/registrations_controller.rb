@@ -1,6 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
   authorize_actions_for User
 
+  after_filter :new_user
+
   def update
     if params[:user][:id]
       @user = User.find(params[:user][:id])
@@ -34,5 +36,12 @@ class RegistrationsController < Devise::RegistrationsController
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
       params[:user][:password].present?
+  end
+
+  def new_user
+    if resource.persisted? # user is created successfuly
+      resource.type = (params[:user][:type]=="0" ? "Student" : "Teacher")
+      resource.save
+    end
   end
 end

@@ -1,4 +1,4 @@
-=bootstrap_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+=bootstrap_form_for(resource, :as => resource_name, :url => user_session_path) do |f|
   =f.email_field :email, :autofocus => true, :label=>false, :placeholder=>t_attr(:user, :email)
   =f.password_field :password, :label=>false, :placeholder=>t_attr(:user, :password)
   - if devise_mapping.rememberable?
@@ -10,4 +10,4 @@
 %p
   =link_to "Créer un nouveau compte", new_registration_path(resource_name)
 %p
-  =link_to "Mot de passe oublié", new_password_path(resource_name)
+  =link_to "Mot de passe oublié", new_user_password_path

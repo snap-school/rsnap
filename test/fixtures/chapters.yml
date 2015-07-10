@@ -9,7 +9,6 @@
 #  youtube           :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
-#  chapter_order     :integer          default(0)
 #  teacher_id        :integer
 #
 

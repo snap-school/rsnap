@@ -15,9 +15,7 @@
   = f.password_field :password_confirmation
   -if action_name == "update" or action_name == "edit"
     = f.password_field :current_password
-  
-  = check_box "user", "is_teacher"
-  = f.label("S'inscrire en tant que professeur?")
 
+  = f.check_box :type, label: "Je suis un professeur!"
 
   = f.actions

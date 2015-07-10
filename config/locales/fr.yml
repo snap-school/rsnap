@@ -271,3 +271,7 @@ fr:
       header: "Il y a des erreurs qui empêche cet %{model} d'être sauvé :"
     buttons:
       cancel: 'Annuler'
+  devise:
+    student_registrations:
+      student:
+        signed_up: "Connecté avec succès."

@@ -1,6 +1,7 @@
 class ChaptersController < ApplicationController
   authorize_actions_for Chapter
   before_action :set_chapter, only: [:show, :edit, :update, :destroy, :remove_mission]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :remove_mission]
   before_filter :authenticate_user!, :except=>[:index, :show]
 
   def index
@@ -10,12 +11,15 @@ class ChaptersController < ApplicationController
   end
 
   def show
-    if params[:modal]
-      render :modal_show, :layout=>false
-    else
-      @title = "Chapitre : #{@chapter.title}"
-    end
+    @title = "Chapitre : #{@chapter.title}"
   end
+
+
+
+
+
+
+
 
   def new
     @title = "Chapitres"
@@ -32,18 +36,16 @@ class ChaptersController < ApplicationController
         end
       end
       @from_course = true
-      @course_from = Course.find_by(:id=>params[:course_id])
+      @add_chapter = true
+      @course = Course.find_by(:id=>params[:course_id])
       render :index
     end
   end
-
-
 
   def create
     @chapter = Chapter.new(chapter_params)
 
     if @chapter.save
-      @chapter.update_attribute :chapter_order_position, :last
       redirect_to chapters_path, notice: "Le chapitre a bien été créé."
     else
       @title = "Créer un chapitre"
@@ -74,8 +76,28 @@ class ChaptersController < ApplicationController
       @chapter = Chapter.find(params[:id])
     end
 
+    def set_course
+      if not params[:course_id].nil?
+        @course = Course.find(params[:course_id])
+        @from_course = true
+      else
+        @course = nil
+        @from_course = false
+      end
+    end
+
     def chapter_params
       p = params.require(:chapter).permit(:title, :description, :small_description, :youtube)
       p
     end
 end
+
+
+
+
+
+
+
+
+
+

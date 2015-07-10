@@ -8,7 +8,7 @@
 
 %br
 %p
-  =button "Réaliser ce chapitre", chapter_missions_path(@chapter), :type=>:success, :id=>"mission-program"
+  =button "Réaliser ce chapitre", @from_course ? course_chapter_missions_path(@course,@chapter) : chapter_missions_path(@chapter) , :type=>:success, :id=>"mission-program"
 %p
   -if current_user.try(:has_role?, :admin)
     =button "modifier", edit_chapter_path(@chapter), :type=>:success

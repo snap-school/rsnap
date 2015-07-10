@@ -3,12 +3,12 @@ class CourseDesinscriptionController < ApplicationController
 
   def index
     @title = "Se désinscrire d'un cours"
-    @courses = Student.find_by(:user=>current_user).courses
+    @courses = current_user.courses
   end
 
   def destroy
   	return unless current_user.is_student?
-  	Student.find_by(:user=>current_user).courses.delete(@course)
+  	current_user.courses.delete(@course)
   	redirect_to courses_path
   end
 

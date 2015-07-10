@@ -7,7 +7,7 @@ class ProgramsController < ApplicationController
 
   def index
     @title = "Programmes"
-    if current_user.has_role(:admin) #if params[:all]s[:all]
+    if current_user.has_role?(:admin) #if params[:all]s[:all]
       if params[:user_id]
         @programs = []
         Mission.ordered_using_chapters().find_each do |m|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707153946) do
+ActiveRecord::Schema.define(version: 20150710222557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20150707153946) do
     t.string   "youtube"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "chapter_order",     default: 0
     t.integer  "teacher_id"
   end
 
@@ -122,18 +121,6 @@ ActiveRecord::Schema.define(version: 20150707153946) do
 
   add_index "student_courses", ["student_id", "course_id"], name: "index_student_courses_on_student_id_and_course_id", using: :btree
 
-  create_table "students", force: true do |t|
-    t.integer "user_id"
-  end
-
-  add_index "students", ["user_id"], name: "index_students_on_user_id", unique: true, using: :btree
-
-  create_table "teachers", force: true do |t|
-    t.integer "user_id"
-  end
-
-  add_index "teachers", ["user_id"], name: "index_teachers_on_user_id", unique: true, using: :btree
-
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
@@ -149,6 +136,7 @@ ActiveRecord::Schema.define(version: 20150707153946) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "type"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

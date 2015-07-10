@@ -9,6 +9,6 @@ class ChapterAuthorizer < ApplicationAuthorizer
 
   private
     def modifiable_by?(user)
-      resource.user == user or user.has_role? :admin
+      resource.user == user or user.has_role? :admin or self.teacher = user
     end
 end

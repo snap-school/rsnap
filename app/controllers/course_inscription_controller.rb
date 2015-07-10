@@ -3,14 +3,14 @@ class CourseInscriptionController < ApplicationController
 
   def index
     @title = "S'inscrire à un cours"
-    ids_to_exclude = Student.find_by(:user=>current_user).courses.map(&:id)
+    ids_to_exclude = current_user.courses.map(&:id)
     courses_table = Arel::Table.new(:courses)
     @courses = Course.where(courses_table[:id].not_in ids_to_exclude)
  end
 
   def create
   	return unless current_user.is_student?
-  	Student.find_by(:user=>current_user).courses.append(@course)
+  	current_user.courses.append(@course)
   	redirect_to courses_path
   end
 

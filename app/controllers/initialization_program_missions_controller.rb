@@ -5,6 +5,7 @@ class InitializationProgramMissionsController < ApplicationController
   def new
     @mission = Mission.find(params[:mission_id])
     @program = Program.for_mission_for_user(@mission, current_user)
+    session[:current_course_id] = params[:course_id]
     unless @program
       initialize_new_program
     else

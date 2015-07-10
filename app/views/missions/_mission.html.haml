@@ -1,21 +1,26 @@
 %tr.item
-  - button_disabled = ((from_chapter and (@missions.index(mission)>=disabled)) ? true : false)
-  - type = (button_disabled ? :default : (mission.is_solved_by?(current_user) ? :success : (mission.is_in_correction_for?(current_user) ? :warning : (mission.is_corrected_for?(current_user) ? :danger : :primary))))
-  %td= button mission.title, mission, :id=>"show-mission-#{mission.id}", :type=>type, :disabled=>button_disabled
+  -if @from_chapter && !@add_mission
+    %td= @chapter.mission_position(mission)
+  - disabled = (!@add_mission && @from_chapter && !@chapter.mission_enabled?(mission, current_user))
+  - type =  mission.is_solved_by?(current_user) ? :success : (disabled ? :default : :primary)
+  - url = (@from_course ? course_chapter_mission_path(@course,@course,mission) : @from_chapter ? chapter_mission_path(@chapter,mission) : mission)
+  %td= button mission.title, url , :id=>"show-mission-#{mission.id}", :type=> type, :disabled => disabled
   %td= raw mission.small_description
   -if user_signed_in? and current_user.has_role?(:admin)
-    -if not @from_chapter
+    -if not @add_mission
       %td= button "Editer", edit_mission_path(mission), type: :primary
       %td= button "Editer le programme", mission_program_path(mission), type: :warning
-      -if not from_chapter
+      -if not @from_chapter
         %td= button "Supprimer", mission, :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
-      -if from_chapter
-        %td= button "Retirer", chapter_mission_manifest_path(chapter_from.get_manifest_for_mission(mission)), :method => :delete,
+      -else
+        %td= button "Retirer", chapter_mission_manifest_path(@chapter.get_manifest_for_mission(mission)), :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
-    -if @from_chapter
+    -else
       %td
         = form_tag(chapter_missions_path) do
-          =hidden_field_tag :chapter_id, chapter_from.id
+          =hidden_field_tag :chapter_id, @chapter.id
           =hidden_field_tag :mission_id, mission.id
           %button.btn.btn-primary Ajouter
+
+

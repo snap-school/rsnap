@@ -1,10 +1,12 @@
 class ChapterMissionsController < ApplicationController
   authorize_actions_for Chapter
   before_action :set_chapter_missions, only: [:index]
+  before_action :set_course
   before_filter :authenticate_user!, :except=>[:index]
 
   def index
     @title = "Chapitre : #{@chapter.title}"
+    @from_chapter = true
   end
 
   def create
@@ -23,11 +25,11 @@ class ChapterMissionsController < ApplicationController
   private
     def set_chapter_missions
       @chapter = Chapter.find_by_id(params[:chapter_id])
-      manifests = ChapterMissionManifest.where(:chapter_id => @chapter.id).order("order" => :asc)
-      @missions = []
-      manifests.find_each do |manif|
-        @missions.append(Mission.find_by_id(manif.mission_id))
-      end
-      @disabled_from = @chapter.get_disabled_from(current_user)
+      @missions = @chapter.ordered_missions
+    end
+
+    def set_course
+      @course = params[:course_id].nil? ? nil : Course.find_by_id(params[:course_id])
+      @from_course = !params[:course_id].nil?
     end
 end

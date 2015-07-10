@@ -9,7 +9,6 @@
 #  youtube           :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
-#  chapter_order     :integer          default(0)
 #  teacher_id        :integer
 #
 
@@ -24,14 +23,6 @@ class Chapter < ActiveRecord::Base
 
   has_many :course_chapter_manifests, :dependent=>:destroy
   has_many :courses, through: :course_chapter_manifests
-
-  include RankedModel
-  ranks :chapter_order
-  default_scope {rank(:chapter_order)}
-
-  def position(scope=:all)
-    Chapter.send(scope).index(self) + 1
-  end
 
   def is_solved_by?(user)
     if user
@@ -49,29 +40,41 @@ class Chapter < ActiveRecord::Base
   def ordered_missions
     return Mission.all.joins(:chapter_mission_manifests).where("chapter_mission_manifests.chapter_id = ?",self.id).order("chapter_mission_manifests.order ASC")
   end
-  
-  def get_disabled_from(user)
-    if user
-      return Mission.all.count if user.has_role?(:admin)
-      solved = 0
-      self.missions.find_each do |mission|
-        if mission.is_solved_by?(user)
-          solved = solved + 1
-        end
-      end
-      return solved + 1
-    end
-    1
-  end
 
   def num_solved_missions_for(user)
     count = 0
     self.missions.find_each do |c|
-      if c.is_solved_by? user
+      if c.is_solved_by?(user)
         count +=1
       end
     end
     return count
+  end
+
+  def mission_position(mission)
+    count = 1
+    self.ordered_missions.each do |m|
+      if m == mission
+        return count
+      else
+        count += 1
+      end
+    end
+    return -1
+  end
+
+  def mission_enabled?(mission, current_user)
+    return mission_position(mission) <= num_solved_missions_for(current_user) + 1 || mission.teacher == current_user || current_user.has_role?(:admin)
+  end
+
+  def next_mission_for(current_user)
+    missions = ordered_missions
+    num_solved = num_solved_missions_for(current_user)
+    if (num_solved < missions.count)
+      return missions[num_solved]
+    else
+      return nil
+    end
   end
   
   def add_mission(mission, order=-1)
@@ -125,41 +128,12 @@ class Chapter < ActiveRecord::Base
     if user
       if user.has_role?(:admin)
         return Chapter.all
+      elsif user.instance_of? Teacher
+        return user.chapters
       end
-      num_solved_chapter = 0
-      Chapter.find_each do |chapter|
-        break if not chapter.is_solved_by?(user)
-        num_solved_chapter = num_solved_chapter + 1
-      end
-      Chapter.limit(num_solved_chapter + 1)
     else
       return Chapter.limit(1)
     end
   end
 
-  def self.next_chapter_for(user)
-    if user
-      Chapter.find_each do |c|
-        if not c.is_solved_by?(user)
-          return c
-        end
-      end
-      return nil
-    else
-      return Chapter.first
-    end
-  end
-
-  def self.next_exercice_url_for(current_user)
-    next_mission = Mission.next_mission_for(current_user)
-    next_chapter = Chapter.next_chapter_for(current_user)
-    if next_chapter.nil? && next_mission.nil?
-      @next_url = "/home/thanks"
-    elsif !next_chapter.nil? && next_mission == next_chapter.chapter_mission_manifests.first.mission
-      @next_url = "/chapters/#{next_chapter.id}"
-    elsif next_mission
-      @next_url = "/missions/#{next_mission.id}"
-    end
-    return @next_url
-  end
 end

@@ -1,0 +1,11 @@
+%tr
+  %td= student.firstname
+  %td= student.lastname
+  %td= student.email
+  %td= button "Voir", user_path(student), type: :primary
+  %td= button "Voir les programes", user_programs_path(student), type: :primary
+  %td
+    = button "Editer", edit_user_path(student), type: :warning
+  %td
+    = button "Supprimer", user_path(student), :method => :delete, type: :danger,
+              :data => { :confirm => "Etes-vous certain ?" }

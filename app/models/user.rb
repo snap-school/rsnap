@@ -17,6 +17,7 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string(255)
 #  last_sign_in_ip        :string(255)
+#  type                   :string(255)
 #
 # Indexes
 #
@@ -43,24 +44,18 @@ class User < ActiveRecord::Base
   end
 
   def is_teacher?
-    Teacher.where(:user_id => self.id).present?
+    Teacher.where(:id => self.id).present?
   end
 
   def teacher
-    return Teacher.find_by(:user=>self)
+    return Teacher.find_by_id(self.id)
   end
 
   def is_student?
-    Student.where(:user_id => self.id).present?
+    Student.where(:id => self.id).present?
   end
 
   def student
-    return Student.find_by(:user=>self)
+    return Student.find_by_id(self.id)
   end
-
-  def before_destroy
-    Teacher.where(:user_id => self.id).destroy_all
-    Student.where(:user_id => self.id).destroy_all
-  end
-
 end

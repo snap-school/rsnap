@@ -25,25 +25,9 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
-class Teacher < User
+class Admin < Teacher
   self.inheritance_column = :type
-  
-  devise :database_authenticatable, :timeoutable
-
-  has_many :courses
-  has_many :chapters
-  has_many :missions
-
-  def students
-    s_list = []
-    Student.all
-    self.courses.find_each do |c|
-      s_list += c.students
-    end
-    s_list
-  end
-
   def has_role?(role)
-    return role == "Teacher" || role == :teacher
+    return role == "Admin" || role == :admin || role == "Teacher" || role == :teacher
   end
 end

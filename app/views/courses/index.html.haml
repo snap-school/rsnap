@@ -1,20 +1,19 @@
 %h1= @title
 
--sort_tag = {}
 
-%table.table.table-striped.table-bordered.table-hover{sort_tag}
+%table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
       %th Title
       %th Description
-      -if user_signed_in? and current_user.has_role?(:admin)
+      -if user_signed_in? and (current_user.has_role?(:admin) or current_user.has_role?(:teacher))
         %th
         %th
         %th
   %tbody
     = render @courses, inscription: false, desinscription: false
 
--if user_signed_in? and current_user.has_role?(:admin)
+-if user_signed_in? and (current_user.has_role?(:admin) or current_user.has_role?(:teacher))
   %p
     = button "Nouveau cours", new_course_path, type: :success
 -elsif user_signed_in? and current_user.is_student?

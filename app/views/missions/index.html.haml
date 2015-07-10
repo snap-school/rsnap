@@ -5,13 +5,14 @@
     %tr
       %th Title
       %th Description
-      -if user_signed_in? and current_user.has_role?(:admin)
-        -if not @from_chapter
-          %th
-          %th
-          %th
+      -if user_signed_in? and current_user.has_role?(:admin) and not @from_chapter
+        %th
+        %th
+        %th
+      -elsif @add_mission
+        %th
   %tbody
-    = render @missions, from_chapter: @from_chapter, chapter_from: @chapter_from, disabled: @disabled_from
+    = render @missions
 
 -if user_signed_in? and current_user.has_role?(:admin)
   %p

@@ -17,6 +17,7 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string(255)
 #  last_sign_in_ip        :string(255)
+#  type                   :string(255)
 #
 # Indexes
 #

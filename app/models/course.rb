@@ -19,8 +19,12 @@ class Course < ActiveRecord::Base
 
   belongs_to :teacher
 
-  has_and_belongs_to_many :students, :join_table => :student_courses
+  has_many :student_courses
+  has_many :students, through: :student_courses
 
+  def ordered_chapters
+    return Chapter.all.joins(:course_chapter_manifests).where("course_chapter_manifests.course_id = ?",self.id).order("course_chapter_manifests.order ASC")
+  end
 
   def add_chapter(chapter, order=-1)
     manif = CourseChapterManifest.new
@@ -72,7 +76,7 @@ class Course < ActiveRecord::Base
   def num_solved_chapter_for(user)
     count = 0
     self.chapters.find_each do |c|
-      if c.is_solved_by? user
+      if c.is_solved_by?(user)
         count +=1
       end
     end
@@ -81,7 +85,7 @@ class Course < ActiveRecord::Base
 
   def chapter_position(chapter)
     count = 1
-    self.chapters.find_each do |c|
+    self.ordered_chapters.each do |c|
       if c == chapter
         return count
       else
@@ -92,16 +96,40 @@ class Course < ActiveRecord::Base
   end
 
   def chapter_enabled?(chapter, current_user)
-    return chapter_position(chapter) <= num_solved_chapter_for(current_user) + 1
+    return chapter_position(chapter) <= num_solved_chapter_for(current_user) + 1 || chapter.teacher == current_user || current_user.has_role?(:admin)
+  end
+
+  def next_chapter_for(current_user)
+    chapters = ordered_chapters
+    num_solved = num_solved_chapter_for(current_user)
+    if (num_solved < chapters.count)
+      return chapters[num_solved]
+    else
+      return nil
+    end
+  end
+
+  def next_exercice_url_for(current_user)
+    next_chapter = next_chapter_for(current_user)
+    if next_chapter.nil?
+      return course_path(self)
+    else
+      next_mission = next_chapter.next_mission_for(current_user)
+      if next_mission == next_chapter.ordered_missions.first
+        return Rails.application.routes.url_helpers.chapter_path(next_chapter)
+      else
+        return Rails.application.routes.url_helpers.course_chapter_mission_path(self,next_chapter,next_mission)
+      end
+    end
   end
 
   def self.visible_for(user)
     if user && user.has_role?(:admin)
      return Course.all.order(:id)
     elsif user && user.is_teacher?
-      return Teacher.find_by(:user=>user).courses.order(:id)
+      return user.teacher.courses.order(:id)
     elsif user && user.is_student?
-      return Student.find_by(:user=>user).courses.order(:id)
+      return user.student.courses.order(:id)
     elsif not user
       return Courses.all.order(:id)
     end

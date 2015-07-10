@@ -1,23 +1,24 @@
 %tr.item
-  -if not from_course
-    %td= chapter.position
-  - disabled = (from_course && !course_from.chapter_enabled?(chapter, current_user))
-  - type = disabled ? :default : (chapter.is_solved_by?(current_user) ? :success : :primary)
-  %td= button chapter.title, chapter, :id=>"show-chapter-#{chapter.id}", :type=> type, :disabled => disabled
+  -if @from_course && !@add_chapter
+    %td= @course.chapter_position(chapter)
+  - disabled = (from_course && !course.chapter_enabled?(chapter, current_user))
+  - type = chapter.is_solved_by?(current_user) ? :success : (disabled ? :default : :primary)
+  - url = (from_course ? course_chapter_path(course,chapter): chapter)
+  %td= button chapter.title, url, :id=>"show-chapter-#{chapter.id}", :type=> type, :disabled => disabled
   %td= raw chapter.small_description
   -if user_signed_in? and current_user.has_role?(:admin)
-    -if not @from_course
-      %td= button "Voir les missions",  chapter_missions_path(chapter), type: :primary
+    -if not @add_chapter
+      %td= button "Voir les missions",  (@from_course ? course_chapter_missions_path(@course,chapter): chapter_missions_path(chapter)), type: :primary
       %td= button "Editer", edit_chapter_path(chapter), type: :warning
-      -if not from_course
+      -if not @from_course
         %td= button "Supprimer", chapter, :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
-      -if from_course
-        %td= button "Retirer", course_chapter_manifest_path(course_from.get_manifest_for_chapter(chapter)), :method => :delete,
+      -else
+        %td= button "Retirer", course_chapter_manifest_path(course.get_manifest_for_chapter(chapter)), :method => :delete,
                   :data => { :confirm => "Etes-vous certain ?" }, type: :danger
-    -if @from_course
+    -else
       %td
         = form_tag(course_chapters_path) do
-          =hidden_field_tag :course_id, course_from.id
+          =hidden_field_tag :course_id, course.id
           =hidden_field_tag :chapter_id, chapter.id
           %button.btn.btn-primary Ajouter

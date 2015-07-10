@@ -1,11 +1,11 @@
 class MissionsController < ApplicationController
   authorize_actions_for Mission
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
+  before_action :set_chapter_and_course, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, :except=>[:index, :show]
 
   def index
     @title = "Missions"
-    @missions = []
     @from_chapter = false
     @missions = Mission.visible_for(current_user)
   end
@@ -14,6 +14,7 @@ class MissionsController < ApplicationController
     if params[:modal]
       render :modal_show, :layout=>false
     elsif params[:goal]
+      @course = Course.find_by_id(session[:current_course_id])
       render :modal_goal, :layout=>false
     else
       @title = "Mission : #{@mission.title}"
@@ -21,7 +22,6 @@ class MissionsController < ApplicationController
   end
 
   def new
-
     @title = "Missions"
     @missions = []
     @from_chapter = false
@@ -36,8 +36,8 @@ class MissionsController < ApplicationController
         end
       end
       @from_chapter = true
-      @chapter_from = Chapter.find_by(:id=>params[:chapter_id])
-      @disabled_from = @chapter_from.get_disabled_from(current_user)
+      @add_mission = true
+      @chapter = Chapter.find_by(:id=>params[:chapter_id])
       render :index
     end
   end
@@ -75,6 +75,22 @@ class MissionsController < ApplicationController
     def set_mission
       @mission = Mission.find(params[:id])
     end
+
+    def set_chapter_and_course
+      if params[:chapter_id].nil?
+        @from_chapter = false
+        @from_course = false
+      else
+        @chapter = Chapter.find_by(:id=>params[:chapter_id])
+        if params[:course_id].nil?
+          @from_course = false
+        else
+          @from_course = true
+          @course = Course.find_by(:id=>params[:course_id])
+        end
+      end
+    end
+
 
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube, :needs_check)
