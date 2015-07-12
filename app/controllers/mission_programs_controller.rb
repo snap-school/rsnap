@@ -1,7 +1,7 @@
 require "tempfile"
 
 class MissionProgramsController < ApplicationController
-  authorize_actions_for Mission
+  authorize_actions_for Mission, all_actions: :update
   before_action :set_mission, only: [:show, :update]
   before_filter :authenticate_user!
 

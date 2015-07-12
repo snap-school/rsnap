@@ -1,8 +1,8 @@
 class CourseChapterManifestController < ApplicationController
-  authorize_actions_for Course
   before_action :set_manifest, only: [:destroy]
 
   def destroy 
+    authorize_action_for @manifest.course
     Course.find_by(:id=>@manifest.course_id).remove_chapter(Chapter.find_by(:id=>@manifest.chapter_id))
     course_id = @manifest.course_id
     @manifest.delete

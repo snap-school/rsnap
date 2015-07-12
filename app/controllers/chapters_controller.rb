@@ -2,7 +2,7 @@ class ChaptersController < ApplicationController
   authorize_actions_for Chapter
   before_action :set_chapter, only: [:show, :edit, :update, :destroy, :remove_mission]
   before_action :set_course, only: [:show, :edit, :update, :destroy, :remove_mission]
-  before_filter :authenticate_user!, :except=>[:index, :show]
+  before_filter :authenticate_user!, except: [:show]
 
   def index
     @title = "Chapitres"
@@ -13,13 +13,6 @@ class ChaptersController < ApplicationController
   def show
     @title = "Chapitre : #{@chapter.title}"
   end
-
-
-
-
-
-
-
 
   def new
     @title = "Chapitres"
@@ -44,7 +37,7 @@ class ChaptersController < ApplicationController
 
   def create
     @chapter = Chapter.new(chapter_params)
-
+    @chapter.teacher = current_user
     if @chapter.save
       redirect_to chapters_path, notice: "Le chapitre a bien été créé."
     else
@@ -70,6 +63,7 @@ class ChaptersController < ApplicationController
     @chapter.destroy
     redirect_to chapters_url, notice: "Le chapitre a bien été supprimé."
   end
+  authority_actions :destroy => 'delete'
 
   private
     def set_chapter

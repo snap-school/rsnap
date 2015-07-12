@@ -2,10 +2,10 @@
   %td= admin.firstname
   %td= admin.lastname
   %td= admin.email
-  %td= button "Voir", user_path(admin), type: :primary
+  %td= button "Voir", admin, type: :primary
   %td= button "Voir les programes", user_programs_path(admin), type: :primary
   %td
     = button "Editer", edit_user_path(admin), type: :warning
   %td
-    = button "Supprimer", user_path(admin), :method => :delete, type: :danger,
+    = button "Supprimer", admin, :method => :delete, type: :danger,
               :data => { :confirm => "Etes-vous certain ?" }

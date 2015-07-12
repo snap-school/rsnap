@@ -15,13 +15,16 @@
 #  youtube                  :string(255)
 #  needs_check              :boolean          default(FALSE)
 #  teacher_id               :integer
+#  teacher_type             :string(255)
 #
+
+require "admin"
 
 class Mission < ActiveRecord::Base
   include Authority::Abilities
   self.authorizer_name = 'MissionAuthorizer'
 
-  belongs_to :teacher
+  belongs_to :teacher, polymorphic: true
 
   has_many :programs, :dependent=>:destroy
   has_many :file_missions, :dependent=>:destroy
@@ -95,7 +98,7 @@ class Mission < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
-      return Mission.ordered_using_chapters(all=true) if user.has_role?(:admin)
+      return Mission.ordered_using_chapters(all=true) if user.try(:has_role?,:admin)
       return user.missions if user.instance_of? Teacher
     else
       self.limit(1)

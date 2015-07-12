@@ -2,7 +2,7 @@ class ChapterMissionsController < ApplicationController
   authorize_actions_for Chapter
   before_action :set_chapter_missions, only: [:index]
   before_action :set_course
-  before_filter :authenticate_user!, :except=>[:index]
+  before_filter :authenticate_user!, except: [:index]
 
   def index
     @title = "Chapitre : #{@chapter.title}"

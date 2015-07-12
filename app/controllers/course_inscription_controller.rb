@@ -1,5 +1,6 @@
 class CourseInscriptionController < ApplicationController
   before_action :set_course, only: [:create]
+  before_filter :authenticate_user!
 
   def index
     @title = "S'inscrire à un cours"
@@ -9,7 +10,7 @@ class CourseInscriptionController < ApplicationController
  end
 
   def create
-  	return unless current_user.is_student?
+  	return unless current_user.try(:has_role?,:student)
   	current_user.courses.append(@course)
   	redirect_to courses_path
   end

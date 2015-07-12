@@ -1,4 +1,4 @@
--if current_user.try(:has_role?, :admin)
+-if current_user.try(:has_role?, :admin) || @program.mission.teacher == current_user
   - role = "TEACHER"
 -else
   - role = "STUDENT"

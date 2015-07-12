@@ -10,6 +10,7 @@
 #  created_at        :datetime
 #  updated_at        :datetime
 #  teacher_id        :integer
+#  teacher_type      :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

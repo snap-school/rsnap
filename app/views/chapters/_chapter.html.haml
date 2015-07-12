@@ -6,7 +6,7 @@
   - url = (from_course ? course_chapter_path(course,chapter): chapter)
   %td= button chapter.title, url, :id=>"show-chapter-#{chapter.id}", :type=> type, :disabled => disabled
   %td= raw chapter.small_description
-  -if user_signed_in? and current_user.has_role?(:admin)
+  -if user_signed_in? and (current_user.try(:has_role?,:admin) || current_user == chapter.teacher)
     -if not @add_chapter
       %td= button "Voir les missions",  (@from_course ? course_chapter_missions_path(@course,chapter): chapter_missions_path(chapter)), type: :primary
       %td= button "Editer", edit_chapter_path(chapter), type: :warning

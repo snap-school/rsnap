@@ -1,8 +1,8 @@
 class ChapterMissionManifestController < ApplicationController
-  authorize_actions_for Chapter
   before_action :set_manifest, only: [:destroy]
 
   def destroy 
+    authorize_action_for @manifest.chapter
     Chapter.find_by(:id=>@manifest.chapter_id).remove_mission(Mission.find_by(:id=>@manifest.mission_id))
     chapter_id = @manifest.chapter_id
     @manifest.delete

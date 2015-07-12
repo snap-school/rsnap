@@ -10,7 +10,7 @@
 %p
   =button "Réaliser cette mission", new_initialization_program_mission_path(@course.nil? ? {:mission_id=>@mission} : {:mission_id=>@mission, :chapter_id=>@chapter, :course_id=>@course}), :type=>:success, :id=>"mission-program"
 %p
-  -if user_signed_in? and (current_user.has_role?(:admin) or @mission.teacher == current_user)
+  -if user_signed_in? and (current_user.try(:has_role?,:admin) or @mission.teacher == current_user)
     =button "Code source", @mission.source_code.url, :type=>:primary
     =button "modifier", edit_mission_path(@mission), :type=>:success
     =button "modifier le programme", mission_program_path(@mission), :type=>:success

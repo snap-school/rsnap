@@ -4,7 +4,7 @@ class UserAuthorizer < ApplicationAuthorizer
   end
 
   def readable_by?(user)
-    modifiable_by?(user)
+    modifiable_by?(user) || ( user.try(:has_role?, :teacher) ) 
   end
 
   def updatable_by?(user)

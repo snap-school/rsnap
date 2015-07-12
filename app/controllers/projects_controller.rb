@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
   def index
     @title = "Projets"
-    if current_user and current_user.has_role?(:admin)
+    if current_user and current_user.try(:has_role?,:admin)
       @projects = Project.all
     else
       @projects = Project.for_user(current_user)

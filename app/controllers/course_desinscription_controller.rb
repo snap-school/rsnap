@@ -1,5 +1,6 @@
 class CourseDesinscriptionController < ApplicationController
   before_action :set_course, only: [:destroy]
+  before_filter :authenticate_user!
 
   def index
     @title = "Se désinscrire d'un cours"
@@ -7,7 +8,7 @@ class CourseDesinscriptionController < ApplicationController
   end
 
   def destroy
-  	return unless current_user.is_student?
+  	return unless current_user.try(:has_role?,:student)
   	current_user.courses.delete(@course)
   	redirect_to courses_path
   end

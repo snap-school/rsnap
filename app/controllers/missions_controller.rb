@@ -2,7 +2,7 @@ class MissionsController < ApplicationController
   authorize_actions_for Mission
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
   before_action :set_chapter_and_course, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :except=>[:index, :show]
+  before_filter :authenticate_user!, :except=>[:show]
 
   def index
     @title = "Missions"
@@ -44,7 +44,7 @@ class MissionsController < ApplicationController
 
   def create
     @mission = Mission.new(mission_params)
-
+    @mission.teacher = current_user
     if @mission.save
       redirect_to mission_program_path(@mission), notice: "La mission a bien été créée."
     else

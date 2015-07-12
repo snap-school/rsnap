@@ -8,8 +8,9 @@
       %th Email
       %th
       %th
-      %th
-      %th
+      -if current_user.try(:has_role?, :admin)
+        %th
+        %th
   %tbody
     = render @users
 

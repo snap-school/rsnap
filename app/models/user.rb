@@ -43,19 +43,9 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
 
-  def is_teacher?
-    Teacher.where(:id => self.id).present?
-  end
-
-  def teacher
-    return Teacher.find_by_id(self.id)
-  end
-
-  def is_student?
-    Student.where(:id => self.id).present?
-  end
-
-  def student
-    return Student.find_by_id(self.id)
+  def self.visible_for(user)
+    
+    return User.all if user.try(:has_role?,:admin)
+    return user.students if user.has_role?(:teacher)
   end
 end

@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   authorize_actions_for User
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :except=>[:new, :create]
+  before_filter :authenticate_user!
 
   def index
     @title = "Utilisateurs"
-    @users = User.all.order(:id)
+    @users = User.visible_for(current_user)
     @users.find_each {|u| authorize_action_for u}
   end
 

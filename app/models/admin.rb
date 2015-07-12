@@ -26,8 +26,18 @@
 #
 
 class Admin < Teacher
-  self.inheritance_column = :type
+
+  has_many :courses, as: :teacher
+
+  def students
+  	return Student.all
+  end
+
   def has_role?(role)
     return role == "Admin" || role == :admin || role == "Teacher" || role == :teacher
+  end
+  
+  def self.model_name
+    User.model_name
   end
 end

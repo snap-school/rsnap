@@ -2,13 +2,16 @@
 #
 # Table name: courses
 #
-#  id          :integer          not null, primary key
-#  title       :string(255)
-#  description :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  teacher_id  :integer
+#  id           :integer          not null, primary key
+#  title        :string(255)
+#  description  :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  teacher_id   :integer
+#  teacher_type :string(255)
 #
+
+require "admin"
 
 class Course < ActiveRecord::Base
   include Authority::Abilities
@@ -17,7 +20,7 @@ class Course < ActiveRecord::Base
   has_many :course_chapter_manifests
   has_many :chapters, through: :course_chapter_manifests
 
-  belongs_to :teacher
+  belongs_to :teacher, polymorphic: true
 
   has_many :student_courses
   has_many :students, through: :student_courses
@@ -96,7 +99,7 @@ class Course < ActiveRecord::Base
   end
 
   def chapter_enabled?(chapter, current_user)
-    return chapter_position(chapter) <= num_solved_chapter_for(current_user) + 1 || chapter.teacher == current_user || current_user.has_role?(:admin)
+    return chapter_position(chapter) <= num_solved_chapter_for(current_user) + 1 || chapter.teacher == current_user || current_user.try(:has_role?,:admin)
   end
 
   def next_chapter_for(current_user)
@@ -124,12 +127,10 @@ class Course < ActiveRecord::Base
   end
 
   def self.visible_for(user)
-    if user && user.has_role?(:admin)
+    if user && user.try(:has_role?,:admin)
      return Course.all.order(:id)
-    elsif user && user.is_teacher?
-      return user.teacher.courses.order(:id)
-    elsif user && user.is_student?
-      return user.student.courses.order(:id)
+    elsif user && (user.has_role?(:teacher) || user.has_role?(:student))
+      return user.courses.order(:id)
     elsif not user
       return Courses.all.order(:id)
     end

@@ -44,6 +44,10 @@ Rsnap::Application.routes.draw do
     resources :programs,  :only=>:index
   end
 
+  devise_for :admins, :path => "auth", :only => [:destroy]
+  devise_for :teachers, :path => "auth", :only => [:destroy]
+
+  
   resources :snap_assets, :only=>:index
 
   resources :home, :only=>:index do

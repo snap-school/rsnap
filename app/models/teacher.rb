@@ -30,20 +30,23 @@ class Teacher < User
   
   devise :database_authenticatable, :timeoutable
 
-  has_many :courses
-  has_many :chapters
-  has_many :missions
+  has_many :courses, as: :teacher
+  has_many :chapters, as: :teacher
+  has_many :missions, as: :teacher
 
   def students
-    s_list = []
-    Student.all
-    self.courses.find_each do |c|
-      s_list += c.students
-    end
-    s_list
+    Student.joins(:student_courses).where(Arel::Table.new(:student_courses)[:course_id].in self.courses.map(&:id)).distinct
+  end
+
+  def is_teacher_for?(user)
+    students.where(:id=>user.id).present?
   end
 
   def has_role?(role)
     return role == "Teacher" || role == :teacher
+  end
+
+  def self.model_name
+    User.model_name
   end
 end

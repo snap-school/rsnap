@@ -7,7 +7,7 @@
         %span.icon-bar
       = link_to "RSnap", root_path, :class=>"navbar-brand"
     .collapse.navbar-collapse
-      -if current_user.try(:has_role?,:admin) or current_user.try(:is_teacher?)
+      -if current_user.try(:has_role?,:admin) or current_user.try(:has_role?,:teacher)
         %ul.nav.navbar-nav
           %li{:class=>resources_active("courses")}
             = link_to "Mes cours", courses_path
@@ -18,11 +18,11 @@
           %li{:class=>resources_active("projects")}
             = link_to "Mes projets libres", projects_path
           %li{:class=>resources_active("programs")}
-            = link_to "Programmes de mes étudiants", programs_path
+            = link_to (current_user.try(:has_role?, :admin) ? "Programmes des étudiants" : "Programmes de mes étudiants" ) , programs_path
         .navbar-right
           %ul.nav.navbar-nav
             %li{:class=>resources_active("users")}
-              = link_to (current_user.try(:is_teacjer?) ? "Mes élèves" : "Utilisateurs") , users_path
+              = link_to (current_user.try(:has_role?, :admin) ? "Utilisateurs" : "Mes élèves" ) , users_path
             %li{:class=>actions_active("home", "after_missions_form")}
               = link_to "formulaire", after_missions_form_home_index_path
           =render "layouts/user_menu"

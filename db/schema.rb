@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710222557) do
+ActiveRecord::Schema.define(version: 20150712080533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150710222557) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teacher_id"
+    t.string   "teacher_type"
   end
 
   create_table "course_chapter_manifests", force: true do |t|
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150710222557) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teacher_id"
+    t.string   "teacher_type"
   end
 
   create_table "file_missions", force: true do |t|
@@ -75,6 +77,7 @@ ActiveRecord::Schema.define(version: 20150710222557) do
     t.string   "youtube"
     t.boolean  "needs_check",              default: false
     t.integer  "teacher_id"
+    t.string   "teacher_type"
   end
 
   create_table "programs", force: true do |t|
