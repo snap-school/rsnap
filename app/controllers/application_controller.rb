@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    session[:previous_url] || user_path(resource)
+    courses_path
   end
 
   def current_or_null_user

@@ -54,7 +54,6 @@ Rsnap::Application.routes.draw do
     collection do
       get :about
       get :after_missions_form
-      get :welcome
       get :thanks
     end
   end
