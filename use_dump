@@ -1,0 +1,6 @@
+#!/bin/bash
+rm -r public
+rm rsnap_development.dump
+unzip dump.zip
+rake db:drop db:create
+psql -f rsnap_development.dump -d rsnap_development

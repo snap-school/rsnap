@@ -67,39 +67,11 @@ class Mission < ActiveRecord::Base
     end
   end
 
-  def self.ordered_using_chapters(all=false)
-    ordered_missions = Mission.all.joins(:chapter_mission_manifests).joins(:chapters).order("chapter_mission_manifests.order ASC")
-    if(all)
-      Mission.all.find_each do |m|
-        if not ordered_missions.include?(m)
-          ordered_missions.append(m)
-        end
-      end
-      return ordered_missions
-    else
-      return ordered_missions
-    end
-    
-  end
-
-  def self.next_mission_for(user)
-    if user
-      stop = false
-      Mission.ordered_using_chapters.each do |m|
-        if not m.is_solved_by?(user)
-          return m
-        end
-      end
-      return nil
-    else
-      return Chapter.first.chapter_mission_manifests.order(:order).first.mission
-    end
-  end
-
   def self.visible_for(user)
     if user
-      return Mission.ordered_using_chapters(all=true) if user.try(:has_role?,:admin)
+      return Mission.all if user.try(:has_role?,:admin)
       return user.missions if user.instance_of? Teacher
+      self.limit(1)
     else
       self.limit(1)
     end
