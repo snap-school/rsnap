@@ -23,11 +23,10 @@ class ChaptersController < ApplicationController
       @chapter = Chapter.new
       render :new
     else
-      Chapter.find_each do |chapter|
-        if CourseChapterManifest.find_by(:course_id=>params[:course_id], :chapter_id=>chapter.id).nil?
-          @chapters.append(chapter)
-        end
-      end
+      @course = Course.find_by(:id=>params[:course_id])
+      ids_to_exclude = @course.chapters.map(&:id)
+      chapters_table = Arel::Table.new(:chapters)
+      @chapters = Chapter.where(chapters_table[:id].not_in ids_to_exclude).where(:teacher => current_user)
       @from_course = true
       @add_chapter = true
       @course = Course.find_by(:id=>params[:course_id])
