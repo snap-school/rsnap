@@ -96,7 +96,7 @@ class MissionsController < ApplicationController
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube, :needs_check)
 
       template = ""
-      project_name = "Unitled"
+      project_name = "Untitled"
       file_path = "#{Rails.root}/public/default_mission.xml"
 
       if not params[:source_code].eql?("")
