@@ -14,6 +14,6 @@
   %tbody
     = render @chapters, from_course: @from_course, course: @course
 
--if user_signed_in? and (current_user.try(:has_role?,:admin) or current_user.has_role?(:teacher))
+-if user_signed_in? and (current_user.try(:has_role?,:admin) or current_user.try(:has_role?,:teacher))
   %p
     = button "Nouveau chapitre", new_chapter_path, type: :success

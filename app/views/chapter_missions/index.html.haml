@@ -6,7 +6,7 @@
       %th N°
       %th Title
       %th Description
-      -if user_signed_in? and (current_user.try(:has_role?,:admin) or current_user.has_role?(:teacher))
+      -if user_signed_in? and (current_user.try(:has_role?,:admin) or @chapter.teacher == current_user)
         %th
         %th
         %th

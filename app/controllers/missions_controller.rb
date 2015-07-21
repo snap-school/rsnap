@@ -30,14 +30,12 @@ class MissionsController < ApplicationController
       @mission = Mission.new
       render :new
     else
-      Mission.find_each do |mission|
-        if ChapterMissionManifest.find_by(:chapter_id=>params[:chapter_id], :mission_id=>mission.id).nil?
-          @missions.append(mission)
-        end
-      end
+      @chapter = Chapter.find_by(:id=>params[:chapter_id])
+      ids_to_exclude = @chapter.missions.map(&:id)
+      missions_table = Arel::Table.new(:missions)
+	  @missions = Mission.where(missions_table[:id].not_in ids_to_exclude).where(:teacher => current_user)
       @from_chapter = true
       @add_mission = true
-      @chapter = Chapter.find_by(:id=>params[:chapter_id])
       render :index
     end
   end
@@ -96,7 +94,7 @@ class MissionsController < ApplicationController
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube, :needs_check)
 
       template = ""
-      project_name = "Unitled"
+      project_name = "Untitled"
       file_path = "#{Rails.root}/public/default_mission.xml"
 
       if not params[:source_code].eql?("")
