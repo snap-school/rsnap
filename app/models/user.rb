@@ -27,8 +27,8 @@
 
 class User < ActiveRecord::Base
   include Authority::UserAbilities
-  rolify
   include Authority::Abilities
+  
   self.authorizer_name = 'UserAuthorizer'
 
   has_many :programs, :dependent=>:destroy

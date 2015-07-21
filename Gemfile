@@ -8,7 +8,6 @@ gem "pg"
 gem "jbuilder", "~> 2.0"
 
 gem "bcrypt", "~> 3.1"
-gem "rolify", "~> 3.4"
 gem "authority", "~> 3"
 gem "devise", "~> 3.2"
 gem "devise-i18n"

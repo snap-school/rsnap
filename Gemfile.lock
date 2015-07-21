@@ -337,7 +337,6 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.13.2)
-    rolify (3.4.0)
     roodi (3.3.1)
       ruby_parser (~> 3.2, >= 3.2.2)
     rspec-core (2.14.8)
@@ -482,7 +481,6 @@ DEPENDENCIES
   rails_12factor
   ranked-model
   rmagick (~> 2.13)
-  rolify (~> 3.4)
   rspec-rails
   sass-rails (~> 4.0)
   sdoc

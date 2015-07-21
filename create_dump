@@ -1,0 +1,5 @@
+#!/bin/bash
+pg_dump -d rsnap_development -f rsnap_development.dump
+rm dump.zip
+zip -r dump.zip public rsnap_development.dump
+rm rsnap_development.dump

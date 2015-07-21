@@ -37,7 +37,8 @@ FactoryGirl.define do
 
     factory :admin do
       after(:create) do |user|
-        user.add_role(:admin)
+        user.role = "Admin"
+        user.save
       end
     end
   end
