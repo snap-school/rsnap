@@ -3,11 +3,11 @@ echo "Enter your firstname and [Enter]"
 read firstname
 echo "Enter your lastname and [Enter]"
 read lastname
-echo "Enter your email and [Enter]"
+echo "Enter your email (credential for your admin account) and [Enter]"
 read mail
-echo "Enter your password and [Enter]"
+echo "Enter your password (credential for your admin account) and [Enter]"
 read passw
-echo "Type your postgresql username and [ENTER]"
+echo "Type your session username and [ENTER]"
 read name
 echo "Enter the url from where RSnap will be available (your server's url)"
 read server_url
@@ -45,5 +45,5 @@ sed -i -e "s/localhost/$server_url/g" rsnap_development.dump
 psql -f rsnap_development.dump -d rsnap_development
 rake modif_admin[$firstname,$lastname,$mail,$passw]
 git checkout vend*
-
+echo "You can now start server with \"rails s\" and connect to your administrator account with credentials you gave at the start of this installer"
 
