@@ -10,8 +10,8 @@ read passw
 echo "Type your postgresql username and [ENTER]"
 read name
 echo "Installing Postgresql"
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - & apt-get update & apt-get upgrade
-sudo apt-get -y -qq install postgresql-9.3 libpq-dev libmagick++-dev libmagickwand-dev libqt4-dev libqtwebkit-dev libqt5webkit5-dev npm
+sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - & apt-get update & apt-get upgrade
+sudo apt-get -y -q install postgresql-9.3 libpq-dev libmagick++-dev libmagickwand-dev libqt4-dev libqtwebkit-dev libqt5webkit5-dev npm
 echo "Configuring Postgresql"
 sudo -u postgres -H -- psql -c "CREATE ROLE $name SUPERUSER CREATEDB LOGIN"
 cp config/database.yml.example config/database.yml
@@ -26,13 +26,13 @@ gem install rails -v '4.1'
 bundle install
 rm config/secrets.yml
 echo "development:" >> config/secrets.yml
-echo "    secret_keybase: `RAILS_ENV=\"development\" rake secret`" >> config/secrets.yml
+echo "    secret_key_base: `RAILS_ENV=\"development\" rake secret`" >> config/secrets.yml
 echo "production:" >> config/secrets.yml
-echo "    secret_keybase: `RAILS_ENV=\"production\" rake secret`" >> config/secrets.yml
+echo "    secret_key_base: `RAILS_ENV=\"production\" rake secret`" >> config/secrets.yml
 echo "test:" >> config/secrets.yml
-echo "    secret_keybase: `RAILS_ENV=\"test\" rake secret`" >> config/secrets.yml
+echo "    secret_key_base: `RAILS_ENV=\"test\" rake secret`" >> config/secrets.yml
 sudo npm install bower -g
-sudo apt-get -y -qq install nodejs-legacy
+sudo apt-get -y -q install nodejs-legacy
 rake bower:install
 rm -r public
 rm rsnap_development.dump
