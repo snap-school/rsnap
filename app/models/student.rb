@@ -31,8 +31,7 @@ class Student < User
   devise :database_authenticatable, :timeoutable
 
 
-  has_many :student_courses
-  has_many :courses, through: :student_courses
+  has_and_belongs_to_many :courses, join_table: "student_courses"
 
   def teachers
   	t_list = []

@@ -22,8 +22,7 @@ class Course < ActiveRecord::Base
 
   belongs_to :teacher, polymorphic: true
 
-  has_many :student_courses
-  has_many :students, through: :student_courses
+  has_and_belongs_to_many :students, join_table: "student_courses"
 
   def ordered_chapters
     return Chapter.all.joins(:course_chapter_manifests).where("course_chapter_manifests.course_id = ?",self.id).order("course_chapter_manifests.order ASC")
