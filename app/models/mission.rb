@@ -69,11 +69,15 @@ class Mission < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
-      return Mission.all if user.try(:has_role?,:admin)
-      return user.missions if user.instance_of? Teacher
-      self.limit(1)
+      if user.try(:has_role?,:admin)
+        return Mission.all 
+      elsif user.try(:has_role?,:teacher)
+        return user.missions.order(:id)
+      else
+        return []
+      end
     else
-      self.limit(1)
+      return []
     end
   end
 end

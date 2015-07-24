@@ -132,7 +132,7 @@ class Chapter < ActiveRecord::Base
       if user.try(:has_role?,:admin)
         return Chapter.all
       elsif user.instance_of? Teacher
-        return user.chapters
+        return user.chapters.order(:id)
       end
     else
       return Chapter.limit(1)

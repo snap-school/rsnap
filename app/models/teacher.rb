@@ -35,7 +35,7 @@ class Teacher < User
   has_many :missions, as: :teacher
 
   def students
-    Student.joins(:student_courses).where(Arel::Table.new(:student_courses)[:course_id].in self.courses.map(&:id)).distinct
+    Student.joins("INNER JOIN student_courses ON student_courses.student_id = users.id").where(Arel::Table.new(:student_courses)[:course_id].in self.courses.map(&:id)).distinct
   end
 
   def is_teacher_for?(user)

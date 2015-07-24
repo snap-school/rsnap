@@ -5,16 +5,24 @@ class ProgramsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @title = "Programmes"
+    params[:user_id] = params[:student_id] if !params[:user_id]
+    params[:student_id] = params[:user_id] if !params[:student_id]
+    @title = "Programmes" + (params[:user_id] ? " de l'étudiant: " + Student.find_by_id(params[:user_id]).name : "")
     if current_user.try(:has_role?,:admin)
       if params[:user_id]
         @programs = Program.where(:user_id=>params[:user_id])
+        if params[:course_id]
+          @programs = @programs.where(Arel::Table.new(:programs)[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id))
+        end
       else
         @programs = Program.all
       end
     elsif current_user.try(:has_role?, :teacher)
       if params[:user_id]
         @programs = Program.where(Arel::Table.new(:programs)[:mission_id].in current_user.missions.map(&:id)).where(:user_id=>params[:user_id])
+        if params[:course_id]
+          @programs = @programs.where(Arel::Table.new(:programs)[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id))
+        end
       else
         @programs = Program.where(Arel::Table.new(:programs)[:mission_id].in current_user.missions.map(&:id))
       end

@@ -28,6 +28,10 @@ class Course < ActiveRecord::Base
     return Chapter.all.joins(:course_chapter_manifests).where("course_chapter_manifests.course_id = ?",self.id).order("course_chapter_manifests.order ASC")
   end
 
+  def ordered_missions
+    Mission.joins("LEFT OUTER JOIN course_chapter_manifests ON course_chapter_manifests.chapter_id = chapter_mission_manifests.chapter_id").joins(:chapter_mission_manifests).order(Arel::Table.new(:course_chapter_manifests)[:order]).order(Arel::Table.new(:chapter_mission_manifests)[:order]).where("course_chapter_manifests.course_id = ?", self.id)
+  end
+
   def add_chapter(chapter, order=-1)
     manif = CourseChapterManifest.new
     manif.course_id = self.id

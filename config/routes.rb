@@ -13,6 +13,10 @@ Rsnap::Application.routes.draw do
       resources :missions, :only=>[:new],            :controller => :missions,         path_names: {new:    'add_mission'}
       resources :missions, :only=>[:show]
     end
+
+    resources :students, :only=>[:index], :controller => :users do
+      resources :programs, :only=>[:index]
+    end
   end
 
   resources :course_chapter_manifest, :only => [:destroy]

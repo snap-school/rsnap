@@ -28,6 +28,10 @@
 class Student < User
   self.inheritance_column = :type
 
+  def self.model_name 
+    User.model_name
+  end
+
   devise :database_authenticatable, :timeoutable
 
 
