@@ -1,0 +1,49 @@
+#!/bin/bash
+echo "Enter your firstname and [Enter]"
+read firstname
+echo "Enter your lastname and [Enter]"
+read lastname
+echo "Enter your email (credential for your admin account) and [Enter]"
+read mail
+echo "Enter your password (credential for your admin account) and [Enter]"
+read passw
+echo "Type your session username and [ENTER]"
+read name
+echo "Enter the url from where RSnap will be available (your server's url)"
+read server_url
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - 
+sudo apt-get update 
+sudo apt-get upgrade
+sudo apt-get -y install postgresql-9.3 libpq-dev libmagick++-dev libmagickwand-dev libqt4-dev libqtwebkit-dev libqt5webkit5-dev npm
+sudo -u postgres -H -- psql -c "CREATE ROLE $name SUPERUSER CREATEDB LOGIN"
+cp config/database.yml.example config/database.yml
+sed -i -e "s/username: rsnap/username: $name/g" config/database.yml
+gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+\curl -sSL https://get.rvm.io | bash 
+source $HOME/.rvm/scripts/rvm
+echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc
+rvm install 2.1.1
+rvm install rubygems latest
+gem install rails -v '4.1' 
+bundle install
+rm config/secrets.yml
+echo "development:" >> config/secrets.yml
+echo "    secret_key_base: `RAILS_ENV=\"development\" rake secret`" >> config/secrets.yml
+echo "production:" >> config/secrets.yml
+echo "    secret_key_base: `RAILS_ENV=\"production\" rake secret`" >> config/secrets.yml
+echo "test:" >> config/secrets.yml
+echo "    secret_key_base: `RAILS_ENV=\"test\" rake secret`" >> config/secrets.yml
+sudo npm install bower -g
+sudo apt-get -y install nodejs-legacy
+rake bower:install
+rm -r public
+rm rsnap_development.dump
+unzip dump.zip
+rake db:drop db:create
+sed -i -e "s/localhost/$server_url/g" rsnap_development.dump
+psql -f rsnap_development.dump -d rsnap_development
+rake modif_admin[$firstname,$lastname,$mail,$passw]
+git checkout vend*
+echo "You can now start server with \"rails s\" and connect to your administrator account with credentials you gave at the start of this installer"
+
