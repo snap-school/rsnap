@@ -27,8 +27,6 @@
 
 class Admin < Teacher
 
-  has_many :courses, as: :teacher
-
   def students
   	return Student.all
   end
