@@ -28,25 +28,24 @@
 class Student < User
   self.inheritance_column = :type
 
-  def self.model_name 
+  def self.model_name
     User.model_name
   end
 
   devise :database_authenticatable, :timeoutable
 
-
   has_and_belongs_to_many :courses, join_table: "student_courses"
 
   def teachers
-  	t_list = []
-  	teacher.all
-  	self.courses.find_each do |c|
+    t_list = []
+    teacher.all
+    self.courses.find_each do |c|
       t_list.append c.teacher
-  	end
-  	t_list
+    end
+    t_list
   end
 
   def has_role?(role)
-  	return role == "Student" || role == :student
+    return role == "Student" || role == :student
   end
 end

@@ -21,7 +21,7 @@ private
 
   def snap_costumes
     files = list_dir("Costumes/", "*")
-    assets = list_assets(files)
+    list_assets(files)
       .merge("Costumes" => list_dir("Costumes/", "*", true))
   end
 
@@ -42,15 +42,14 @@ private
       .merge("Backgrounds" => list_dir("Backgrounds/", "*", true))
   end
 
-
-  def list_dir(dir, accepted_regexp, only_file=false)
+  def list_dir(dir, accepted_regexp, only_file = false)
     files = Dir.glob("lib/assets/javascripts/snap-byob/" + dir + accepted_regexp)
     files.map do |f|
       f.split("lib/assets/javascripts/snap-byob/#{dir if only_file}")[1]
     end
   end
 
-  def list_assets(files, asset_path_method=:asset_path)
+  def list_assets(files, asset_path_method = :asset_path)
     assets = Hash.new
     files.each do |f|
       assets[f] = send(asset_path_method, "snap-byob/#{f}")

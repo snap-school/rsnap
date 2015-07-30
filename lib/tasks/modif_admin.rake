@@ -1,4 +1,4 @@
-require "rake" 
+require 'rake'
 
 task :modif_admin, [:firstname,:lastname,:email, :pass] => [:environment] do |t, args|
   u = User.first

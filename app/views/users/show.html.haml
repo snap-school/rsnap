@@ -16,7 +16,7 @@
     \ :
   = @user.email
 
-%p 
+%p
   = button "Voir les programmes", user_programs_path(@user), :type=>:success
   -if current_user.try(:has_role?, :admin)
     = button "Editer", edit_user_path(@user), :type=>:success

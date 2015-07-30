@@ -35,9 +35,7 @@ class MissionsController < ApplicationController
     ids_to_exclude = @chapter.missions.map(&:id)
     missions_table = Arel::Table.new(:missions)
     @missions = Mission.where(missions_table[:id].not_in ids_to_exclude)
-    if ! current_user.try(:has_role?, :admin)
-      @missions = @missions.where(:teacher => current_user)
-    end
+    @missions = @missions.where(:teacher => current_user) unless current_user.try(:has_role?, :admin)
     @from_chapter = true
     @add_mission = true
     render :index
@@ -93,21 +91,20 @@ class MissionsController < ApplicationController
       end
     end
 
-
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube, :needs_check)
 
       project_name = "Untitled"
       file_path = "#{Rails.root}/public/default_mission.xml"
 
-      if not params[:source_code].eql?("")
+      unless params[:source_code].eql?("")
         mission = Mission.find_by(:id => (params[:source_code]).to_i)
         project_name = mission.title
         file_path = mission.source_code.path
       end
 
       template = File.read(file_path).gsub(project_name, p[:title])
-      
+
       file = Tempfile.new([p[:title],".xml"], "#{Rails.root}/tmp")
       file.write(template)
       file.rewind

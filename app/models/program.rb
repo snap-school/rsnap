@@ -32,12 +32,12 @@ class Program < ActiveRecord::Base
 
   has_attached_file :source_code
 
-  validates_attachment :source_code, :presence => true, :content_type => {:content_type => /text/}
+  validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
   validates :user_id, :mission_id, :presence => true
   validates_uniqueness_of :mission_id, :scope => :user_id
 
-  scope :for_mission, ->(mission){where(:mission_id => mission)}
-  scope :for_user, ->(user){where(:user_id => user)}
+  scope :for_mission, ->(mission) { where(:mission_id => mission) }
+  scope :for_user, ->(user) { where(:user_id => user) }
 
   State_to_be_done = 0
   State_to_be_corrected = 1
@@ -59,12 +59,12 @@ class Program < ActiveRecord::Base
   def solved_mission?
     return self.state == State_solved
   end
-  
+
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first
   end
 
   def self.visible_for(user)
-    user.try(:has_role?,:admin) ? Program.all : (user.try(:has_role?, :teacher) ? Program.where(programs_table[:mission_id].in user.missions.map(&:id)) : Program.for_user(user))
+    user.try(:has_role?, :admin) ? Program.all : (user.try(:has_role?, :teacher) ? Program.where(programs_table[:mission_id].in user.missions.map(&:id)) : Program.for_user(user))
   end
 end

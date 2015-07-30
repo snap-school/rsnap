@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @title = (current_user.try(:has_role?, :teacher) ? "Élèves" : "Utilisateurs")
     if params[:course_id]
       @course = Course.find_by_id(params[:course_id])
-      @title += " du cours: "+ @course.title
+      @title += " du cours: " + @course.title
       @users = @course.students
       @from_course = true
     else

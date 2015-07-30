@@ -61,4 +61,3 @@ Capybara.default_driver = :selenium
 
 require 'factory_girl_rails'
 include ActionDispatch::TestProcess
-

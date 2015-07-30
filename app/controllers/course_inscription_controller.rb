@@ -10,12 +10,12 @@ class CourseInscriptionController < ApplicationController
  end
 
   def create
-  	return unless current_user.try(:has_role?,:student)
-  	current_user.courses.append(@course)
-  	redirect_to courses_path
+    return unless current_user.try(:has_role?, :student)
+    current_user.courses.append(@course)
+    redirect_to courses_path
   end
 
-  private 
+  private
     def set_course
       @course = Course.find_by(:id => params[:course_id])
     end

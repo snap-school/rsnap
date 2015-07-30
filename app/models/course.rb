@@ -10,6 +10,10 @@
 #  teacher_id   :integer
 #  teacher_type :string(255)
 #
+# Indexes
+#
+#  index_courses_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#
 
 require "admin"
 
@@ -25,7 +29,7 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :students, join_table: "student_courses"
 
   def ordered_chapters
-    return Chapter.all.joins(:course_chapter_manifests).where("course_chapter_manifests.course_id = ?",self.id).order("course_chapter_manifests.order ASC")
+    return Chapter.all.joins(:course_chapter_manifests).where("course_chapter_manifests.course_id = ?", self.id).order("course_chapter_manifests.order ASC")
   end
 
   def ordered_missions
@@ -38,25 +42,23 @@ class Course < ActiveRecord::Base
     manif.chapter_id = chapter.id
     rec = CourseChapterManifest.where(:course_id => self.id).order(:order => :asc).last
     manif.order = rec.nil? ? 1 : (rec.order + 1)
-    manif.save
+    manif.save!
   end
 
   def remove_chapter(chapter)
-    manif = CourseChapterManifest.find_by(:course_id => self.id,:chapter_id => chapter.id)
+    manif = CourseChapterManifest.find_by(:course_id => self.id, :chapter_id => chapter.id)
     CourseChapterManifest.update_counters(manif.course.course_chapter_manifests.where("course_chapter_manifests.order >= ?", manif.order), :order => -1)
     manif.delete
   end
 
   def get_manifest_for_chapter(chapter)
-    return CourseChapterManifest.find_by(:course_id => self.id,:chapter_id => chapter.id)
+    return CourseChapterManifest.find_by(:course_id => self.id, :chapter_id => chapter.id)
   end
 
   def num_solved_chapter_for(user)
     count = 0
     self.chapters.find_each do |c|
-      if c.is_solved_by?(user)
-        count +=1
-      end
+      count += 1 if c.is_solved_by?(user)
     end
     return count
   end
@@ -74,13 +76,13 @@ class Course < ActiveRecord::Base
   end
 
   def chapter_enabled?(chapter, current_user)
-    return chapter_position(chapter) <= num_solved_chapter_for(current_user) + 1 || chapter.teacher == current_user || current_user.try(:has_role?,:admin)
+    return chapter_position(chapter) <= num_solved_chapter_for(current_user) + 1 || chapter.teacher == current_user || current_user.try(:has_role?, :admin)
   end
 
   def next_chapter_for(current_user)
     chapters = ordered_chapters
     num_solved = num_solved_chapter_for(current_user)
-    if (num_solved < chapters.count)
+    if num_solved < chapters.count
       return chapters[num_solved]
     else
       return nil

@@ -1,7 +1,7 @@
 class CourseChaptersController < ApplicationController
   authorize_actions_for Course
   before_action :set_course_chapters, only: [:index]
-  
+
   before_filter :authenticate_user!, :except => [:index]
 
   def index
@@ -19,7 +19,7 @@ class CourseChaptersController < ApplicationController
       redirect_to session[:previous_url]
     end
   end
-  
+
   private
     def set_course_chapters
       @course = Course.find_by_id(params[:course_id])

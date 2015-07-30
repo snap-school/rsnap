@@ -12,20 +12,18 @@ class ApplicationController < ActionController::Base
     if current_user
       i = 0
       str = "Les missions suivantes sont corrigées: "
-      Program.where(:user => current_user,:state => 2).find_each do |p|
+      Program.where(:user => current_user, :state => 2).find_each do |p|
         if p.is_corrected?
           str += ((i > 0) ? ", ": "") + "#{p.mission_title}"
           i = i + 1
         end
       end
-      if (i > 0)
-        flash[:user] = str
-      end
+      flash[:user] = str if i > 0
     end
   end
 
   def store_location
-    if (!request.fullpath.match("/auth.*") && !request.xhr?) # don't store ajax calls
+    if !request.fullpath.match("/auth.*") && !request.xhr? # don't store ajax calls
       session[:previous_url] = request.fullpath
     end
   end
@@ -43,6 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
   def configure_permitted_parameters
     user_attr_permitted = [:firstname, :lastname]
     devise_parameter_sanitizer.for(:sign_up) << user_attr_permitted

@@ -19,7 +19,7 @@ class ChapterMissionsController < ApplicationController
       redirect_to session[:previous_url]
     end
   end
-  
+
   private
     def set_chapter_missions
       @chapter = Chapter.find_by_id(params[:chapter_id])

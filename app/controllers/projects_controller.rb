@@ -7,12 +7,12 @@ class ProjectsController < ApplicationController
 
   def index
     @title = "Projets"
-    if current_user and current_user.try(:has_role?,:admin)
+    if current_user and current_user.try(:has_role?, :admin)
       @projects = Project.all
     else
       @projects = Project.for_user(current_user)
     end
-    @projects.find_each {|p| authorize_action_for p}
+    @projects.find_each { |p| authorize_action_for p }
   end
 
   def show
@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
     def project_params
       p = params.require(:project).permit(:source_code, :user_id, :name)
       if p[:source_code].instance_of?(String)
-        name = ["project-#{p[:user_id]}-#{p[:name]}",".xml"] #TODO user and mission id not present
+        name = ["project-#{p[:user_id]}-#{p[:name]}",".xml"] # TODO user and mission id not present
         file = Tempfile.new(name, "#{Rails.root}/tmp")
         file.write(p[:source_code])
         file.rewind

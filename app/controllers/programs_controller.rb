@@ -5,11 +5,11 @@ class ProgramsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    params[:user_id] = params[:student_id] if !params[:user_id]
-    params[:student_id] = params[:user_id] if !params[:student_id]
+    params[:user_id] = params[:student_id] unless params[:user_id]
+    params[:student_id] = params[:user_id] unless params[:student_id]
     @title = "Programmes" + (params[:user_id] ? " de l'étudiant: " + User.find_by_id(params[:user_id]).name : "")
     programs_table = Arel::Table.new(:programs)
-    if current_user.try(:has_role?,:admin) || current_user.try(:has_role?, :teacher)
+    if current_user.try(:has_role?, :admin) || current_user.try(:has_role?, :teacher)
       @programs = Program.visible_for(current_user)
       if params[:user_id]
         @programs = @programs.where(:user_id => params[:user_id])
@@ -20,7 +20,7 @@ class ProgramsController < ApplicationController
     else
       @programs = Program.for_user(current_user)
     end
-    @programs.each {|p| authorize_action_for p}
+    @programs.each { |p| authorize_action_for p }
   end
 
   def show
@@ -83,7 +83,7 @@ class ProgramsController < ApplicationController
     def program_params
       p = params.require(:program).permit(:source_code, :user_id, :mission_id, :state)
       if p[:source_code].instance_of?(String)
-        name = ["program-#{p[:user_id]}-#{p[:mission_id]}",".xml"] #TODO user and mission id not present
+        name = ["program-#{p[:user_id]}-#{p[:mission_id]}",".xml"] # TODO user and mission id not present
         file = Tempfile.new(name, "#{Rails.root}/tmp")
         file.write(p[:source_code])
         file.rewind

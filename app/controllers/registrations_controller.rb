@@ -30,7 +30,7 @@ class RegistrationsController < Devise::RegistrationsController
   def new_user
     if resource.persisted? # user is created successfuly
       resource.type = (params[:user][:type] == "0" ? "Student" : "Teacher")
-      resource.save
+      resource.save!
     end
   end
 

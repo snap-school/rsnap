@@ -2,11 +2,11 @@ class MissionAuthorizer < ApplicationAuthorizer
   def self.readable_by?(user)
     true
   end
-  
+
   def updatable_by?(user)
     modifiable_by?(user)
   end
-  
+
   def self.updatable_by?(user)
     deletable_by?(user)
   end
@@ -24,4 +24,3 @@ class MissionAuthorizer < ApplicationAuthorizer
       resource.user == user or user.has_role? :admin or user.has_role? :teacher
     end
 end
-

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721152319) do
+ActiveRecord::Schema.define(version: 20150730222307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20150721152319) do
     t.integer  "mission_id"
   end
 
+  add_index "chapter_mission_manifests", ["chapter_id"], name: "index_chapter_mission_manifests_on_chapter_id", using: :btree
+  add_index "chapter_mission_manifests", ["mission_id"], name: "index_chapter_mission_manifests_on_mission_id", using: :btree
+
   create_table "chapters", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -35,6 +38,8 @@ ActiveRecord::Schema.define(version: 20150721152319) do
     t.string   "teacher_type"
   end
 
+  add_index "chapters", ["teacher_id", "teacher_type"], name: "index_chapters_on_teacher_id_and_teacher_type", using: :btree
+
   create_table "course_chapter_manifests", force: true do |t|
     t.integer  "course_id"
     t.integer  "chapter_id"
@@ -42,6 +47,9 @@ ActiveRecord::Schema.define(version: 20150721152319) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "course_chapter_manifests", ["chapter_id"], name: "index_course_chapter_manifests_on_chapter_id", using: :btree
+  add_index "course_chapter_manifests", ["course_id"], name: "index_course_chapter_manifests_on_course_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "title"
@@ -51,6 +59,8 @@ ActiveRecord::Schema.define(version: 20150721152319) do
     t.integer  "teacher_id"
     t.string   "teacher_type"
   end
+
+  add_index "courses", ["teacher_id", "teacher_type"], name: "index_courses_on_teacher_id_and_teacher_type", using: :btree
 
   create_table "file_missions", force: true do |t|
     t.integer  "mission_id"
@@ -79,6 +89,8 @@ ActiveRecord::Schema.define(version: 20150721152319) do
     t.integer  "teacher_id"
     t.string   "teacher_type"
   end
+
+  add_index "missions", ["teacher_id", "teacher_type"], name: "index_missions_on_teacher_id_and_teacher_type", using: :btree
 
   create_table "programs", force: true do |t|
     t.string   "source_code_file_name"

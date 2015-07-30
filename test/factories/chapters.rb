@@ -12,6 +12,10 @@
 #  teacher_id        :integer
 #  teacher_type      :string(255)
 #
+# Indexes
+#
+#  index_chapters_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 #include ActionDispatch::TestProcess

@@ -28,7 +28,7 @@
 class User < ActiveRecord::Base
   include Authority::UserAbilities
   include Authority::Abilities
-  
+
   self.authorizer_name = 'UserAuthorizer'
 
   has_many :programs, :dependent => :destroy
@@ -37,15 +37,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :email, :uniqueness => {:case_sensitive => false}
+  validates :email, :uniqueness => { :case_sensitive => false }
 
   def name
     "#{firstname} #{lastname}"
   end
 
   def self.visible_for(user)
-    
-    return User.all if user.try(:has_role?,:admin)
-    return user.students if user.has_role?(:teacher)
+
+    return User.all if user.try(:has_role?, :admin)
+    return user.students if user.try(:has_role?, :teacher)
   end
 end

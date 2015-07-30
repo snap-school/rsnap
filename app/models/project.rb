@@ -28,5 +28,5 @@ class Project < ActiveRecord::Base
 
   validates :user_id, :presence => true
 
-  scope :for_user, lambda{|user| where(:user_id => user)}
+  scope :for_user, ->(user) { where(:user_id => user) }
 end

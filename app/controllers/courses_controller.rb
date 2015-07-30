@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  def destroy 
+  def destroy
     @course.destroy
     redirect_to courses_url, notice: "Le cours a bien été supprimé."
   end

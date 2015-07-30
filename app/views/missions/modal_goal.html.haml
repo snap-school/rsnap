@@ -7,9 +7,9 @@
     - message =  "Bravo ! Tu as réussi la mission, attends que ton professeur vérifie ton programme et tu pourra passer à la mission suivante."
   -else
     - message = "Bravo ! Tu as réussi la mission, tu peux maintenant passer à la mission suivante!"
-  
+
   .modal-body
-    %p 
+    %p
     = message
   .modal-footer
     -if @mission.is_solved_by?(current_user)

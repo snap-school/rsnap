@@ -27,7 +27,7 @@
 
 class Teacher < User
   self.inheritance_column = :type
-  
+
   devise :database_authenticatable, :timeoutable
 
   has_many :courses, as: :teacher

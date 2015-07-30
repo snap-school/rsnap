@@ -23,7 +23,7 @@
 
 FactoryGirl.define do
   factory :program do
-    source_code{fixture_file_upload(Rails.root.join("test", "fixtures", "empty_project.xml"), 'text/xml') }
+    source_code { fixture_file_upload(Rails.root.join("test", "fixtures", "empty_project.xml"), 'text/xml') }
     user
     mission
   end

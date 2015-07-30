@@ -4,7 +4,7 @@
   %td= user.email
   %td= button "Voir", user, type: :primary
   -if @from_course
-    %td 
+    %td
       - @course.ordered_missions.each do |m|
         - if m.is_solved_by?(user)
           = button "",program_path(Program.for_mission_for_user(m,user)), type: :success
@@ -15,7 +15,7 @@
         -elsif Program.for_mission_for_user(m,user).present?
           = button "",program_path(Program.for_mission_for_user(m,user)), type: :primary
         -else
-          %a.btn.btn-circle-micro.btn-default 
+          %a.btn.btn-circle-micro.btn-default
   -else
     %td= button "Voir les programmes", user_programs_path(user), type: :primary
 

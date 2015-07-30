@@ -8,12 +8,12 @@ class CourseDesinscriptionController < ApplicationController
   end
 
   def destroy
-  	return unless current_user.try(:has_role?,:student)
-  	current_user.courses.delete(@course)
-  	redirect_to courses_path
+    return unless current_user.try(:has_role?, :student)
+    current_user.courses.delete(@course)
+    redirect_to courses_path
   end
 
-  private 
+  private
     def set_course
       @course = Course.find_by(:id => params[:id])
     end

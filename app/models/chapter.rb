@@ -12,6 +12,10 @@
 #  teacher_id        :integer
 #  teacher_type      :string(255)
 #
+# Indexes
+#
+#  index_chapters_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#
 
 require "admin"
 
@@ -30,9 +34,7 @@ class Chapter < ActiveRecord::Base
   def is_solved_by?(user)
     if user
       self.missions.find_each do |m|
-        if not m.is_solved_by?(user)
-          return false
-        end
+        return false unless m.is_solved_by?(user)
       end
       return true
     else
@@ -41,15 +43,13 @@ class Chapter < ActiveRecord::Base
   end
 
   def ordered_missions
-    return Mission.all.joins(:chapter_mission_manifests).where("chapter_mission_manifests.chapter_id = ?",self.id).order("chapter_mission_manifests.order ASC")
+    return Mission.all.joins(:chapter_mission_manifests).where("chapter_mission_manifests.chapter_id = ?", self.id).order("chapter_mission_manifests.order ASC")
   end
 
   def num_solved_missions_for(user)
     count = 0
     self.missions.find_each do |c|
-      if c.is_solved_by?(user)
-        count +=1
-      end
+      count += 1 if c.is_solved_by?(user)
     end
     return count
   end
@@ -73,22 +73,22 @@ class Chapter < ActiveRecord::Base
   def next_mission_for(current_user)
     missions = ordered_missions
     num_solved = num_solved_missions_for(current_user)
-    if (num_solved < missions.count)
+    if num_solved < missions.count
       return missions[num_solved]
     else
       return nil
     end
   end
-  
+
   def add_mission(mission)
     manif = ChapterMissionManifest.new
     manif.mission_id = mission.id
     manif.chapter_id = self.id
     rec = ChapterMissionManifest.where(:chapter_id => self.id).order(:order => :asc).last
     manif.order = rec.nil? ? 1 : (rec.order + 1)
-    manif.save
+    manif.save!
   end
-  
+
   def remove_mission(mission)
     manif = ChapterMissionManifest.find_by(:chapter_id => self.id,:mission_id => mission.id)
     ChapterMissionManifest.update_counters(manif.chapter.chapter_mission_manifests.where("chapter_mission_manifests.order >= ?", manif.order), :order => -1)

@@ -17,6 +17,10 @@
 #  teacher_id               :integer
 #  teacher_type             :string(255)
 #
+# Indexes
+#
+#  index_missions_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#
 
 require "admin"
 
@@ -37,12 +41,9 @@ class Mission < ActiveRecord::Base
   validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
   validates :title, :description, :small_description, :presence => true
 
-
-
-
   def is_solved_by?(user)
     if user
-      program = Program.for_mission_for_user(self,user)
+      program = Program.for_mission_for_user(self, user)
       return program.present? && program.solved_mission?
     else
       false
@@ -51,7 +52,7 @@ class Mission < ActiveRecord::Base
 
   def is_in_correction_for?(user)
     if user
-      program = Program.for_mission_for_user(self,user)
+      program = Program.for_mission_for_user(self, user)
       return program.present? && program.is_in_correction?
     else
       false
@@ -60,7 +61,7 @@ class Mission < ActiveRecord::Base
 
   def is_corrected_for?(user)
     if user
-      program = Program.for_mission_for_user(self,user)
+      program = Program.for_mission_for_user(self, user)
       return program.present? && program.is_corrected?
     else
       false
@@ -69,9 +70,9 @@ class Mission < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
-      if user.try(:has_role?,:admin)
-        return Mission.all 
-      elsif user.try(:has_role?,:teacher)
+      if user.try(:has_role?, :admin)
+        return Mission.all
+      elsif user.try(:has_role?, :teacher)
         return user.missions.order(:id)
       else
         return []
