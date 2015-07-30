@@ -2,4 +2,4 @@
   Bonjour #{@resource.name} !
 %p Votre compte a été bloqué suite à un trop grand nombre d'essais de connection.
 %p Cloquez sur le lien suivant pour débloquer votre compte :
-%p= link_to 'Débloquer mon compte', unlock_url(@resource, :unlock_token => @token)
+%p= link_to 'Débloquer mon compte', unlock_url(@resource, unlock_token:  @token)

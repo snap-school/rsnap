@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     if current_user
       i = 0
       str = "Les missions suivantes sont corrigées: "
-      Program.where(:user => current_user, :state => 2).find_each do |p|
+      Program.where(user:  current_user, state:  2).find_each do |p|
         if p.is_corrected?
           str += ((i > 0) ? ", ": "") + "#{p.mission_title}"
           i = i + 1

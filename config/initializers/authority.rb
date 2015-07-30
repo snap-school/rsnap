@@ -27,22 +27,22 @@ Authority.configure do |config|
   #   :create  => 'create',
   #   :edit    => 'update',
   #   :update  => 'update',
-  #   :destroy => 'delete'
+  #   destroy:  'delete'
   # }
 
   # ABILITIES
   # =========
   # Teach Authority how to understand the verbs and adjectives in your system. Perhaps you
-  # need {:microwave => 'microwavable'}. I'm not saying you do, of course. Stop looking at
+  # need {microwave:  'microwavable'}. I'm not saying you do, of course. Stop looking at
   # me like that.
   #
   # Defaults are as follows:
   #
   # config.abilities =  {
-  #   :create => 'creatable',
+  #   create:  'creatable',
   #   :read   => 'readable',
-  #   :update => 'updatable',
-  #   :delete => 'deletable'
+  #   update:  'updatable',
+  #   delete:  'deletable'
   # }
 
   # LOGGER

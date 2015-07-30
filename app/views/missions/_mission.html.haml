@@ -4,18 +4,18 @@
   - disabled = (!@add_mission && @from_chapter && !@chapter.mission_enabled?(mission, current_user))
   - type =  mission.is_solved_by?(current_user) ? :success : (disabled ? :default : :primary)
   - url = (@from_course ? course_chapter_mission_path(@course,@course,mission) : @from_chapter ? chapter_mission_path(@chapter,mission) : mission)
-  %td= button mission.title, url , :id=>"show-mission-#{mission.id}", :type=> type, :disabled => disabled
+  %td= button mission.title, url , :id=>"show-mission-#{mission.id}", :type=> type, disabled:  disabled
   %td= mission.small_description.html_safe
   -if user_signed_in? and (current_user.try(:has_role?,:admin) || current_user == mission.teacher)
     -if not @add_mission
       %td= button "Editer", edit_mission_path(mission), type: :primary
       %td= button "Editer le programme", mission_program_path(mission), type: :warning
       -if not @from_chapter
-        %td= button "Supprimer", mission, :method => :delete,
-                  :data => { :confirm => "Etes-vous certain ?" }, type: :danger
+        %td= button "Supprimer", mission, method:  :delete,
+                  data:  { confirm:  "Etes-vous certain ?" }, type: :danger
       -else
-        %td= button "Retirer", chapter_mission_manifest_path(@chapter.get_manifest_for_mission(mission)), :method => :delete,
-                  :data => { :confirm => "Etes-vous certain ?" }, type: :danger
+        %td= button "Retirer", chapter_mission_manifest_path(@chapter.get_manifest_for_mission(mission)), method:  :delete,
+                  data:  { confirm:  "Etes-vous certain ?" }, type: :danger
     -else
       %td
         = form_tag(chapter_missions_path) do

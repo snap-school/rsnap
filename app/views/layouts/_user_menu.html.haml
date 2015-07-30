@@ -3,7 +3,7 @@
     %p
       =button "Mes informations", user_path(current_user), type: :primary
     %p
-      =button t_attr(:user, :sign_out), destroy_session_path(resource_name), :method => :delete,
+      =button t_attr(:user, :sign_out), destroy_session_path(resource_name), method:  :delete,
               type: :warning, :id=>:sign_out
   -btn_txt = current_user.name
 -else

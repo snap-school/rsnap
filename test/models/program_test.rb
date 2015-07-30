@@ -6,7 +6,7 @@ class ProgramTest < ActiveSupport::TestCase
 
     #p1 = FactoryGirl.create(:program)
     #assert_raises ActiveRecord::RecordInvalid do
-    #  FactoryGirl.create(:program, :mission_id => p1.mission_id, :user_id => p1.mission_id)
+    #  FactoryGirl.create(:program, mission_id:  p1.mission_id, user_id:  p1.mission_id)
     #end
 
     true

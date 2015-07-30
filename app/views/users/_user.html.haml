@@ -24,5 +24,5 @@
     %td
       = button "Editer", edit_user_path(user), type: :warning
     %td
-      = button "Supprimer", user_path(user), :method => :delete, type: :danger,
-                :data => { :confirm => "Etes-vous certain ?" }
+      = button "Supprimer", user_path(user), method:  :delete, type: :danger,
+                data:  { confirm:  "Etes-vous certain ?" }

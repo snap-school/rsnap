@@ -10,8 +10,8 @@ class ChapterMissionsController < ApplicationController
   end
 
   def create
-    chapter = Chapter.find_by(:id => params[:chapter_id])
-    mission = Mission.find_by(:id => params[:mission_id])
+    chapter = Chapter.find_by(id:  params[:chapter_id])
+    mission = Mission.find_by(id:  params[:mission_id])
     if not chapter.nil? and not mission.nil?
       chapter.add_mission(mission)
       redirect_to chapter_missions_path(chapter), notice: "La mission a bien été ajoutée au chapitre."

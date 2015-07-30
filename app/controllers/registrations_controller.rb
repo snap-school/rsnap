@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   after_filter :new_user
 
-  before_action :set_user, :only => [:update]
+  before_action :set_user, only:  [:update]
 
   def update
     authorize_action_for @user
@@ -12,7 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, :updated
       if @user == current_user
         # Sign in the user bypassing validation in case his password changed
-        sign_in @user, :bypass => true
+        sign_in @user, bypass:  true
       end
       redirect_to @user
     else

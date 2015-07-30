@@ -1,5 +1,5 @@
-=bootstrap_form_for(resource, :as => resource_name, :url => user_session_path) do |f|
-  =f.email_field :email, :autofocus => true, :label=>false, :placeholder=>t_attr(:user, :email)
+=bootstrap_form_for(resource, as:  resource_name, url:  user_session_path) do |f|
+  =f.email_field :email, autofocus:  true, :label=>false, :placeholder=>t_attr(:user, :email)
   =f.password_field :password, :label=>false, :placeholder=>t_attr(:user, :password)
   - if devise_mapping.rememberable?
     .checkbox

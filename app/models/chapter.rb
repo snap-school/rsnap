@@ -28,7 +28,7 @@ class Chapter < ActiveRecord::Base
   has_many :chapter_mission_manifests
   has_many :missions, through: :chapter_mission_manifests
 
-  has_many :course_chapter_manifests, :dependent => :destroy
+  has_many :course_chapter_manifests, dependent:  :destroy
   has_many :courses, through: :course_chapter_manifests
 
   def is_solved_by?(user)
@@ -84,19 +84,19 @@ class Chapter < ActiveRecord::Base
     manif = ChapterMissionManifest.new
     manif.mission_id = mission.id
     manif.chapter_id = self.id
-    rec = ChapterMissionManifest.where(:chapter_id => self.id).order(:order => :asc).last
+    rec = ChapterMissionManifest.where(chapter_id:  self.id).order(order:  :asc).last
     manif.order = rec.nil? ? 1 : (rec.order + 1)
     manif.save!
   end
 
   def remove_mission(mission)
-    manif = ChapterMissionManifest.find_by(:chapter_id => self.id,:mission_id => mission.id)
-    ChapterMissionManifest.update_counters(manif.chapter.chapter_mission_manifests.where("chapter_mission_manifests.order >= ?", manif.order), :order => -1)
+    manif = ChapterMissionManifest.find_by(chapter_id:  self.id,mission_id:  mission.id)
+    ChapterMissionManifest.update_counters(manif.chapter.chapter_mission_manifests.where("chapter_mission_manifests.order >= ?", manif.order), order:  -1)
     manif.delete
   end
 
   def get_manifest_for_mission(mission)
-    return ChapterMissionManifest.find_by(:chapter_id => self.id,:mission_id => mission.id)
+    return ChapterMissionManifest.find_by(chapter_id:  self.id,mission_id:  mission.id)
   end
 
   def self.visible_for(user)

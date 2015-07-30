@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   authorize_actions_for Course
   before_action :set_course, only: [:show, :edit, :update, :destroy, :remove_chapter]
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, except:  [:index, :show]
 
   def index
     if user_signed_in?

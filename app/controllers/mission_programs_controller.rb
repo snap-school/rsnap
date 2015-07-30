@@ -7,13 +7,13 @@ class MissionProgramsController < ApplicationController
 
   def show
     @title = "Mission : #{@mission.title}"
-    render :layout => "snap"
+    render layout:  "snap"
   end
 
   def update
     respond_to do |format|
       format.json do
-          render :nothing => true if @mission.update(mission_params)
+          render nothing:  true if @mission.update(mission_params)
       end
     end
   end

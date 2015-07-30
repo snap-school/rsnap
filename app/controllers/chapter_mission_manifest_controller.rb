@@ -10,7 +10,7 @@ class ChapterMissionManifestController < ApplicationController
 
   private
     def set_manifest
-      @manifest = ChapterMissionManifest.find_by(:id => params[:id])
+      @manifest = ChapterMissionManifest.find_by(id:  params[:id])
     end
 
 end

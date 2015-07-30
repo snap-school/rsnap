@@ -21,8 +21,8 @@ class FileMission < ActiveRecord::Base
   self.authorizer_name = 'MissionAuthorizer'
 
   belongs_to :mission
-  delegate :title, :to => :mission, :prefix => true
+  delegate :title, to:  :mission, prefix:  true
 
   has_attached_file :file
-  validates_attachment :file, :presence => true, :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/gif", "image/png"] }
+  validates_attachment :file, presence:  true, content_type:  { content_type:  ["image/jpg", "image/jpeg", "image/gif", "image/png"] }
 end

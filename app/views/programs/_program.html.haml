@@ -3,5 +3,5 @@
   %td= button program.mission_title, program_path(program), type: type
   %td= "#{program.user_name} (#{program.user.email})"
   -if user_signed_in? and (current_user.try(:has_role?,:admin) or (program.mission.teacher == current_user))
-    %td= button "Supprimer", program, :method => :delete,
-                  :data => { :confirm => "En êtes-vous sûr?" }, type: :danger
+    %td= button "Supprimer", program, method:  :delete,
+                  data:  { confirm:  "En êtes-vous sûr?" }, type: :danger

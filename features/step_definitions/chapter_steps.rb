@@ -23,7 +23,7 @@ When(/^he visit the realisation of these chapter$/) do
   page.should have_link("Réaliser ce chapitre")
   @mission = FactoryGirl.create(:mission)
   @chapter.add_mission(@mission)
-  visit chapter_missions_path(:chapter_id => @chapter.id)
+  visit chapter_missions_path(chapter_id:  @chapter.id)
 end
 
 Given(/^he have already complet some chapters$/) do
@@ -52,7 +52,7 @@ Then(/^he can see the missions of this chapter$/) do
 end
 
 When(/^he access to the page for the chapter creation$/) do
-  page.should have_link("", :href => new_chapter_path)
+  page.should have_link("", href:  new_chapter_path)
   visit new_chapter_path
 end
 

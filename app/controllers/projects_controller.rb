@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html do
         @title = "Projet : #{@project.name}"
-        render :layout => "snap"
+        render layout:  "snap"
       end
       format.json do
         render :show
@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
   def new
     @title = "Créer un projet"
-    render :layout => "snap"
+    render layout:  "snap"
     @project = Project.new
   end
 
@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html do
         if @project.save
-          render :layout => "snap"
+          render layout:  "snap"
           redirect_to @project, notice: "Le projet a bien été mis à jour."
         else
           @title = "Modifier le project : #{@project.name}"

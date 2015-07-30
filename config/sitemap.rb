@@ -18,13 +18,13 @@ SitemapGenerator::Sitemap.create do
   # Usage: add(path, options={})
   #        (default options are used if you don't specify)
   #
-  # Defaults: :priority => 0.5, :changefreq => 'weekly',
-  #           :lastmod => Time.now, :host => default_host
+  # Defaults: priority:  0.5, changefreq:  'weekly',
+  #           lastmod:  Time.now, host:  default_host
 
   add about_home_index_path
 
-  add missions_path, :priority => 0.7
+  add missions_path, priority:  0.7
   Mission.find_each do |mission|
-    add mission_path(mission), :lastmod => mission.updated_at
+    add mission_path(mission), lastmod:  mission.updated_at
   end
 end

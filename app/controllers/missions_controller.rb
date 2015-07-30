@@ -2,7 +2,7 @@ class MissionsController < ApplicationController
   authorize_actions_for Mission
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
   before_action :set_chapter_and_course, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user!, except:  [:show]
 
   def index
     @title = "Missions"
@@ -12,10 +12,10 @@ class MissionsController < ApplicationController
 
   def show
     if params[:modal]
-      render :modal_show, :layout => false
+      render :modal_show, layout:  false
     elsif params[:goal]
       @course = Course.find_by_id(session[:current_course_id])
-      render :modal_goal, :layout => false
+      render :modal_goal, layout:  false
     else
       @title = "Mission : #{@mission.title}"
     end
@@ -31,16 +31,16 @@ class MissionsController < ApplicationController
   def add_mission
     @title = "Missions"
     @missions = []
-    @chapter = Chapter.find_by(:id => params[:chapter_id])
+    @chapter = Chapter.find_by(id:  params[:chapter_id])
     ids_to_exclude = @chapter.missions.map(&:id)
     missions_table = Arel::Table.new(:missions)
     @missions = Mission.where(missions_table[:id].not_in ids_to_exclude)
-    @missions = @missions.where(:teacher => current_user) unless current_user.try(:has_role?, :admin)
+    @missions = @missions.where(teacher:  current_user) unless current_user.try(:has_role?, :admin)
     @from_chapter = true
     @add_mission = true
     render :index
   end
-  authority_actions :add_mission => "update"
+  authority_actions add_mission:  "update"
 
   def create
     @mission = Mission.new(mission_params)
@@ -81,12 +81,12 @@ class MissionsController < ApplicationController
         @from_chapter = false
         @from_course = false
       else
-        @chapter = Chapter.find_by(:id => params[:chapter_id])
+        @chapter = Chapter.find_by(id:  params[:chapter_id])
         if params[:course_id].nil?
           @from_course = false
         else
           @from_course = true
-          @course = Course.find_by(:id => params[:course_id])
+          @course = Course.find_by(id:  params[:course_id])
         end
       end
     end
@@ -98,7 +98,7 @@ class MissionsController < ApplicationController
       file_path = "#{Rails.root}/public/default_mission.xml"
 
       unless params[:source_code].eql?("")
-        mission = Mission.find_by(:id => (params[:source_code]).to_i)
+        mission = Mission.find_by(id:  (params[:source_code]).to_i)
         project_name = mission.title
         file_path = mission.source_code.path
       end

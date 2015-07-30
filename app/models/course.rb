@@ -40,19 +40,19 @@ class Course < ActiveRecord::Base
     manif = CourseChapterManifest.new
     manif.course_id = self.id
     manif.chapter_id = chapter.id
-    rec = CourseChapterManifest.where(:course_id => self.id).order(:order => :asc).last
+    rec = CourseChapterManifest.where(course_id:  self.id).order(order:  :asc).last
     manif.order = rec.nil? ? 1 : (rec.order + 1)
     manif.save!
   end
 
   def remove_chapter(chapter)
-    manif = CourseChapterManifest.find_by(:course_id => self.id, :chapter_id => chapter.id)
-    CourseChapterManifest.update_counters(manif.course.course_chapter_manifests.where("course_chapter_manifests.order >= ?", manif.order), :order => -1)
+    manif = CourseChapterManifest.find_by(course_id:  self.id, chapter_id:  chapter.id)
+    CourseChapterManifest.update_counters(manif.course.course_chapter_manifests.where("course_chapter_manifests.order >= ?", manif.order), order:  -1)
     manif.delete
   end
 
   def get_manifest_for_chapter(chapter)
-    return CourseChapterManifest.find_by(:course_id => self.id, :chapter_id => chapter.id)
+    return CourseChapterManifest.find_by(course_id:  self.id, chapter_id:  chapter.id)
   end
 
   def num_solved_chapter_for(user)

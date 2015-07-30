@@ -24,17 +24,17 @@ class ChaptersController < ApplicationController
   def add_chapter
       @title = "Chapitres"
       @chapters = []
-      @course = Course.find_by(:id => params[:course_id])
+      @course = Course.find_by(id:  params[:course_id])
       ids_to_exclude = @course.chapters.map(&:id)
       chapters_table = Arel::Table.new(:chapters)
       @chapters = Chapter.where(chapters_table[:id].not_in ids_to_exclude)
-      @chapters = @chapters.where(:teacher => current_user) unless current_user.try(:has_role?, :admin)
+      @chapters = @chapters.where(teacher:  current_user) unless current_user.try(:has_role?, :admin)
       @from_course = true
       @add_chapter = true
-      @course = Course.find_by(:id => params[:course_id])
+      @course = Course.find_by(id:  params[:course_id])
       render :index
   end
-  authority_actions :add_chapter => "update"
+  authority_actions add_chapter:  "update"
 
   def create
     @chapter = Chapter.new(chapter_params)
@@ -64,7 +64,7 @@ class ChaptersController < ApplicationController
     @chapter.destroy
     redirect_to chapters_url, notice: "Le chapitre a bien été supprimé."
   end
-  authority_actions :destroy => 'delete'
+  authority_actions destroy:  'delete'
 
   private
     def set_chapter

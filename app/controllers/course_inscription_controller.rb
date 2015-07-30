@@ -17,6 +17,6 @@ class CourseInscriptionController < ApplicationController
 
   private
     def set_course
-      @course = Course.find_by(:id => params[:course_id])
+      @course = Course.find_by(id:  params[:course_id])
     end
 end

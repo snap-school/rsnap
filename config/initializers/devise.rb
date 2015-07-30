@@ -79,7 +79,7 @@ Devise.setup do |config|
   # :http_auth and :token_auth by adding those symbols to the array below.
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
-  # passing :skip => :sessions to `devise_for` in your config/routes.rb
+  # passing skip:  :sessions to `devise_for` in your config/routes.rb
   config.skip_session_storage = [:http_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
@@ -133,7 +133,7 @@ Devise.setup do |config|
   config.extend_remember_period = true
 
   # Options to be passed to the created cookie. For instance, you can set
-  # :secure => true in order to force SSL only cookies.
+  # secure:  true in order to force SSL only cookies.
   # config.rememberable_options = {}
 
   # = =>  Configuration for :validatable
@@ -232,7 +232,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   require 'openid/store/filesystem'
-  config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :require => 'omniauth-openid'
+  config.omniauth :open_id, store:  OpenID::Store::Filesystem.new('/tmp'), require:  'omniauth-openid'
 
   # = =>  Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -240,7 +240,7 @@ Devise.setup do |config|
   #
   # config.warden do |manager|
   #   manager.intercept_401 = false
-  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
+  #   manager.default_strategies(scope:  :user).unshift :some_external_strategy
   # end
 
   # = =>  Mountable engine configurations

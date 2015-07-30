@@ -39,7 +39,7 @@ class Teacher < User
   end
 
   def is_teacher_for?(user)
-    students.where(:id => user.id).present?
+    students.where(id:  user.id).present?
   end
 
   def has_role?(role)

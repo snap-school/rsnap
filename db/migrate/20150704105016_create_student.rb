@@ -3,6 +3,6 @@ class CreateStudent < ActiveRecord::Migration
     create_table :students do |t|
       t.integer :user_id
     end
-    add_index :students, :user_id,                :unique => true
+    add_index :students, :user_id,                unique:  true
   end
 end

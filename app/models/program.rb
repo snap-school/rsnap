@@ -26,18 +26,18 @@ class Program < ActiveRecord::Base
   belongs_to :mission
   belongs_to :user
 
-  delegate :title, :to => :mission, :prefix => true
-  delegate :name, :to => :user, :prefix => true
-  delegate :needs_check, :to => :mission, :prefix => true
+  delegate :title, to:  :mission, prefix:  true
+  delegate :name, to:  :user, prefix:  true
+  delegate :needs_check, to:  :mission, prefix:  true
 
   has_attached_file :source_code
 
-  validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
-  validates :user_id, :mission_id, :presence => true
-  validates_uniqueness_of :mission_id, :scope => :user_id
+  validates_attachment :source_code, presence:  true, content_type:  { content_type:  /text/ }
+  validates :user_id, :mission_id, presence:  true
+  validates_uniqueness_of :mission_id, scope:  :user_id
 
-  scope :for_mission, ->(mission) { where(:mission_id => mission) }
-  scope :for_user, ->(user) { where(:user_id => user) }
+  scope :for_mission, ->(mission) { where(mission_id:  mission) }
+  scope :for_user, ->(user) { where(user_id:  user) }
 
   State_to_be_done = 0
   State_to_be_corrected = 1

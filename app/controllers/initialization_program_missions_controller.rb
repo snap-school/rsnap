@@ -16,9 +16,9 @@ class InitializationProgramMissionsController < ApplicationController
 
   private
   def initialize_new_program
-    @program = Program.new(:user_id => current_user.id,
-                           :mission_id => @mission.id,
-                           :source_code => @mission.source_code)
+    @program = Program.new(user_id:  current_user.id,
+                           mission_id:  @mission.id,
+                           source_code:  @mission.source_code)
     authorize_action_for @program
     if @program.save
       redirect_to @program, notice: "Le programme à bien été créé"

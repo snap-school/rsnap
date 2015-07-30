@@ -30,16 +30,16 @@ class Mission < ActiveRecord::Base
 
   belongs_to :teacher, polymorphic: true
 
-  has_many :programs, :dependent => :destroy
-  has_many :file_missions, :dependent => :destroy
+  has_many :programs, dependent:  :destroy
+  has_many :file_missions, dependent:  :destroy
 
-  has_many :chapter_mission_manifests, :dependent => :destroy
+  has_many :chapter_mission_manifests, dependent:  :destroy
   has_many :chapters, through: :chapter_mission_manifests
 
   has_attached_file :source_code
 
-  validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
-  validates :title, :description, :small_description, :presence => true
+  validates_attachment :source_code, presence:  true, content_type:  { content_type:  /text/ }
+  validates :title, :description, :small_description, presence:  true
 
   def is_solved_by?(user)
     if user
