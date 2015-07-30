@@ -7,24 +7,15 @@ class ProgramsController < ApplicationController
   def index
     params[:user_id] = params[:student_id] if !params[:user_id]
     params[:student_id] = params[:user_id] if !params[:student_id]
-    @title = "Programmes" + (params[:user_id] ? " de l'étudiant: " + Student.find_by_id(params[:user_id]).name : "")
-    if current_user.try(:has_role?,:admin)
+    @title = "Programmes" + (params[:user_id] ? " de l'étudiant: " + User.find_by_id(params[:user_id]).name : "")
+    programs_table = Arel::Table.new(:programs)
+    if current_user.try(:has_role?,:admin) || current_user.try(:has_role?, :teacher)
+      @programs = Program.visible_for(current_user)
       if params[:user_id]
-        @programs = Program.where(:user_id=>params[:user_id])
+        @programs = @programs.where(:user_id=>params[:user_id])
         if params[:course_id]
-          @programs = @programs.where(Arel::Table.new(:programs)[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id))
+          @programs = @programs.where(programs_table[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id))
         end
-      else
-        @programs = Program.all
-      end
-    elsif current_user.try(:has_role?, :teacher)
-      if params[:user_id]
-        @programs = Program.where(Arel::Table.new(:programs)[:mission_id].in current_user.missions.map(&:id)).where(:user_id=>params[:user_id])
-        if params[:course_id]
-          @programs = @programs.where(Arel::Table.new(:programs)[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id))
-        end
-      else
-        @programs = Program.where(Arel::Table.new(:programs)[:mission_id].in current_user.missions.map(&:id))
       end
     else
       @programs = Program.for_user(current_user)

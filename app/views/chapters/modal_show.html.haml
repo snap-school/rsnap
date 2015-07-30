@@ -4,7 +4,7 @@
   %h4.modal-title
     =@mission.title
 .modal-body
-  =raw @mission.description
+  = @mission.description.html_safe
 .modal-footer
   %button.btn.btn-default{type: :button, "data-dismiss"=>:modal}
     Fermer

@@ -1,7 +1,7 @@
 %h1= @title
 
 %p
-  = raw @course.description
+  = @course.description.html_safe
 %br
   =button "Voir les chapitres", course_chapters_path(@course), type: :primary
 %br

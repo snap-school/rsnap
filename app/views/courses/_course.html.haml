@@ -1,6 +1,6 @@
 %tr.item
   %td= button course.title, course, :id=>"show-course-#{course.id}", type: :primary
-  %td= raw course.description
+  %td= course.description.html_safe
   -if inscription
     %td
       = form_tag(course_inscription_index_path) do

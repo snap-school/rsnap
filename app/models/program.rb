@@ -63,4 +63,8 @@ class Program < ActiveRecord::Base
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first
   end
+
+  def self.visible_for(user)
+    user.try(:has_role?,:admin) ? Program.all : (user.try(:has_role?, :teacher) ? Program.where(programs_table[:mission_id].in user.missions.map(&:id)) : Program.for_user(user))
+  end
 end
