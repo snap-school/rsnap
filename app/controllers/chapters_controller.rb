@@ -15,24 +15,29 @@ class ChaptersController < ApplicationController
   end
 
   def new
-    @title = "Chapitres"
-    @chapters = []
+    @title = "Créer un chapitre"
+    @chapter = Chapter.new
     @from_course = false
-    if params[:course_id].nil?
-      @title = "Créer un chapitre"
-      @chapter = Chapter.new
-      render :new
-    else
-      @course = Course.find_by(:id=>params[:course_id])
+    render :new
+  end
+
+  def add_chapter
+      @title = "Chapitres"
+      @chapters = []
+      @course = Course.find_by(:id => params[:course_id])
       ids_to_exclude = @course.chapters.map(&:id)
       chapters_table = Arel::Table.new(:chapters)
-      @chapters = Chapter.where(chapters_table[:id].not_in ids_to_exclude).where(:teacher => current_user)
+      @chapters = Chapter.where(chapters_table[:id].not_in ids_to_exclude)
+      if ! current_user.try(:has_role?, :admin)
+        @chapters = @chapters.where(:teacher => current_user)
+      end
       @from_course = true
       @add_chapter = true
-      @course = Course.find_by(:id=>params[:course_id])
+      @course = Course.find_by(:id => params[:course_id])
       render :index
-    end
   end
+  authority_actions :add_chapter => "update"
+  
 
   def create
     @chapter = Chapter.new(chapter_params)

@@ -41,7 +41,7 @@ class ProgramsControllerTest < ActionController::TestCase
     user_sign_in
     mission = FactoryGirl.create(:mission)
     assert_difference('Program.count') do
-      post :create, program: FactoryGirl.attributes_for(:program, :mission_id=>mission.id, :user_id=>@program.user.id)
+      post :create, program: FactoryGirl.attributes_for(:program, :mission_id => mission.id, :user_id => @program.user.id)
     end
 
     assert_redirected_to program_path(assigns(:program))
@@ -79,14 +79,14 @@ class ProgramsControllerTest < ActionController::TestCase
 
   test "user should update program" do
     user_sign_in
-    patch :update, id: @program, program: FactoryGirl.attributes_for(:program, :mission_id=>@program.mission.id, :user_id=>@program.user.id)
+    patch :update, id: @program, program: FactoryGirl.attributes_for(:program, :mission_id => @program.mission.id, :user_id => @program.user.id)
     assert_redirected_to program_path(@program)
   end
 
   test "user shouldn't update program of someone else" do
     user = FactoryGirl.create(:user)
     sign_in user
-    patch :update, id: @program, program: FactoryGirl.attributes_for(:program, :mission_id=>@program.mission.id, :user_id=>@program.user.id)
+    patch :update, id: @program, program: FactoryGirl.attributes_for(:program, :mission_id => @program.mission.id, :user_id => @program.user.id)
     assert_response :forbidden
   end
 

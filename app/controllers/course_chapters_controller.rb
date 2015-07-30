@@ -2,7 +2,7 @@ class CourseChaptersController < ApplicationController
   authorize_actions_for Course
   before_action :set_course_chapters, only: [:index]
   
-  before_filter :authenticate_user!, :except=>[:index]
+  before_filter :authenticate_user!, :except => [:index]
 
   def index
     @title = "Cours : #{@course.title}"
@@ -15,10 +15,8 @@ class CourseChaptersController < ApplicationController
     if not course.nil? and not chapter.nil?
       course.add_chapter(chapter)
       redirect_to course_chapters_path(course), notice: "Le chapitre a bien été ajouté au cours."
-    elsif not course.nil?
-      redirect_to add_course_chapters_path(course)
     else
-      redirect_to courses_path
+      redirect_to session[:previous_url]
     end
   end
   

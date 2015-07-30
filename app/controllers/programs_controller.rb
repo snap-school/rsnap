@@ -12,7 +12,7 @@ class ProgramsController < ApplicationController
     if current_user.try(:has_role?,:admin) || current_user.try(:has_role?, :teacher)
       @programs = Program.visible_for(current_user)
       if params[:user_id]
-        @programs = @programs.where(:user_id=>params[:user_id])
+        @programs = @programs.where(:user_id => params[:user_id])
         if params[:course_id]
           @programs = @programs.where(programs_table[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id))
         end
@@ -25,7 +25,7 @@ class ProgramsController < ApplicationController
 
   def show
     @title = "Programme : #{@program.mission_title}"
-    render :layout=>"snap"
+    render :layout => "snap"
   end
 
   def new

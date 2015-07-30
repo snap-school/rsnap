@@ -3,7 +3,7 @@ class ChapterMissionManifestController < ApplicationController
 
   def destroy 
     authorize_action_for @manifest.chapter
-    Chapter.find_by(:id=>@manifest.chapter_id).remove_mission(Mission.find_by(:id=>@manifest.mission_id))
+    Chapter.find_by(:id => @manifest.chapter_id).remove_mission(Mission.find_by(:id => @manifest.mission_id))
     chapter_id = @manifest.chapter_id
     @manifest.delete
     redirect_to chapter_missions_path(chapter_id), notice: "La mission a bien été retirée du chapitre."

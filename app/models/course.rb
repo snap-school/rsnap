@@ -32,51 +32,23 @@ class Course < ActiveRecord::Base
     Mission.joins("LEFT OUTER JOIN course_chapter_manifests ON course_chapter_manifests.chapter_id = chapter_mission_manifests.chapter_id").joins(:chapter_mission_manifests).order(Arel::Table.new(:course_chapter_manifests)[:order]).order(Arel::Table.new(:chapter_mission_manifests)[:order]).where("course_chapter_manifests.course_id = ?", self.id)
   end
 
-  def add_chapter(chapter, order=-1)
+  def add_chapter(chapter)
     manif = CourseChapterManifest.new
     manif.course_id = self.id
     manif.chapter_id = chapter.id
-    rec = CourseChapterManifest.where(:course_id=>self.id).order(:order => :asc).last
-    curr_max_order = 0
-    if order == 0
-      order = order + 1
-    end
-    if rec.nil?
-      curr_max_order = 0
-    else
-      curr_max_order = rec.order
-    end
-    if order != -1 and curr_max_order > order 
-      i = curr_max_order
-      while i >= order do
-        temp_manif = CourseChapterManifest.find_by(:course_id=>self.id,:order => i)
-        temp_manif.order = temp_manif.order+1
-        temp_manif.save
-        i = i - 1
-      end 
-      manif.order = order
-    else
-      manif.order = curr_max_order + 1
-    end
+    rec = CourseChapterManifest.where(:course_id => self.id).order(:order => :asc).last
+    manif.order = rec.nil? ? 1 : (rec.order + 1)
     manif.save
   end
 
   def remove_chapter(chapter)
-    manif = CourseChapterManifest.find_by(:course_id=>self.id,:chapter_id=>chapter.id)
-    order = manif.order
+    manif = CourseChapterManifest.find_by(:course_id => self.id,:chapter_id => chapter.id)
+    CourseChapterManifest.update_counters(manif.course.course_chapter_manifests.where("course_chapter_manifests.order >= ?", manif.order), :order => -1)
     manif.delete
-    rec = CourseChapterManifest.where(:course_id=>self.id).order(:order => :asc).last
-    if not rec.nil?
-      ((order+1)..(rec.order)).each do |i|
-        manif = CourseChapterManifest.find_by(:course_id=>self.id,:order=>i)
-        manif.order = manif.order-1
-        manif.save
-      end
-    end
   end
 
   def get_manifest_for_chapter(chapter)
-    return CourseChapterManifest.find_by(:course_id=>self.id,:chapter_id=>chapter.id)
+    return CourseChapterManifest.find_by(:course_id => self.id,:chapter_id => chapter.id)
   end
 
   def num_solved_chapter_for(user)

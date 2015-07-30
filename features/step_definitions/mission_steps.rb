@@ -20,8 +20,8 @@ When(/^he is on the mission page$/) do
 end
 
 When(/^he visit the realisation of these mission$/) do
-  page.should have_link("", :href=>new_initialization_program_mission_path(:mission_id=>@mission.id))
-  visit new_initialization_program_mission_path(:mission_id=>@mission.id)
+  page.should have_link("", :href => new_initialization_program_mission_path(:mission_id => @mission.id))
+  visit new_initialization_program_mission_path(:mission_id => @mission.id)
 end
 
 Then(/^he can see the snap$/) do
@@ -54,7 +54,7 @@ Then(/^he should see only the first mission$/) do
 end
 
 When(/^he access to the page for the mission creation$/) do
-  page.should have_link("", :href=>new_mission_path)
+  page.should have_link("", :href => new_mission_path)
   visit new_mission_path
 end
 

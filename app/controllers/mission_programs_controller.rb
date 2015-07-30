@@ -7,7 +7,7 @@ class MissionProgramsController < ApplicationController
 
   def show
     @title = "Mission : #{@mission.title}"
-    render :layout=>"snap"
+    render :layout => "snap"
   end
 
   def update

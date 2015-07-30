@@ -24,7 +24,7 @@ class Chapter < ActiveRecord::Base
   has_many :chapter_mission_manifests
   has_many :missions, through: :chapter_mission_manifests
 
-  has_many :course_chapter_manifests, :dependent=>:destroy
+  has_many :course_chapter_manifests, :dependent => :destroy
   has_many :courses, through: :course_chapter_manifests
 
   def is_solved_by?(user)
@@ -80,51 +80,23 @@ class Chapter < ActiveRecord::Base
     end
   end
   
-  def add_mission(mission, order=-1)
+  def add_mission(mission)
     manif = ChapterMissionManifest.new
     manif.mission_id = mission.id
     manif.chapter_id = self.id
-    rec = ChapterMissionManifest.where(:chapter_id=>self.id).order(:order => :asc).last
-    curr_max_order = 0
-    if order == 0
-      order = order + 1
-    end
-    if rec.nil?
-      curr_max_order = 0
-    else
-      curr_max_order = rec.order
-    end
-    if order != -1 and curr_max_order > order 
-      i = curr_max_order
-      while i >= order do
-        temp_manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,:order => i)
-        temp_manif.order = temp_manif.order+1
-        temp_manif.save
-        i = i - 1
-      end
-      manif.order = order
-    else
-      manif.order = curr_max_order + 1
-    end
+    rec = ChapterMissionManifest.where(:chapter_id => self.id).order(:order => :asc).last
+    manif.order = rec.nil? ? 1 : (rec.order + 1)
     manif.save
   end
   
   def remove_mission(mission)
-    manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,:mission_id=>mission.id)
-    order = manif.order
+    manif = ChapterMissionManifest.find_by(:chapter_id => self.id,:mission_id => mission.id)
+    ChapterMissionManifest.update_counters(manif.chapter.chapter_mission_manifests.where("chapter_mission_manifests.order >= ?", manif.order), :order => -1)
     manif.delete
-    rec = ChapterMissionManifest.where(:chapter_id=>self.id).order(:order => :asc).last
-    if not rec.nil?
-      ((order+1)..(rec.order)).each do |i|
-        manif = ChapterMissionManifest.find_by(:chapter_id=>self.id,:order=>i)
-        manif.order = manif.order-1
-        manif.save
-      end
-    end
   end
 
   def get_manifest_for_mission(mission)
-    return ChapterMissionManifest.find_by(:chapter_id=>self.id,:mission_id=>mission.id)
+    return ChapterMissionManifest.find_by(:chapter_id => self.id,:mission_id => mission.id)
   end
 
   def self.visible_for(user)

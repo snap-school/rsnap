@@ -28,10 +28,10 @@ gem "turbolinks", "~> 2.2"
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "jquery-turbolinks"
-gem "therubyracer", platforms: :ruby, :require => "v8"
+gem "therubyracer", :platforms => :ruby, :require => "v8"
 gem "bootstrap-sass", "~> 3.1"
-gem "bootstrap_forms", :github=>"gagalago/bootstrap_forms", :branch => "bootstrap3"
-#TODO move to https://github.com/bootstrap-ruby/rails-bootstrap-forms
+gem "bootstrap_forms", :github => "gagalago/bootstrap_forms", :branch => "bootstrap3"
+# TODO move to https://github.com/bootstrap-ruby/rails-bootstrap-forms
 # https://github.com/schnawel007/bootstrap3-wysihtml5
 # https://github.com/nickl-/bootstrap-wysihtml5
 

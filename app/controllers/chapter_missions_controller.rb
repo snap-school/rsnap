@@ -15,10 +15,8 @@ class ChapterMissionsController < ApplicationController
     if not chapter.nil? and not mission.nil?
       chapter.add_mission(mission)
       redirect_to chapter_missions_path(chapter), notice: "La mission a bien été ajoutée au chapitre."
-    elsif not chapter.nil?
-      redirect_to add_chapter_missions_path(chapter)
     else
-      redirect_to chapters_path
+      redirect_to session[:previous_url]
     end
   end
   
