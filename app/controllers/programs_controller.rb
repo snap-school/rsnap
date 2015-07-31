@@ -2,21 +2,16 @@ require "tempfile"
 
 class ProgramsController < ApplicationController
   before_action :set_program, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
   before_filter :authenticate_user!
 
   def index
-    params[:user_id] = params[:student_id] unless params[:user_id]
-    params[:student_id] = params[:user_id] unless params[:student_id]
-    @title = "Programmes" + (params[:user_id] ? " de l'étudiant: " + User.find_by_id(params[:user_id]).name : "")
+    @title = "Programmes" + (@user ? " de l'étudiant: " + @user.name : "")
     programs_table = Arel::Table.new(:programs)
-    if current_user.try(:has_role?, :admin) || current_user.try(:has_role?, :teacher)
+    if current_user.try(:has_role?, :teacher)
       @programs = Program.visible_for(current_user)
-      if params[:user_id]
-        @programs = @programs.where(user_id:  params[:user_id])
-        if params[:course_id]
-          @programs = @programs.where(programs_table[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id))
-        end
-      end
+      @programs = @programs.where(user_id:  params[:user_id]) if params[:user_id]
+      @programs = @programs.where(programs_table[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id)) if params[:course_id]
     else
       @programs = Program.for_user(current_user)
     end
@@ -54,7 +49,7 @@ class ProgramsController < ApplicationController
     respond_to do |format|
       format.html do
         if @program.save
-          redirect_to @program, notice: "Le programme a bien été mis à jour."
+          render :show
         else
           @title = "Modifier le programme : #{@program.mission_title}"
           render :edit
@@ -75,15 +70,22 @@ class ProgramsController < ApplicationController
   end
 
   private
+
     def set_program
       @program = Program.find(params[:id])
       authorize_action_for @program
     end
 
+    def set_user
+      params[:user_id] = params[:student_id] unless params[:user_id]
+      params[:student_id] = params[:user_id] unless params[:student_id]    
+      @user = User.find_by_id(params[:user_id])
+    end
+
     def program_params
       p = params.require(:program).permit(:source_code, :user_id, :mission_id, :state)
       if p[:source_code].instance_of?(String)
-        name = ["program-#{p[:user_id]}-#{p[:mission_id]}",".xml"] # TODO user and mission id not present
+        name = ["program-#{p[:user_id]}-#{p[:mission_id]}", ".xml"] # TODO user and mission id not present
         file = Tempfile.new(name, "#{Rails.root}/tmp")
         file.write(p[:source_code])
         file.rewind

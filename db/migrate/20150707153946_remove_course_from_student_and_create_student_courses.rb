@@ -7,6 +7,6 @@ class RemoveCourseFromStudentAndCreateStudentCourses < ActiveRecord::Migration
       t.integer :course_id
     end
 
-    add_index :student_courses, [:student_id,:course_id]
+    add_index :student_courses, [:student_id, :course_id]
   end
 end

@@ -5,7 +5,7 @@
     %tr
       %th Titre
       %th Description
-      -if user_signed_in? and (current_user.try(:has_role?,:admin) || current_user.try(:has_role?, :teacher)) and not @add_mission
+      -if user_signed_in? and (current_user.try(:has_role?, :admin) || current_user.try(:has_role?, :teacher)) and not @add_mission
         %th
         %th
         %th
@@ -14,6 +14,6 @@
   %tbody
     = render @missions
 
--if user_signed_in? and (current_user.try(:has_role?,:admin) || current_user.try(:has_role?, :teacher))
+-if user_signed_in? and (current_user.try(:has_role?, :admin) || current_user.try(:has_role?, :teacher))
   %p
     = button "Nouvelle mission", new_mission_path, type: :success

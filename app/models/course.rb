@@ -104,7 +104,7 @@ class Course < ActiveRecord::Base
   end
 
   def self.visible_for(user)
-    if user && user.try(:has_role?,:admin)
+    if user && user.try(:has_role?, :admin)
      return Course.all.order(:id)
     elsif user && (user.has_role?(:teacher) || user.has_role?(:student))
       return user.courses.order(:id)

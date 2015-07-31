@@ -7,7 +7,7 @@
         %span.icon-bar
       = link_to "RSnap", root_path, class: "navbar-brand"
     .collapse.navbar-collapse
-      -if current_user.try(:has_role?,:admin) or current_user.try(:has_role?,:teacher)
+      -if current_user.try(:has_role?, :admin) or current_user.try(:has_role?, :teacher)
         %ul.nav.navbar-nav
           %li{class: resources_active("courses")}
             = link_to "Mes cours", courses_path

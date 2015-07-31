@@ -33,11 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_or_null_user
-    if current_user == nil
-      User.new
-    else
-      current_user
-    end
+    current_user || User.new
   end
 
   protected

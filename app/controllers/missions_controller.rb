@@ -106,7 +106,7 @@ class MissionsController < ApplicationController
 
       template = File.read(file_path).gsub(project_name, p[:title])
 
-      file = Tempfile.new([p[:title],".xml"], "#{Rails.root}/tmp")
+      file = Tempfile.new([p[:title], ".xml"], "#{Rails.root}/tmp")
       file.write(template)
       file.rewind
       p[:source_code] = file

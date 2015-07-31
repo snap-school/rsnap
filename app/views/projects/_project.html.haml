@@ -1,6 +1,6 @@
 %tr
   %td= button project.name , project_path(project), type: :primary
-  -if user_signed_in? and current_user.try(:has_role?,:admin)
+  -if user_signed_in? and current_user.try(:has_role?, :admin)
     %td= project.user_name
     %td= button "Modifier le projet", edit_project_path(project), type: :warning
   %td= button "Supprimer", project, method:  :delete, type: :danger,

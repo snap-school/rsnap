@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
     def project_params
       p = params.require(:project).permit(:source_code, :user_id, :name)
       if p[:source_code].instance_of?(String)
-        name = ["project-#{p[:user_id]}-#{p[:name]}",".xml"] # TODO user and mission id not present
+        name = ["project-#{p[:user_id]}-#{p[:name]}", ".xml"]
         file = Tempfile.new(name, "#{Rails.root}/tmp")
         file.write(p[:source_code])
         file.rewind

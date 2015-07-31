@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-chapters = Chapter.create([{title: "En voiture...", description: "Mouvement
+chapters = Chapter.create!([{title: "En voiture...", description: "Mouvement
 Nous allons ici introduire deux blocs: le bloc \"avancer de 10 pas\" et le bloc \"se diriger en faisant un angle de 90\".
 En mettant le bon nombre de pas dans le bloc “avancer” tu devrais arriver au premier tournant
 Il faut maintenant tourner vers le haut, pour cela prend un bloc \"se diriger en faisant un angle de 90\" et sélectionne le bon angle pour aller vers le haut.

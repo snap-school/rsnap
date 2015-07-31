@@ -67,7 +67,7 @@ class Chapter < ActiveRecord::Base
   end
 
   def mission_enabled?(mission, current_user)
-    return mission_position(mission) <= num_solved_missions_for(current_user) + 1 || mission.teacher == current_user || current_user.try(:has_role?,:admin)
+    return mission_position(mission) <= num_solved_missions_for(current_user) + 1 || mission.teacher == current_user || current_user.try(:has_role?, :admin)
   end
 
   def next_mission_for(current_user)
@@ -101,7 +101,7 @@ class Chapter < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
-      if user.try(:has_role?,:admin)
+      if user.try(:has_role?, :admin)
         return Chapter.all
       elsif user.instance_of? Teacher
         return user.chapters.order(:id)

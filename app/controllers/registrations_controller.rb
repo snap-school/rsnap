@@ -10,10 +10,10 @@ class RegistrationsController < Devise::RegistrationsController
 
     if update_user
       set_flash_message :notice, :updated
-      if @user == current_user
-        # Sign in the user bypassing validation in case his password changed
-        sign_in @user, bypass:  true
-      end
+      
+      # Sign in the user bypassing validation in case his password changed
+      sign_in @user, bypass:  true if @user == current_user
+      
       redirect_to @user
     else
       render "devise/registrations/edit"
