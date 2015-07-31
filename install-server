@@ -45,5 +45,7 @@ sed -i -e "s/localhost/$server_url/g" rsnap_development.dump
 psql -f rsnap_development.dump -d rsnap_development
 rake modif_admin[$firstname,$lastname,$mail,$passw]
 git checkout vend*
+git clone git@github.com:simonhock/Snap--Build-Your-Own-Blocks.git app/assets/javascripts/snap-byob
+git clone git@github.com:simonhock/Snap--Build-Your-Own-Blocks.git lib/assets/javascripts/snap-byob
 echo "You can now start server with \"rails s\" and connect to your administrator account with credentials you gave at the start of this installer"
 
