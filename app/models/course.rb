@@ -12,7 +12,7 @@
 #
 # Indexes
 #
-#  index_courses_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#  index_courses_on_teacher_id_and_teacher_type  (teacher_id, teacher_type)
 #
 
 require "admin"
@@ -96,9 +96,9 @@ class Course < ActiveRecord::Base
     else
       next_mission = next_chapter.next_mission_for(current_user)
       if next_mission == next_chapter.ordered_missions.first
-        return Rails.application.routes.url_helpers.course_chapter_path(self,next_chapter)
+        return Rails.application.routes.url_helpers.course_chapter_path(self, next_chapter)
       else
-        return Rails.application.routes.url_helpers.course_chapter_mission_path(self,next_chapter,next_mission)
+        return Rails.application.routes.url_helpers.course_chapter_mission_path(self, next_chapter, next_mission)
       end
     end
   end

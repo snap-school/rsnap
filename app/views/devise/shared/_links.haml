@@ -7,32 +7,32 @@
         Enregistré au nom de :
         = current_user.name
       %p
-        =link_to "Voir mes informations", user_path(current_user), :class=>"btn btn-info"
+        =link_to "Voir mes informations", user_path(current_user), class: "btn btn-info"
       %p
-        =link_to "Modifier mes informations", edit_user_path(current_user), :class=>"btn btn-primary"
+        =link_to "Modifier mes informations", edit_user_path(current_user), class: "btn btn-primary"
       %p
-        =link_to "Modifier mes informations de connection", edit_registration_path(resource_name), :class=>"btn btn-primary"
+        =link_to "Modifier mes informations de connection", edit_registration_path(resource_name), class: "btn btn-primary"
       %p
-        =link_to t_attr(:user, :sign_out), destroy_session_path(resource_name), method:  :delete, :class=>"btn btn-warning"
+        =link_to t_attr(:user, :sign_out), destroy_session_path(resource_name), method:  :delete, class: "btn btn-warning"
     -else
       - if controller_name != 'sessions'
         %p
-          = link_to t_attr(:user, :sign_in), new_session_path(resource_name), :class=>"btn btn-success"
+          = link_to t_attr(:user, :sign_in), new_session_path(resource_name), class: "btn btn-success"
       - if devise_mapping.registerable? && controller_name != 'registrations'
         %p
-          = link_to t_attr(:user, :sign_up), new_registration_path(resource_name), :class=>"btn btn-success"
+          = link_to t_attr(:user, :sign_up), new_registration_path(resource_name), class: "btn btn-success"
       - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
         %p
-          = link_to t_attr(:user, :forgot_password), new_password_path(resource_name), :class=>"btn btn-warning"
+          = link_to t_attr(:user, :forgot_password), new_password_path(resource_name), class: "btn btn-warning"
       - if devise_mapping.confirmable? && controller_name != 'confirmations'
         %p
-          = link_to "Renvoyer les informations de confirmation", new_confirmation_path(resource_name), :class=>"btn btn-warning"
+          = link_to "Renvoyer les informations de confirmation", new_confirmation_path(resource_name), class: "btn btn-warning"
 
       - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
         %p
-          = link_to "Renvoyer les informations de récupération", new_unlock_path(resource_name), :class=>"btn btn-warning"
+          = link_to "Renvoyer les informations de récupération", new_unlock_path(resource_name), class: "btn btn-warning"
 
       - if devise_mapping.omniauthable?
         - resource_class.omniauth_providers.each do |provider|
           %p
-            = link_to "S'enregistrer avec #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class=>"btn btn-success"
+            = link_to "S'enregistrer avec #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), class: "btn btn-success"

@@ -4,7 +4,7 @@
   - disabled = (!@add_mission && @from_chapter && !@chapter.mission_enabled?(mission, current_user))
   - type =  mission.is_solved_by?(current_user) ? :success : (disabled ? :default : :primary)
   - url = (@from_course ? course_chapter_mission_path(@course,@course,mission) : @from_chapter ? chapter_mission_path(@chapter,mission) : mission)
-  %td= button mission.title, url , :id=>"show-mission-#{mission.id}", :type=> type, disabled:  disabled
+  %td= button mission.title, url , id: "show-mission-#{mission.id}", type:  type, disabled:  disabled
   %td= mission.small_description.html_safe
   -if user_signed_in? and (current_user.try(:has_role?,:admin) || current_user == mission.teacher)
     -if not @add_mission

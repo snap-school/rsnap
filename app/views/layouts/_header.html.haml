@@ -5,37 +5,37 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to "RSnap", root_path, :class=>"navbar-brand"
+      = link_to "RSnap", root_path, class: "navbar-brand"
     .collapse.navbar-collapse
       -if current_user.try(:has_role?,:admin) or current_user.try(:has_role?,:teacher)
         %ul.nav.navbar-nav
-          %li{:class=>resources_active("courses")}
+          %li{class: resources_active("courses")}
             = link_to "Mes cours", courses_path
-          %li{:class=>resources_active("chapters")}
+          %li{class: resources_active("chapters")}
             = link_to "Mes chapitres", chapters_path  #(all: true)
-          %li{:class=>resources_active("missions")}
+          %li{class: resources_active("missions")}
             = link_to "Mes missions", missions_path
-          %li{:class=>resources_active("projects")}
+          %li{class: resources_active("projects")}
             = link_to "Mes projets libres", projects_path
-          %li{:class=>resources_active("programs")}
+          %li{class: resources_active("programs")}
             = link_to (current_user.try(:has_role?, :admin) ? "Programmes des étudiants" : "Programmes de mes étudiants" ) , programs_path
         .navbar-right
           %ul.nav.navbar-nav
-            %li{:class=>resources_active("users")}
+            %li{class: resources_active("users")}
               = link_to (current_user.try(:has_role?, :admin) ? "Utilisateurs" : "Mes élèves" ) , users_path
-            %li{:class=>actions_active("home", "after_missions_form")}
+            %li{class: actions_active("home", "after_missions_form")}
               = link_to "formulaire", after_missions_form_home_index_path
           =render "layouts/user_menu"
       -else
         %ul.nav.navbar-nav
           -if user_signed_in?
-            %li{:class=>resources_active("courses")}
+            %li{class: resources_active("courses")}
               = link_to "Mes cours", courses_path
           -else
-            %li{:class=>resources_active("courses")}
+            %li{class: resources_active("courses")}
               = link_to "Les cours", courses_path
         .navbar-right
           %ul.nav.navbar-nav
-            %li{:class=>actions_active("home", "after_missions_form")}
+            %li{class: actions_active("home", "after_missions_form")}
               = link_to "formulaire", after_missions_form_home_index_path
           =render "layouts/user_menu"

@@ -15,7 +15,7 @@
     / Wrapper for slides
     .carousel-inner
       .item.active
-        = image_tag "carousel/screenshot.png", :class=>"img-rounded"
+        = image_tag "carousel/screenshot.png", class: "img-rounded"
         .carousel-caption
           Exemple de programme
     / Controls
@@ -25,4 +25,4 @@
     =#  %span.glyphicon.glyphicon-chevron-right
 %p
   Si tu es prêt, alors :
-  =link_to "Inscris-toi!", new_user_registration_path, :class=>"btn-lg btn-primary"
+  =link_to "Inscris-toi!", new_user_registration_path, class: "btn-lg btn-primary"

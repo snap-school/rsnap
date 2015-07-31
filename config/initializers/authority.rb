@@ -40,7 +40,7 @@ Authority.configure do |config|
   #
   # config.abilities =  {
   #   create:  'creatable',
-  #   :read   => 'readable',
+  #   read:    'readable',
   #   update:  'updatable',
   #   delete:  'deletable'
   # }

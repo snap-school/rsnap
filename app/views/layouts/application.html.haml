@@ -1,7 +1,7 @@
 !!!
 %html{lang: "fr"}
   %head
-    = render "layouts/meta", :title=>@title
+    = render "layouts/meta", title: @title
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
@@ -19,7 +19,7 @@
             - name = :info if name == :notice || name == "notice" || name == :user || name == "user"
             - name = :danger if name == :alert || name == "alert"
             .alert.alert-dismissable{class:  "alert-#{name}"}
-              %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
+              %button.close{type: "button", "data-dismiss"=>:alert, "aria-hidden"=>true}
                 &times;
               = msg
 

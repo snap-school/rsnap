@@ -18,6 +18,7 @@ class MissionsController < ApplicationController
       render :modal_goal, layout:  false
     else
       @title = "Mission : #{@mission.title}"
+      @program = Program.for_mission_for_user @mission, current_user
     end
   end
 

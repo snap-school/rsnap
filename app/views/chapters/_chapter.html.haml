@@ -4,7 +4,7 @@
   - disabled = (from_course && !course.chapter_enabled?(chapter, current_user))
   - type = chapter.is_solved_by?(current_user) ? :success : (disabled ? :default : :primary)
   - url = (from_course ? course_chapter_path(course,chapter): chapter)
-  %td= button chapter.title, url, :id=>"show-chapter-#{chapter.id}", :type=> type, disabled:  disabled
+  %td= button chapter.title, url, id: "show-chapter-#{chapter.id}", type:  type, disabled:  disabled
   %td= chapter.small_description.html_safe
   -if user_signed_in? and (current_user.try(:has_role?,:admin) || current_user == chapter.teacher)
     -if not @add_chapter

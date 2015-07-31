@@ -1,7 +1,7 @@
 Rsnap::Application.routes.draw do
 
-  resources :course_inscription,    :only  => [:index, :create]
-  resources :course_desinscription, :only  => [:index, :destroy]
+  resources :course_inscription,    only: [:index, :create]
+  resources :course_desinscription, only: [:index, :destroy]
 
   resources :courses do
     resources :chapters, only:  [:index, :create],  controller:  :course_chapters,  path_names: {create: 'add_chapter'}

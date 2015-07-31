@@ -86,4 +86,3 @@ class ChaptersController < ApplicationController
       p
     end
 end
-

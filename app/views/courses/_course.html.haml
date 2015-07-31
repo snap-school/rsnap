@@ -1,5 +1,5 @@
 %tr.item
-  %td= button course.title, course, :id=>"show-course-#{course.id}", type: :primary
+  %td= button course.title, course, id: "show-course-#{course.id}", type: :primary
   %td= course.description.html_safe
   -if inscription
     %td

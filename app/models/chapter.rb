@@ -14,7 +14,7 @@
 #
 # Indexes
 #
-#  index_chapters_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#  index_chapters_on_teacher_id_and_teacher_type  (teacher_id, teacher_type)
 #
 
 require "admin"
@@ -90,13 +90,13 @@ class Chapter < ActiveRecord::Base
   end
 
   def remove_mission(mission)
-    manif = ChapterMissionManifest.find_by(chapter_id:  self.id,mission_id:  mission.id)
+    manif = ChapterMissionManifest.find_by(chapter_id:  self.id, mission_id:  mission.id)
     ChapterMissionManifest.update_counters(manif.chapter.chapter_mission_manifests.where("chapter_mission_manifests.order >= ?", manif.order), order:  -1)
     manif.delete
   end
 
   def get_manifest_for_mission(mission)
-    return ChapterMissionManifest.find_by(chapter_id:  self.id,mission_id:  mission.id)
+    return ChapterMissionManifest.find_by(chapter_id:  self.id, mission_id:  mission.id)
   end
 
   def self.visible_for(user)

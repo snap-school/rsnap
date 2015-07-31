@@ -19,11 +19,11 @@
 #
 # Indexes
 #
-#  index_missions_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#  index_missions_on_teacher_id_and_teacher_type  (teacher_id, teacher_type)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
-#include ActionDispatch::TestProcess
+# include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :mission do

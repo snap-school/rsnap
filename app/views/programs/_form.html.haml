@@ -1,5 +1,5 @@
 = bootstrap_form_for program do |f|
   = f.file_field :source_code
-  = f.collection_select :user_id, User.all, :id, :name, :prompt=>true
-  = f.collection_select :mission_id, Mission.all, :id, :title, :prompt=>true
+  = f.collection_select :user_id, User.all, :id, :name, prompt: true
+  = f.collection_select :mission_id, Mission.all, :id, :title, prompt: true
   = f.actions
