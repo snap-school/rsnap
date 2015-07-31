@@ -13,7 +13,7 @@
   %tbody
     = render @chapters, from_course: true, course: @course, current_user: current_user
 
--if user_signed_in? and (current_user.try(:has_role?, :admin) or current_user.has_role?(:teacher))
+-if user_signed_in? and (current_user.try(:has_role?, :admin) or current_user.try(:has_role?, :teacher))
   %p
     = button "Nouveau chapitre", new_chapter_path, type: :success
     = button "Ajouter un chapitre", new_course_chapter_path(@course), type: :success

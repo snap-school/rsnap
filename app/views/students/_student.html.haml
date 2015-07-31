@@ -5,15 +5,11 @@
   %td= button "Voir", student, type: :primary
   -if @from_course
     %td
-      - @course.ordered_missions.each do |m|
-        - if m.is_solved_by?(student)
-          = button "",program_path(Program.for_mission_for_user(m,student)), type: :success
-        -elsif m.is_in_correction_for?(student)
-          = button "",program_path(Program.for_mission_for_user(m,student)), type: :warning
-        -elsif m.is_corrected_for?(student)
-          = button "",program_path(Program.for_mission_for_user(m,student)), type: :danger
-        -elsif Program.for_mission_for_user(m,student).present?
-          = button "",program_path(Program.for_mission_for_user(m,student)), type: :primary
+      - @course.ordered_missions.find_each do |m|
+        -p = Program.for_mission_for_user(m,student)
+        -if p.present?
+          -type = p.solved_mission? ? :success : p.is_in_correction? ? :danger : p.is_corrected? ? :warning : :primary 
+          = button "",program_path(Program.for_mission_for_user(m,student)), type: type
         -else
           %a.btn.btn-circle-micro.btn-default
   -else

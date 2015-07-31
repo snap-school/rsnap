@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
   before_filter :flash_notice
 
   def flash_notice
-    if current_user
+    if current_user.try(:has_role?, :student)
       i = 0
-      str = "Les missions suivantes sont corrigées: "
+      str = "Les missions suivantes ont été corrigées: "
       Program.where(user:  current_user, state:  2).find_each do |p|
         if p.is_corrected?
           str += ((i > 0) ? ", ": "") + "#{p.mission_title}"

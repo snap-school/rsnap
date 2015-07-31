@@ -5,7 +5,7 @@
     %tr
       %th Titre
       %th Description
-      -if user_signed_in? and (current_user.try(:has_role?, :admin) or current_user.has_role?(:teacher)) and not @add_chapter
+      -if user_signed_in? and (current_user.try(:has_role?, :admin) or current_user.try(:has_role?, :teacher)) and not @add_chapter
         %th
         %th
         %th
