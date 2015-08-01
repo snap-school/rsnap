@@ -46,7 +46,7 @@ begin
   task default:  :cucumber
 
   task features:  :cucumber do
-    STDERR.puts '*** The \'features\' task is deprecated. See rake -T cucumber ***''
+    STDERR.puts '*** The \'features\' task is deprecated. See rake -T cucumber ***'
   end
 
   # In case we don't have the generic Rails test:prepare hook, append a no-op task that we can depend upon.
