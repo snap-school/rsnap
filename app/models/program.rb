@@ -38,6 +38,7 @@ class Program < ActiveRecord::Base
 
   scope :for_mission, ->(mission) { where(mission_id:  mission) }
   scope :for_user, ->(user) { where(user_id:  user) }
+  scope :for_course, ->(course) { where(Arel::Table.new(:programs)[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id)) }
 
   State_to_be_done = 0
   State_to_be_corrected = 1

@@ -8,7 +8,7 @@
       - @course.ordered_missions.find_each do |m|
         -p = Program.for_mission_for_user(m,student)
         -if p.present?
-          -type = p.solved_mission? ? :success : p.is_in_correction? ? :danger : p.is_corrected? ? :warning : :primary 
+          -type = p.solved_mission? ? :success : p.is_in_correction? ? :danger : p.is_corrected? ? :warning : :primary
           = button "",program_path(Program.for_mission_for_user(m,student)), type: type
         -else
           %a.btn.btn-circle-micro.btn-default
