@@ -25,7 +25,7 @@ source $HOME/.rvm/scripts/rvm
 echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc
 rvm install 2.1.1
 rvm install rubygems latest
-gem install rails -v '4.1' 
+rvm gemset install rails -v '4.1' 
 bundle install
 rm config/secrets.yml
 echo "development:" >> config/secrets.yml

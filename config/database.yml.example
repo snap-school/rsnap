@@ -18,6 +18,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: rsnap_development
+  host: localhost
   pool: 5
   username: rsnap
   password:
@@ -47,6 +48,7 @@ test: &test
   adapter: postgresql
   encoding: unicode
   database: rsnap_test
+  host: localhost
   pool: 5
   username: rsnap
   password:
@@ -55,6 +57,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: rsnap_production
+  host: localhost
   pool: 5
   username: rsnap
   password:
