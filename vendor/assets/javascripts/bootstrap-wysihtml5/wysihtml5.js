@@ -5032,12 +5032,13 @@ wysihtml5.dom.parse = (function() {
   /**
    * Check whether the given node is a proper loaded image
    * FIXME: Returns undefined when unknown (Chrome, Safari)
+   * 
    */
   function _isLoadedImage(node) {
     try {
       return node.complete && !node.mozMatchesSelector(":-moz-broken");
     } catch(e) {
-      if (node.complete && node.readyState === "complete") {
+      if (node.complete && (node.readyState === "complete" || !(typeof node.naturalWidth !== "undefined" && node.naturalWidth === 0))) {
         return true;
       }
     }
@@ -5053,7 +5054,7 @@ wysihtml5.dom.parse = (function() {
     url: (function() {
       var REG_EXP = /^https?:\/\//i;
       return function(attributeValue) {
-        if (!attributeValue) {
+        if (!attributeValue || !attributeValue.match(REG_EXP)){
           return null;
         }
         return attributeValue.replace(REG_EXP, function(match) {
