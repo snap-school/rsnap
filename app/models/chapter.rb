@@ -14,7 +14,7 @@
 #
 # Indexes
 #
-#  index_chapters_on_teacher_id_and_teacher_type  (teacher_id, teacher_type)
+#  index_chapters_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
 #
 
 require "admin"

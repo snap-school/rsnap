@@ -10,15 +10,15 @@
       -if current_user.try(:has_role?, :admin) or current_user.try(:has_role?, :teacher)
         %ul.nav.navbar-nav
           %li{class: resources_active("courses")}
-            = link_to "Mes cours", courses_path
+            = link_to current_user.try(:has_role?, :admin) ? "Cours" : "Mes cours", courses_path
           %li{class: resources_active("chapters")}
-            = link_to "Mes chapitres", chapters_path  #(all: true)
+            = link_to current_user.try(:has_role?, :admin) ? "Chapitres" : "Mes chapitres", chapters_path  #(all: true)
           %li{class: resources_active("missions")}
-            = link_to "Mes missions", missions_path
+            = link_to current_user.try(:has_role?, :admin) ? "Missions" : "Mes missions", missions_path
           %li{class: resources_active("projects")}
-            = link_to "Mes projets libres", projects_path
+            = link_to current_user.try(:has_role?, :admin) ? "Projets libres" : "Mes projets libres", projects_path
           %li{class: resources_active("programs")}
-            = link_to (current_user.try(:has_role?, :admin) ? "Programmes des étudiants" : "Programmes de mes étudiants" ) , programs_path
+            = link_to (current_user.try(:has_role?, :admin) ? "Programmes" : "Programmes de mes étudiants" ) , programs_path
         .navbar-right
           %ul.nav.navbar-nav
             %li{class: resources_active("users")}

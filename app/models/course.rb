@@ -12,7 +12,7 @@
 #
 # Indexes
 #
-#  index_courses_on_teacher_id_and_teacher_type  (teacher_id, teacher_type)
+#  index_courses_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
 #
 
 require "admin"
