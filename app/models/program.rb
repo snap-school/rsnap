@@ -66,8 +66,8 @@ class Program < ActiveRecord::Base
   end
 
   def self.visible_for(user)
-    user.try(:has_role?, :admin) ? Program.all : 
-    (user.try(:has_role?, :teacher) ? Program.where(Arel::Table.new(:programs)[:mission_id].in user.missions.map(&:id)) : 
-                                      Program.for_user(user))
+    Program.for_user(user) unless user.try(:has_role?, :teacher)
+    Program.all if user.try(:has_role?, :admin)
+    Program.where(Arel::Table.new(:programs)[:mission_id].in user.missions.map(&:id))
   end
 end

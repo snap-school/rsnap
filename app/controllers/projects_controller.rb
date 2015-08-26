@@ -65,9 +65,7 @@ class ProjectsController < ApplicationController
         end
       end
       format.json do
-        if @project.save
-          render :show
-        end
+        render :show if @project.save
       end
     end
   end

@@ -7,7 +7,7 @@ class ProgramsController < ApplicationController
 
   def index
     @title = "Programmes" + (@user ? " de l'étudiant: " + @user.name : "")
-    programs_table = Arel::Table.new(:programs)
+
     if current_user.try(:has_role?, :teacher)
       @programs = Program.visible_for(current_user)
       @programs = @programs.for_user(params[:user_id]) if params[:user_id]
@@ -56,9 +56,7 @@ class ProgramsController < ApplicationController
         end
       end
       format.json do
-        if @program.save
-          render :show
-        end
+        render :show if @program.save
       end
     end
   end

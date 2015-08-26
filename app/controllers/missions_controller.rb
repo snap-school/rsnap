@@ -95,6 +95,11 @@ class MissionsController < ApplicationController
     def mission_params
       p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube, :needs_check)
 
+      p[:source_code] = create_temp_file_from_params(params)
+      p
+    end
+
+    def create_temp_file_from_params(params)
       project_name = "Untitled"
       file_path = "#{Rails.root}/public/default_mission.xml"
 
@@ -103,13 +108,16 @@ class MissionsController < ApplicationController
         project_name = mission.title
         file_path = mission.source_code.path
       end
+      
+      create_temp_file(project_name, file_path)
+    end
 
+    def create_temp_file(project_name, file_path)
       template = File.read(file_path).gsub(project_name, p[:title])
 
       file = Tempfile.new([p[:title], ".xml"], "#{Rails.root}/tmp")
       file.write(template)
       file.rewind
-      p[:source_code] = file
-      p
+      file
     end
 end
