@@ -109,13 +109,13 @@ class MissionsController < ApplicationController
         file_path = mission.source_code.path
       end
       
-      create_temp_file(project_name, file_path)
+      create_temp_file(project_name, params[:mission][:title], file_path)
     end
 
-    def create_temp_file(project_name, file_path)
-      template = File.read(file_path).gsub(project_name, p[:title])
+    def create_temp_file(old_project_name, new_project_name, file_path)
+      template = File.read(file_path).gsub(old_project_name, new_project_name)
 
-      file = Tempfile.new([p[:title], ".xml"], "#{Rails.root}/tmp")
+      file = Tempfile.new([new_project_name, ".xml"], "#{Rails.root}/tmp")
       file.write(template)
       file.rewind
       file
