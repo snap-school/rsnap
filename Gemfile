@@ -31,18 +31,14 @@ gem "jquery-turbolinks"
 gem "therubyracer", platforms: :ruby, require: "v8"
 gem "bootstrap-sass", "~> 3.1"
 gem "bootstrap_forms", github: "gagalago/bootstrap_forms", branch: "bootstrap3"
-# TODO move to https://github.com/bootstrap-ruby/rails-bootstrap-forms
-# https://github.com/schnawel007/bootstrap3-wysihtml5
-# https://github.com/nickl-/bootstrap-wysihtml5
 
 gem "sitemap_generator"
 
 gem "dotenv-rails"
 gem "travis"
+
 group :development do
-  # gem "capistrano"
   gem "travis-lint"
-  # Lot of metrics "metric_fu --format html"
   gem "metric_fu"
   gem "rails-erd"
   gem "railroady"
@@ -77,7 +73,7 @@ group :production do
 end
 
 group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
   gem "sdoc", require: false
 end
+
 gem "annotate", ">=2.6.0"

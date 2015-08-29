@@ -43,9 +43,9 @@ private
   end
 
   def list_dir(dir, accepted_regexp, only_file = false)
-    files = Dir.glob("lib/assets/javascripts/snap-byob/" + dir + accepted_regexp)
+    files = Dir.glob("#{Rails.root}/lib/assets/javascripts/snap-byob/" + dir + accepted_regexp)
     files.map do |f|
-      f.split("lib/assets/javascripts/snap-byob/#{dir if only_file}")[1]
+      f.split("#{Rails.root}/lib/assets/javascripts/snap-byob/#{dir if only_file}")[1]
     end
   end
 

@@ -38,3 +38,4 @@ config/environments/development.rb
 config/secrets.yml
 rsnap_development.dump
 nohup.out
+start_server

@@ -108,7 +108,7 @@ class MissionsController < ApplicationController
         project_name = mission.title
         file_path = mission.source_code.path
       end
-      
+
       create_temp_file(project_name, file_path)
     end
 
