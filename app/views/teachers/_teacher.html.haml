@@ -1,4 +1,6 @@
 %tr
+  -if current_user.try(:has_role?, :admin)
+    %td= "Professeur"
   %td= teacher.firstname
   %td= teacher.lastname
   %td= teacher.email

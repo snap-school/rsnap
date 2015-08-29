@@ -1,4 +1,6 @@
 %tr
+  -if current_user.try(:has_role?, :admin)
+    %td= "Étudiant"
   %td= student.firstname
   %td= student.lastname
   %td= student.email
