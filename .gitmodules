@@ -1,3 +1,6 @@
 [submodule "lib/assets/javascripts/snap-byob"]
 	path = lib/assets/javascripts/snap-byob
 	url = https://github.com/snap-school/Snap--Build-Your-Own-Blocks.git
+[submodule "app/assets/javascripts/snap-byob"]
+	path = app/assets/javascripts/snap-byob
+	url = https://github.com/snap-school/Snap--Build-Your-Own-Blocks.git
