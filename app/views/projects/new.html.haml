@@ -1,4 +1,7 @@
-%canvas#world{style: "position: absolute;", tabindex: "1", "data-role"=>"STUDENT"}
+-if current_user.try(:has_role?, :admin)
+  %canvas#world{style: "position: absolute;", tabindex: "1", "data-role"=>"TEACHER"}
+-if not current_user.try(:has_role?, :admin)
+  %canvas#world{style: "position: absolute;", tabindex: "1", "data-role"=>"STUDENT"}
 
 .modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>false}
   .modal-dialog

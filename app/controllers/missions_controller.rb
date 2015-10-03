@@ -1,29 +1,51 @@
 class MissionsController < ApplicationController
   authorize_actions_for Mission
   before_action :set_mission, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :except=>[:index, :show]
+  before_action :set_chapter_and_course, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, except:  [:show]
 
   def index
     @title = "Missions"
+    @from_chapter = false
     @missions = Mission.visible_for(current_user)
   end
 
   def show
     if params[:modal]
-      render :modal_show, :layout=>false
+      render :modal_show, layout:  false
+    elsif params[:goal]
+      @course = Course.find_by_id(session[:current_course_id])
+      render :modal_goal, layout:  false
     else
       @title = "Mission : #{@mission.title}"
+      @program = Program.for_mission_for_user @mission, current_user
     end
   end
 
   def new
+    @from_chapter = false
     @title = "Créer une mission"
     @mission = Mission.new
+    render :new
   end
+
+  def add_mission
+    @title = "Missions"
+    @missions = []
+    @chapter = Chapter.find_by(id:  params[:chapter_id])
+    ids_to_exclude = @chapter.missions.map(&:id)
+    missions_table = Arel::Table.new(:missions)
+    @missions = Mission.where(missions_table[:id].not_in ids_to_exclude)
+    @missions = @missions.where(teacher:  current_user) unless current_user.try(:has_role?, :admin)
+    @from_chapter = true
+    @add_mission = true
+    render :index
+  end
+  authority_actions add_mission:  "update"
 
   def create
     @mission = Mission.new(mission_params)
-
+    @mission.teacher = current_user
     if @mission.save
       redirect_to mission_program_path(@mission), notice: "La mission a bien été créée."
     else
@@ -55,21 +77,47 @@ class MissionsController < ApplicationController
       @mission = Mission.find(params[:id])
     end
 
-    def mission_params
-      p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube)
-      unless p[:source_code]
-        template = ""
-        File.open("public/default_mission.xml", "r") do |infile|
-          while(line = infile.gets) do
-            template << line.gsub("Untitled", p[:title])
-          end
+    def set_chapter_and_course
+      if params[:chapter_id].nil?
+        @from_chapter = false
+        @from_course = false
+      else
+        @chapter = Chapter.find_by(id:  params[:chapter_id])
+        if params[:course_id].nil?
+          @from_course = false
+        else
+          @from_course = true
+          @course = Course.find_by(id:  params[:course_id])
         end
-        name = [p[:title],".xml"]
-        file = Tempfile.new(name, "#{Rails.root}/tmp")
-        file.write(template)
-        file.rewind
-        p[:source_code] = file
       end
+    end
+
+    def mission_params
+      p = params.require(:mission).permit(:title, :description, :small_description, :source_code, :youtube, :needs_check)
+
+      p[:source_code] = create_temp_file_from_params(params)
       p
+    end
+
+    def create_temp_file_from_params(params)
+      project_name = "Untitled"
+      file_path = "#{Rails.root}/public/default_mission.xml"
+
+      unless params[:source_code].eql?("")
+        mission = Mission.find_by(id:  (params[:source_code]).to_i)
+        project_name = mission.title
+        file_path = mission.source_code.path
+      end
+      
+      create_temp_file(project_name, params[:mission][:title], file_path)
+    end
+
+    def create_temp_file(old_project_name, new_project_name, file_path)
+      template = File.read(file_path).gsub(old_project_name, new_project_name)
+
+      file = Tempfile.new([new_project_name, ".xml"], "#{Rails.root}/tmp")
+      file.write(template)
+      file.rewind
+      file
     end
 end

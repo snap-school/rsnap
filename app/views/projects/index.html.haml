@@ -4,7 +4,7 @@
   %thead
     %tr
       %th Nom
-      -if user_signed_in? and current_user.has_role?(:admin)
+      -if user_signed_in? and current_user.try(:has_role?, :admin)
         %th Utilisateur
         %th
       %th

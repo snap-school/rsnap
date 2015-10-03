@@ -18,6 +18,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: rsnap_development
+  host: localhost
   pool: 5
   username: rsnap
   password:
@@ -43,10 +44,11 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:&test
+test: &test
   adapter: postgresql
   encoding: unicode
   database: rsnap_test
+  host: localhost
   pool: 5
   username: rsnap
   password:
@@ -55,6 +57,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: rsnap_production
+  host: localhost
   pool: 5
   username: rsnap
   password:

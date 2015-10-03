@@ -1,0 +1,20 @@
+.modal-header
+  %button.close{type: :button, "data-dismiss"=>:modal, "aria-hidden"=>true}
+    &times;
+  %h4.modal-title
+    =@mission.title
+  -if @mission.needs_check
+    - message =  "Bravo ! Tu as réussi la mission, attends que ton professeur vérifie ton programme et tu pourra passer à la mission suivante."
+  -else
+    - message = "Bravo ! Tu as réussi la mission, tu peux maintenant passer à la mission suivante!"
+
+  .modal-body
+    %p
+    = message
+  .modal-footer
+    -if @mission.is_solved_by?(current_user)
+      %a.btn.btn-primary{"href"=>@course.next_exercice_url_for(current_user)}
+        Passer à la mission suivante
+    %button.btn.btn-default{type: :button, "data-dismiss"=>:modal}
+      Fermer
+

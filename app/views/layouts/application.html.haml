@@ -1,7 +1,7 @@
 !!!
 %html{lang: "fr"}
   %head
-    = render "layouts/meta", :title=>@title
+    = render "layouts/meta", title: @title
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
@@ -16,10 +16,10 @@
       #body
         .container
           - flash.each do |name, msg|
-            - name = :info if name == :notice || name == "notice"
+            - name = :info if name == :notice || name == "notice" || name == :user || name == "user"
             - name = :danger if name == :alert || name == "alert"
-            .alert.alert-dismissable{:class => "alert-#{name}"}
-              %button.close{:type=>"button", "data-dismiss"=>:alert, "aria-hidden"=>true}
+            .alert.alert-dismissable{class:  "alert-#{name}"}
+              %button.close{type: "button", "data-dismiss"=>:alert, "aria-hidden"=>true}
                 &times;
               = msg
 
@@ -30,6 +30,6 @@
     #footer
       .container
         %p.text-muted.credit
-          RSnap : Gaetan Collart & Simon Claessens :
+          RSnap : Simon Hock et anciennement Gaetan Collart & Simon Claessens :
           = link_to "Qui sommes-nous ?", about_home_index_path
 

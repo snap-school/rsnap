@@ -1,21 +1,19 @@
 require "tempfile"
 
 class MissionProgramsController < ApplicationController
-  authorize_actions_for Mission
+  authorize_actions_for Mission, all_actions: :update
   before_action :set_mission, only: [:show, :update]
   before_filter :authenticate_user!
 
   def show
     @title = "Mission : #{@mission.title}"
-    render :layout=>"snap"
+    render layout:  "snap"
   end
 
   def update
     respond_to do |format|
       format.json do
-        if @mission.update(mission_params)
-          render "mission/show"
-        end
+          render nothing:  true if @mission.update(mission_params)
       end
     end
   end

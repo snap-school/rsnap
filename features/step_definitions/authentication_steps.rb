@@ -3,7 +3,7 @@ Given(/^a user is not authenticated$/) do
 end
 
 Given(/^a user visits the signin page$/) do
-  #visit '/users/sign_in'
+  # visit '/users/sign_in'
   visit root_path
 end
 
@@ -40,7 +40,7 @@ Then(/^he should see a signout link$/) do
   expect(page).to have_link("sign_out")
 end
 
-def authenticate_user(user=:user)
+def authenticate_user(user = :user)
   visit root_path
 
   @user = FactoryGirl.create(user)

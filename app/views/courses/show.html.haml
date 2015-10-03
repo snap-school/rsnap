@@ -1,0 +1,12 @@
+%h1= @title
+
+%p
+  = @course.description.html_safe
+%br
+  =button "Voir les chapitres", course_chapters_path(@course), type: :primary
+%br
+%p
+  -if current_user.try(:has_role?, :admin) || (@course.teacher == current_user && user_signed_in?)
+    =button "Modifier", edit_course_path(@course), type: :success
+    =button "Ajouter un chapitre", new_course_chapter_path(@course), type: :success
+  =button "Retour", :back

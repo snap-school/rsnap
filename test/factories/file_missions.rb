@@ -20,7 +20,7 @@
 
 FactoryGirl.define do
   factory :file_mission do
-    file {fixture_file_upload(Rails.root.join("test", "fixtures", "image_test.gif"), 'image/gif') }
+    file { fixture_file_upload(Rails.root.join("test", "fixtures", "image_test.gif"), 'image/gif') }
     mission
   end
 end

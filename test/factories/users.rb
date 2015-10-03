@@ -17,6 +17,7 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string(255)
 #  last_sign_in_ip        :string(255)
+#  type                   :string(255)
 #
 # Indexes
 #
@@ -36,7 +37,8 @@ FactoryGirl.define do
 
     factory :admin do
       after(:create) do |user|
-        user.add_role(:admin)
+        user.role = "Admin"
+        user.save!
       end
     end
   end

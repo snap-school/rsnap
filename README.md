@@ -1,27 +1,11 @@
-Status
-======
 
-[![Build Status](https://travis-ci.org/snap-school/rsnap.png?branch=master)](https://travis-ci.org/snap-school/rsnap)
-[![Dependency Status](https://gemnasium.com/snap-school/rsnap.png)](https://gemnasium.com/snap-school/rsnap)
-[![Code Climate](https://codeclimate.com/github/snap-school/rsnap.png)](https://codeclimate.com/github/snap-school/rsnap)
-[![Coverage Status](https://coveralls.io/repos/snap-school/rsnap/badge.png?branch=master)](https://coveralls.io/r/snap-school/rsnap?branch=master)
-[Railsbp](http://railsbp.com/repositories/386-snap-school-rsnap)
-
-Installation
+Installation -- Debian only
 ============
 
-* install [postgresql](http://www.postgresql.org/), copy `config/database.yml.example` to `config/database.yml` and configure this file.
+* Make sure you have a public key configured for bower:install
+	* run 'ls -al ~/.ssh"
+	If there are no "id_rsa.pub" or files like that,
+		* run "ssh-keygen -t rsa -c 'your_email@here.com' "
+		* add the ssh public key to your github account
 
-* install and configure [rvm](https://rvm.io/) with ruby
-
-* run `bundle intall` and install all dependencies needed for the gems
-
-* run `rake bower:install`
-
-* copy `.env.example` to `.env` and configure them
-
-* run `rake db:migrate`
-
-* run `rails s` to create a user
-
-* run `rails c` and execute `User.all.first.add_role :admin`
+* Run ". install-server", enter informations asked and TADAM, your installation is done !

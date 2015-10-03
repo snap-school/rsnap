@@ -1,0 +1,21 @@
+%h1= @title
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th N°
+      %th Title
+      %th Description
+      -if user_signed_in? and (current_user.try(:has_role?, :admin) or @chapter.teacher == current_user)
+        %th
+        %th
+        %th
+
+  %tbody
+    = render @missions, from_course: @from_course, course: @course, from_chapter: true, chapter: @chapter, current_user: current_user
+
+-if user_signed_in? and (current_user.try(:has_role?, :admin) or current_user.try(:has_role?, :teacher))
+  %p
+    = button "Nouvelle mission", new_mission_path, type: :success
+    - url = @from_course ? new_course_chapter_mission_path(@course,@chapter) : new_chapter_mission_path(@chapter)
+    = button "Ajouter une mission", url, type: :success

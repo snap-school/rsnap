@@ -15,9 +15,13 @@
     =t_attr(:user, :email)
     \ :
   = @user.email
+
 %p
-  = button "Editer", edit_user_path(@user), :type=>:success
+  = button "Voir les programmes", user_programs_path(@user), type: :success
+  -if current_user.try(:has_role?, :admin)
+    = button "Editer", edit_user_path(@user), type: :success
   = button "Retour", :back
-%p
-  = button "Supprimer", @user, :method => :delete, :type=>:danger,
-            :data => { :confirm => "Es-tu sur ? Ton compte sera supprimé définitivement." }
+-if current_user.try(:has_role?, :admin)
+  %p
+    = button "Supprimer", user_path(@user), method:  :delete, type: :danger,
+              data:  { confirm:  "Es-tu sur ? L'utilisateur sera supprimé définitivement." }

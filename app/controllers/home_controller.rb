@@ -10,4 +10,8 @@ class HomeController < ApplicationController
   def after_missions_form
     @title = "Formulaire"
   end
+
+  def thanks
+    @title = "Merci!"
+  end
 end

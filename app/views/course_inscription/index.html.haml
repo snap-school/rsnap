@@ -1,0 +1,11 @@
+%h1= @title
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th
+  %tbody
+    = render @courses, inscription: true, desinscription: false
+%p
+  =button "Retour", :back

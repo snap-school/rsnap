@@ -27,7 +27,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "user shouldn't get index" do
-    FactoryGirl.create(:user) #second user because if index is only @user, no problem, @user can show itself
+    FactoryGirl.create(:user) # second user because if index is only @user, no problem, @user can show itself
     user_sign_in
     get :index
     assert_response :forbidden

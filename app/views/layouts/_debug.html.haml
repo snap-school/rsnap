@@ -1,7 +1,7 @@
--if false # user_signed_in? and current_user.has_role?(:admin)
+-if false # user_signed_in? and current_user.try(:has_role?, :admin)
   = debug(params)
   %p
     = button "Missions", missions_path
-    = button "Programmes", programs_path(:all=>true)
+    = button "Programmes", programs_path(all: true)
     = button "Utilisateurs", users_path
     = button "Fichiers joins de missions", file_missions_path

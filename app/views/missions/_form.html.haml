@@ -1,9 +1,11 @@
 = bootstrap_form_for mission do |f|
   = f.text_field :title
-  = f.text_area :description, {:class=>:wysiwyg,
-    "data-url"=>request.protocol + request.host_with_port + file_missions_path(:format => :json)}
+  = f.text_area :description, {class: :wysiwyg,
+    "data-url"=>request.protocol + request.host_with_port + file_missions_path(format:  :json)}
   = f.text_field :youtube
-  = f.text_area :small_description, {:class=>:wysiwyg,
-    "data-url"=>request.protocol + request.host_with_port + file_missions_path(:format => :json)}
-  = f.number_field :mission_order_position
+  = f.text_area :small_description, {class: :wysiwyg,
+    "data-url"=>request.protocol + request.host_with_port + file_missions_path(format:  :json)}
+  = f.check_box :needs_check
+  = f.label("Copier le code d'une autre mission?")
+  = collection_select(nil, :source_code, Mission.visible_for(current_user), :id, :title, prompt: true, selected:  @mission.id)
   = f.actions

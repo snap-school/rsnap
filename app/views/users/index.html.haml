@@ -1,16 +1,21 @@
 %h1= @title
 
-%table.table.table-striped.table-bordered.table-hover
+%table.table.table-striped.table-condensed.table-bordered.table-hover
   %thead
     %tr
+      -if current_user.try(:has_role?, :admin)
+        %th Rôle
       %th Prénom
       %th Nom
       %th Email
       %th
-      %th
-      %th
+      %th Programmes
+      -if current_user.try(:has_role?, :admin)
+        %th
+        %th
   %tbody
     = render @users
 
 %p
-  = button "Créer un utilisateur", new_user_path, type: :success
+  -if current_user.try(:has_role?, :admin)
+    = button "Créer un utilisateur", new_user_path, type: :success

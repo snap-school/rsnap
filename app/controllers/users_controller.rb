@@ -1,12 +1,19 @@
 class UsersController < ApplicationController
   authorize_actions_for User
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :except=>[:new, :create]
+  before_filter :authenticate_user!
 
   def index
-    @title = "Utilisateurs"
-    @users = User.all
-    @users.each {|u| authorize_action_for u}
+    @title = (current_user.try(:has_role?, :admin) ? "Utilisateurs" :  "Élèves")
+    if params[:course_id]
+      @course = Course.find_by_id(params[:course_id])
+      @title += " du cours: " + @course.title
+      @users = @course.students
+      @from_course = true
+    else
+      @users = User.visible_for(current_user)
+      @from_course = false
+    end
   end
 
   def show

@@ -1,0 +1,32 @@
+# == Schema Information
+#
+# Table name: chapters
+#
+#  id                :integer          not null, primary key
+#  title             :string(255)
+#  description       :text
+#  small_description :text
+#  youtube           :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  teacher_id        :integer
+#  teacher_type      :string(255)
+#
+# Indexes
+#
+#  index_chapters_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  small_description: MyText
+  youtube: MyString
+
+two:
+  title: MyString
+  description: MyText
+  small_description: MyText
+  youtube: MyString

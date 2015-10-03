@@ -1,7 +1,6 @@
 %tr
-  %td= file_mission.mission_title
   %td= file_mission.file_file_name
   %td= button 'Voir', file_mission, type: :primary
   %td= button 'Editer', edit_file_mission_path(file_mission), type: :warning
-  %td= button 'Supprimer', file_mission, :method => :delete,
-                :data => { :confirm => 'Etes-vous certain ?' }, type: :danger
+  %td= button 'Supprimer', file_mission, method:  :delete,
+                data:  { confirm:  'Etes-vous certain ?' }, type: :danger

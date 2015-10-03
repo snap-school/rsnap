@@ -1,8 +1,10 @@
 .jumbotron
   %h1 Bienvenue sur RSnap
   %p
-    Sur cette platforme, tu vas pouvoir apprendre la programmation informatique en t'amusant.
-    Essaye dés à présent nos différentes missions et tu pourras rapidement créer tes propres jeux vidéo.
+    Sur cette plateforme, tu vas pouvoir apprendre la programmation informatique en t'amusant.
+    %br
+    %br
+    Essaye dès à présent nos différentes missions et tu pourras rapidement créer tes propres jeux vidéo.
 
   #carousel-example-generic.carousel.slide{"data-ride" => "carousel"}
     / Indicators
@@ -13,7 +15,7 @@
     / Wrapper for slides
     .carousel-inner
       .item.active
-        = image_tag "carousel/screenshot.png", :class=>"img-rounded"
+        = image_tag "carousel/screenshot.png", class: "img-rounded"
         .carousel-caption
           Exemple de programme
     / Controls
@@ -21,9 +23,6 @@
     =#  %span.glyphicon.glyphicon-chevron-left
     =#%a.right.carousel-control{"data-slide" => "next", href: "#carousel-example-generic"}
     =#  %span.glyphicon.glyphicon-chevron-right
-
-%h2 Comment commencer ?
-%p Nous allons te proposer différentes misssions à réaliser pour devenir un as de la programmation.
 %p
   Si tu es prêt, alors :
-  =link_to "c'est parti !", missions_path, :class=>"btn-lg btn-primary"
+  =link_to "Inscris-toi!", new_user_registration_path, class: "btn-lg btn-primary"

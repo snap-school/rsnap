@@ -4,12 +4,12 @@
   %thead
     %tr
       %th Mission
-      -if user_signed_in? and current_user.has_role?(:admin)
-        %th Utilisateur
+      %th Utilisateur
+      -if user_signed_in? and (current_user.try(:has_role?, :admin) or current_user.try(:has_role?, :teacher))
         %th
   %tbody
     = render @programs
 
--if user_signed_in? and current_user.has_role?(:admin)
+-if user_signed_in? and current_user.try(:has_role?, :admin)
   %p
     = button "Nouveau programme", new_program_path, type: :success

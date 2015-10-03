@@ -11,6 +11,7 @@
 #  updated_at               :datetime
 #  user_id                  :integer
 #  mission_id               :integer
+#  state                    :integer          default(0)
 #
 # Indexes
 #
@@ -25,20 +26,48 @@ class Program < ActiveRecord::Base
   belongs_to :mission
   belongs_to :user
 
-  delegate :title, :to=>:mission, :prefix=>true
-  delegate :name, :to=>:user, :prefix=>true
+  delegate :title, to:  :mission, prefix:  true
+  delegate :name, to:  :user, prefix:  true
+  delegate :needs_check, to:  :mission, prefix:  true
 
   has_attached_file :source_code
 
-  validates_attachment :source_code, :presence=>true, :content_type=>{:content_type=>/text/}
-  validates :user_id, :mission_id, :presence=>true
-  validates_uniqueness_of :mission_id, :scope=>:user_id
+  validates_attachment :source_code, presence:  true, content_type:  { content_type:  /text/ }
+  validates :user_id, :mission_id, presence:  true
+  validates_uniqueness_of :mission_id, scope:  :user_id
 
-  scope :for_mission, ->(mission){where(:mission_id=>mission)}
-  scope :for_user, ->(user){where(:user_id=>user)}
-  scope :order_by_missions, ->{includes(:mission).order("missions.mission_order ASC")}
+  scope :for_mission, ->(mission) { where(mission_id:  mission) }
+  scope :for_user, ->(user) { where(user_id:  user) }
+  scope :for_course, ->(course) { where(Arel::Table.new(:programs)[:mission_id].in Mission.joins(:chapter_mission_manifests).where(Arel::Table.new(:chapter_mission_manifests)[:chapter_id].in Course.find_by_id(params[:course_id]).chapters.map(&:id)).map(&:id)) }
+
+  State_to_be_done = 0
+  State_to_be_corrected = 1
+  State_corrected = 2
+  State_solved = 3
+
+  def has_to_be_done?
+    return self.state == State_to_be_done
+  end
+
+  def is_in_correction?
+    return self.state == State_to_be_corrected
+  end
+
+  def is_corrected?
+    return self.state == State_corrected
+  end
+
+  def solved_mission?
+    return self.state == State_solved
+  end
 
   def self.for_mission_for_user(mission, user)
     Program.for_mission(mission).for_user(user).first
+  end
+
+  def self.visible_for(user)
+    Program.for_user(user) unless user.try(:has_role?, :teacher)
+    Program.all if user.try(:has_role?, :admin)
+    Program.where(Arel::Table.new(:programs)[:mission_id].in user.missions.map(&:id))
   end
 end

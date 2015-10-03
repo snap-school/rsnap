@@ -11,34 +11,58 @@
 #  source_code_updated_at   :datetime
 #  created_at               :datetime
 #  updated_at               :datetime
-#  mission_order            :integer          default(0)
 #  small_description        :text
 #  youtube                  :string(255)
+#  needs_check              :boolean          default(FALSE)
+#  teacher_id               :integer
+#  teacher_type             :string(255)
 #
+# Indexes
+#
+#  index_missions_on_teacher_id_and_teacher_type  (teacher_id,teacher_type)
+#
+
+require "admin"
 
 class Mission < ActiveRecord::Base
   include Authority::Abilities
   self.authorizer_name = 'MissionAuthorizer'
 
-  has_many :programs, :dependent=>:destroy
-  has_many :file_missions, :dependent=>:destroy
+  belongs_to :teacher, polymorphic: true
+
+  has_many :programs, dependent:  :destroy
+  has_many :file_missions, dependent:  :destroy
+
+  has_many :chapter_mission_manifests, dependent:  :destroy
+  has_many :chapters, through: :chapter_mission_manifests
 
   has_attached_file :source_code
 
-  validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
-  validates :title, :description, :small_description, :presence=>true
-
-  include RankedModel
-  ranks :mission_order
-  default_scope {rank(:mission_order)}
-
-  def position(scope=:all)
-    Mission.send(scope).index(self) + 1
-  end
+  validates_attachment :source_code, presence:  true, content_type:  { content_type:  /text/ }
+  validates :title, :description, :small_description, presence:  true
 
   def is_solved_by?(user)
     if user
-      programs.where(:user=>user).present?
+      program = Program.for_mission_for_user(self, user)
+      return program.present? && program.solved_mission?
+    else
+      false
+    end
+  end
+
+  def is_in_correction_for?(user)
+    if user
+      program = Program.for_mission_for_user(self, user)
+      return program.present? && program.is_in_correction?
+    else
+      false
+    end
+  end
+
+  def is_corrected_for?(user)
+    if user
+      program = Program.for_mission_for_user(self, user)
+      return program.present? && program.is_corrected?
     else
       false
     end
@@ -46,14 +70,15 @@ class Mission < ActiveRecord::Base
 
   def self.visible_for(user)
     if user
-      solved_missions = 0
-      last_solved_program = user.programs.order_by_missions.last
-      puts last_solved_program
-      solved_missions = last_solved_program.mission.position if last_solved_program
-      puts solved_missions
-      self.limit(solved_missions + 1)
+      if user.try(:has_role?, :admin)
+        return Mission.all
+      elsif user.try(:has_role?, :teacher)
+        return user.missions.order(:id)
+      else
+        return []
+      end
     else
-      self.limit(1)
+      return []
     end
   end
 end

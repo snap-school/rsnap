@@ -1,6 +1,20 @@
-%canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code.url, "data-role"=>"TEACHER"}
+-if current_user.try(:has_role?, :admin) || @program.mission.teacher == current_user
+  - role = "TEACHER"
+-else
+  - role = "STUDENT"
 
-.modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>mission_path(@program.mission, :modal=>true)}
+%canvas#world{style: "position: absolute;", tabindex: "1", "data-file"=>@program.source_code.url, "data-needs_check"=>(@program.mission_needs_check&&!@program.solved_mission?), "data-role"=>role}
+
+.modal.fade#missionModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>mission_path(@program.mission, modal: true)}
+  .modal-dialog
+    .modal-content
+      .modal-body
+        Chargement...
+      .modal-footer
+        %button.btn.btn-default{type: :button, "data-dismiss"=>:modal}
+          Fermer
+
+.modal.fade#goalModal{tabindex: -1, role: :dialog, "aria-hidden"=>true, "data-remote"=>mission_path(@program.mission, goal: true)}
   .modal-dialog
     .modal-content
       .modal-body

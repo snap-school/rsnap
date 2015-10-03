@@ -1,22 +1,19 @@
 %h1= @title
 
--sort_tag = {}
--if user_signed_in? and current_user.has_role?(:admin)
-  -sort_tag = {:id=>:sortable}
-
-%table.table.table-striped.table-bordered.table-hover{sort_tag}
+%table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th N°
-      %th Title
+      %th Titre
       %th Description
-      -if user_signed_in? and current_user.has_role?(:admin)
+      -if user_signed_in? and (current_user.try(:has_role?, :admin) || current_user.try(:has_role?, :teacher)) and not @add_mission
         %th
         %th
+        %th
+      -elsif @add_mission
         %th
   %tbody
     = render @missions
 
--if user_signed_in? and current_user.has_role?(:admin)
+-if user_signed_in? and (current_user.try(:has_role?, :admin) || current_user.try(:has_role?, :teacher))
   %p
     = button "Nouvelle mission", new_mission_path, type: :success

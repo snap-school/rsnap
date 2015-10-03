@@ -254,12 +254,16 @@ fr:
         current_password: "Mot de passe actuel"
         remember_me: "Se souvenir de moi"
       mission:
+        mission: "Mission"
         title: "Titre"
         description: "Description"
         small_description: "Description courte"
         source_code: "Code source"
         mission_order_position: "Position"
         youtube: "Vidéo youtube"
+        needs_check: "La mission doit être vérifiée par le professeur?"
+      chapter:
+        chapter: "Chapitre"
     errors:
       <<: *errors
   bootstrap_forms:
@@ -267,3 +271,7 @@ fr:
       header: "Il y a des erreurs qui empêche cet %{model} d'être sauvé :"
     buttons:
       cancel: 'Annuler'
+  devise:
+    student_registrations:
+      student:
+        signed_up: "Connecté avec succès."

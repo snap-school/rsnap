@@ -1,4 +1,4 @@
 = bootstrap_form_for file_mission do |f|
-  = f.collection_select :mission_id, Mission.all, :id, :title, :prompt=>true
+  = f.collection_select :mission_id, Mission.all, :id, :title, prompt: true
   = f.file_field :file
   = f.actions

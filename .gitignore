@@ -27,9 +27,15 @@ capybara-*.html
 /coverage/
 /spec/tmp/*
 **.orig
+**~
 rerun.txt
 pickle-email-*.html
 
 # Ignore personnal configfiles
 config/database.yml
 .env
+config/environments/development.rb
+config/secrets.yml
+rsnap_development.dump
+nohup.out
+start_server

@@ -1,0 +1,18 @@
+%tr.item
+  %td= button course.title, course, id: "show-course-#{course.id}", type: :primary
+  %td= course.description.html_safe
+  -if inscription
+    %td
+      = form_tag(course_inscription_index_path) do
+        =hidden_field_tag :course_id, course.id
+        %button.btn.btn-primary S'inscrire
+  -if desinscription
+    %td
+      = button "Se désinscrire", course_desinscription_path(course), method:  :delete, type: :primary,
+                data:  { confirm:  "Etes-vous certain ?" }, type: :danger
+  -elsif user_signed_in? and (current_user.try(:has_role?, :admin) || course.teacher == current_user)
+    %td= button "Voir les élèves de ce cours", course_students_path(course), type: :primary
+    %td= button "Voir les chapitres", course_chapters_path(course), type: :primary
+    %td= button "Editer", edit_course_path(course), type: :warning
+    %td= button "Supprimer", course, method:  :delete,
+                data:  { confirm:  "Etes-vous certain ?" }, type: :danger

@@ -21,12 +21,12 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
 
-  delegate :name, :to=>:user, :prefix=>true
+  delegate :name, to:  :user, prefix:  true
 
   has_attached_file :source_code
-  validates_attachment :source_code, :presence => true, :content_type => { :content_type => /text/ }
+  validates_attachment :source_code, presence:  true, content_type:  { content_type:  /text/ }
 
-  validates :user_id, :presence=>true
+  validates :user_id, presence:  true
 
-  scope :for_user, lambda{|user| where(:user_id=>user)}
+  scope :for_user, ->(user) { where(user_id:  user) }
 end

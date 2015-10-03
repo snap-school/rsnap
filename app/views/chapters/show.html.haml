@@ -1,0 +1,16 @@
+%h1= @title
+
+-if @chapter.youtube?
+  %iframe#ytplayer.center-block{type: "text/html", width: 854, height: 480, src: "https://www.youtube.com/embed/#{@chapter.youtube}?autoplay=1&hd=1&vq=hd720", frameborder: 0}
+
+%p
+  = @chapter.description.html_safe
+
+%br
+%p
+  =button "Réaliser ce chapitre", @from_course ? course_chapter_missions_path(@course,@chapter) : chapter_missions_path(@chapter) , type: :success, id: "mission-program"
+%p
+  -if current_user.try(:has_role?, :admin) ||  @chapter.teacher == current_user
+    =button "modifier", edit_chapter_path(@chapter), type: :success
+    =button "ajouter une mission", new_chapter_mission_path(@chapter), type: :success
+  =button "Retour", :back

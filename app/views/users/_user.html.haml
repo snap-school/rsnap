@@ -1,10 +1,30 @@
 %tr
+  -if current_user.try(:has_role?, :admin)
+    %td= "Utilisateur"
   %td= user.firstname
   %td= user.lastname
   %td= user.email
   %td= button "Voir", user, type: :primary
-  %td
-    = button "Editer", edit_user_path(user), type: :warning
-  %td
-    = button "Supprimer", user, :method => :delete, type: :danger,
-              :data => { :confirm => "Etes-vous certain ?" }
+  -if @from_course
+    %td
+      - @course.ordered_missions.each do |m|
+        - if m.is_solved_by?(user)
+          = button "",program_path(Program.for_mission_for_user(m,user)), type: :success
+        -elsif m.is_in_correction_for?(user)
+          = button "",program_path(Program.for_mission_for_user(m,user)), type: :warning
+        -elsif m.is_corrected_for?(user)
+          = button "",program_path(Program.for_mission_for_user(m,user)), type: :danger
+        -elsif Program.for_mission_for_user(m,user).present?
+          = button "",program_path(Program.for_mission_for_user(m,user)), type: :primary
+        -else
+          %a.btn.btn-circle-micro.btn-default
+  -else
+    %td= button "Voir les programmes", user_programs_path(user), type: :primary
+
+
+  -if current_user.try(:has_role?, :admin)
+    %td
+      = button "Editer", edit_user_path(user), type: :warning
+    %td
+      = button "Supprimer", user_path(user), method:  :delete, type: :danger,
+                data:  { confirm:  "Etes-vous certain ?" }

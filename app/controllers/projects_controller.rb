@@ -7,19 +7,19 @@ class ProjectsController < ApplicationController
 
   def index
     @title = "Projets"
-    if params[:all]
+    if current_user and current_user.try(:has_role?, :admin)
       @projects = Project.all
     else
       @projects = Project.for_user(current_user)
     end
-    @projects.each {|p| authorize_action_for p}
+    @projects.find_each { |p| authorize_action_for p }
   end
 
   def show
     respond_to do |format|
       format.html do
         @title = "Projet : #{@project.name}"
-        render :layout=>"snap"
+        render layout:  "snap"
       end
       format.json do
         render :show
@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
   def new
     @title = "Créer un projet"
-    render :layout=>"snap"
+    render layout:  "snap"
     @project = Project.new
   end
 
@@ -40,12 +40,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     authorize_action_for @project
-    puts "\n\n\nproject tezfre#{@project}\n\n\n"
     if @project.save
-      puts "\n\n\nproject save#{@project}\n\n\n"
       respond_to do |format|
         format.json do
-          puts "\n\n\nproject #{@project}\n\n\n"
           render :show
         end
       end
@@ -60,7 +57,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html do
         if @project.save
-          render :layout=>"snap"
+          render layout:  "snap"
           redirect_to @project, notice: "Le projet a bien été mis à jour."
         else
           @title = "Modifier le project : #{@project.name}"
@@ -68,9 +65,7 @@ class ProjectsController < ApplicationController
         end
       end
       format.json do
-        if @project.save
-          render :show
-        end
+        render :show if @project.save
       end
     end
   end
@@ -89,7 +84,7 @@ class ProjectsController < ApplicationController
     def project_params
       p = params.require(:project).permit(:source_code, :user_id, :name)
       if p[:source_code].instance_of?(String)
-        name = ["project-#{p[:user_id]}-#{p[:name]}",".xml"] #TODO user and mission id not present
+        name = ["project-#{p[:user_id]}-#{p[:name]}", ".xml"]
         file = Tempfile.new(name, "#{Rails.root}/tmp")
         file.write(p[:source_code])
         file.rewind

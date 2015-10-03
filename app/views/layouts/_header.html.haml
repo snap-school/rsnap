@@ -5,19 +5,37 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to "RSnap", root_path, :class=>"navbar-brand"
+      = link_to "RSnap", root_path, class: "navbar-brand"
     .collapse.navbar-collapse
-      %ul.nav.navbar-nav
-        %li{:class=>resources_active("missions")}
-          = link_to "Missions", missions_path
-        %li{:class=>resources_active("projects")}
-          = link_to "Projets libres", projects_path
-        -if current_user.try(:has_role?, :admin)
-          %li{:class=>resources_active("programs")}
-            = link_to "Programmes des étudiants", programs_path(all: true)
-
-      .navbar-right
+      -if current_user.try(:has_role?, :admin) or current_user.try(:has_role?, :teacher)
         %ul.nav.navbar-nav
-          %li{:class=>actions_active("home", "after_missions_form")}
-            = link_to "formulaire", after_missions_form_home_index_path
-        =render "layouts/user_menu"
+          %li{class: resources_active("courses")}
+            = link_to current_user.try(:has_role?, :admin) ? "Cours" : "Mes cours", courses_path
+          %li{class: resources_active("chapters")}
+            = link_to current_user.try(:has_role?, :admin) ? "Chapitres" : "Mes chapitres", chapters_path  #(all: true)
+          %li{class: resources_active("missions")}
+            = link_to current_user.try(:has_role?, :admin) ? "Missions" : "Mes missions", missions_path
+          %li{class: resources_active("projects")}
+            = link_to current_user.try(:has_role?, :admin) ? "Projets libres" : "Mes projets libres", projects_path
+          %li{class: resources_active("programs")}
+            = link_to (current_user.try(:has_role?, :admin) ? "Programmes" : "Programmes de mes étudiants" ) , programs_path
+        .navbar-right
+          %ul.nav.navbar-nav
+            %li{class: resources_active("users")}
+              = link_to (current_user.try(:has_role?, :admin) ? "Utilisateurs" : "Mes élèves" ) , users_path
+            %li{class: actions_active("home", "after_missions_form")}
+              = link_to "formulaire", after_missions_form_home_index_path
+          =render "layouts/user_menu"
+      -else
+        %ul.nav.navbar-nav
+          -if user_signed_in?
+            %li{class: resources_active("courses")}
+              = link_to "Mes cours", courses_path
+          -else
+            %li{class: resources_active("courses")}
+              = link_to "Les cours", courses_path
+        .navbar-right
+          %ul.nav.navbar-nav
+            %li{class: actions_active("home", "after_missions_form")}
+              = link_to "formulaire", after_missions_form_home_index_path
+          =render "layouts/user_menu"

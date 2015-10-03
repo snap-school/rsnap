@@ -1,7 +1,7 @@
 class FileMissionsController < ApplicationController
   authorize_actions_for FileMission
   before_action :set_file_mission, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :except=>[:show, :index]
+  before_filter :authenticate_user!, except:  [:show, :index]
 
   def index
     @title = "Fichiers de mission"
@@ -37,7 +37,7 @@ class FileMissionsController < ApplicationController
         if @file_mission.save
           render :show
         else
-          render :json => { :errors => @file_mission.errors.full_messages }
+          render json:  { errors:  @file_mission.errors.full_messages }
         end
       end
     end

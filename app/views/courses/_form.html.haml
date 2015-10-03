@@ -1,0 +1,5 @@
+= bootstrap_form_for @course do |f|
+  = f.text_field :title
+  = f.text_area :description, {class: :wysiwyg,
+    "data-url"=>request.protocol + request.host_with_port + file_missions_path(format:  :json)}
+  = f.actions

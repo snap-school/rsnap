@@ -18,7 +18,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
-#to use factoryGirl
+# to use factoryGirl
 include ActionDispatch::TestProcess
 
 class ActionController::TestCase

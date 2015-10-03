@@ -1,0 +1,9 @@
+#!/bin/bash
+echo "Enter the url from where RSnap will be available (your server's url)"
+read server_url
+sudo rm -r public
+rm rsnap_development.dump
+unzip dump.zip
+rake db:drop db:create
+sed -i -e "s/localhost/$server_url/g" rsnap_development.dump
+psql -f rsnap_development.dump -d rsnap_development
